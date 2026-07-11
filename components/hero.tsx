@@ -1,4 +1,6 @@
+import Link from "next/link"
 import { ArrowRight, MessageCircle, ShieldCheck, FileCheck2, Landmark } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
 
 export function Hero() {
   return (
@@ -12,22 +14,7 @@ export function Hero() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col px-6 py-8 lg:px-8">
         {/* top bar */}
-        <header className="animate-fade-in-up flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
-            </span>
-            <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-              The Startup Desk
-            </span>
-          </div>
-          <a
-            href="#contact"
-            className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
-          >
-            Talk to us
-          </a>
-        </header>
+        <SiteHeader />
 
         {/* hero body */}
         <div className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.15fr_0.85fr]">
@@ -59,13 +46,13 @@ export function Hero() {
               className="animate-fade-in-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
               style={{ animationDelay: "320ms" }}
             >
-              <a
-                href="#get-started"
+              <Link
+                href="/services"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-105 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </Link>
               <a
                 href="https://wa.me/"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/25 bg-transparent px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
