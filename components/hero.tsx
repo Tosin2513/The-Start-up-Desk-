@@ -5,38 +5,45 @@ import { whatsappLink } from "@/lib/site"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* subtle geometric backdrop */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/5" />
-        <div className="absolute right-40 top-40 h-40 w-40 rounded-full border border-primary/10" />
-        <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-accent/10" />
+    <section className="relative overflow-hidden bg-background">
+      {/* Premium subtle light gradient background accent instead of static AI circles */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-40">
+        <div className="absolute -right-24 -top-24 h-[500px] w-[500px] rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute -bottom-32 -left-24 h-[400px] w-[400px] rounded-full bg-primary/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto flex max-w-6xl flex-col px-6 py-8 lg:px-8">
-        {/* top bar */}
+        {/* Top bar navigation */}
         <SiteHeader />
 
-        {/* hero body */}
-        <div className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.15fr_0.85fr]">
+        {/* Hero layout structure */}
+        <div className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="max-w-2xl">
             <span
-              className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
+              className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-1.5 text-xs font-semibold tracking-wide text-primary"
               style={{ animationDelay: "80ms" }}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
               Compliance made effortless for founders
             </span>
 
+            {/* Dynamic, non-static moving word headline */}
             <h1
-              className="animate-fade-in-up mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-balance text-foreground sm:text-5xl lg:text-6xl"
+              className="animate-fade-in-up mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-primary sm:text-5xl lg:text-6xl"
               style={{ animationDelay: "160ms" }}
             >
-              Compliance shouldn&apos;t be the reason your startup gets fined.
+              Compliance shouldn&apos;t be the reason your startup{" "}
+              <span className="animate-word-slide text-accent">
+                <span className="word-slider flex flex-col text-left">
+                  <span>gets fined.</span>
+                  <span>stalls growth.</span>
+                  <span>loses momentum.</span>
+                </span>
+              </span>
             </h1>
 
             <p
-              className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground"
+              className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "240ms" }}
             >
               We handle your CAC filings, tax registration, and the regulatory paperwork that
@@ -49,71 +56,71 @@ export function Hero() {
             >
               <Link
                 href="/services"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-105 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
                 href={whatsappLink(
-                  "Hi The Startup Desk, I'd like to talk about keeping my startup compliant.",
+                  "Hi The Startup Desk, I&apos;d like to talk about keeping my startup compliant.",
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/25 bg-transparent px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-base font-semibold text-primary transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <MessageCircle className="h-5 w-5" />
+                <MessageCircle className="h-5 w-5 text-accent transition-transform group-hover:scale-105" />
                 Chat on WhatsApp
               </a>
             </div>
 
             <p
-              className="animate-fade-in-up mt-8 text-sm text-muted-foreground"
+              className="animate-fade-in-up mt-8 text-sm font-medium text-muted-foreground/80"
               style={{ animationDelay: "400ms" }}
             >
               Trusted by early-stage teams across fintech, health, and commerce.
             </p>
           </div>
 
-          {/* supporting card */}
+          {/* Clean, high-contrast structural right card */}
           <div
-            className="animate-fade-in-up relative rounded-2xl border border-border bg-primary p-8 text-primary-foreground shadow-xl"
+            className="animate-fade-in-up relative rounded-2xl border border-primary/10 bg-primary p-8 text-primary-foreground shadow-xl lg:p-9"
             style={{ animationDelay: "300ms" }}
           >
-            <p className="text-sm font-medium uppercase tracking-wider text-accent">
-              What we take off your plate
+            <p className="text-xs font-bold uppercase tracking-wider text-accent/90">
+              What we take off your plate[cite: 1]
             </p>
-            <ul className="mt-6 flex flex-col gap-5">
+            <ul className="mt-6 flex flex-col gap-6">
               <li className="flex items-start gap-4">
-                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <Landmark className="h-5 w-5 text-accent" />
+                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                  <Landmark className="h-5 w-5 text-white" />
                 </span>
                 <div>
-                  <p className="font-semibold">CAC filings</p>
-                  <p className="text-sm leading-relaxed text-primary-foreground/70">
-                    Registration, annual returns, and status changes done right.
+                  <p className="font-semibold text-white">CAC filings[cite: 1]</p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-white/70">
+                    Registration, annual returns, and status changes done right.[cite: 1]
                   </p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <FileCheck2 className="h-5 w-5 text-accent" />
+                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                  <FileCheck2 className="h-5 w-5 text-white" />
                 </span>
                 <div>
-                  <p className="font-semibold">Tax registration</p>
-                  <p className="text-sm leading-relaxed text-primary-foreground/70">
-                    TIN, VAT, and PAYE set up correctly from day one.
+                  <p className="font-semibold text-white">Tax registration[cite: 1]</p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-white/70">
+                    TIN, VAT, and PAYE set up correctly from day one.[cite: 1]
                   </p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <ShieldCheck className="h-5 w-5 text-accent" />
+                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                  <ShieldCheck className="h-5 w-5 text-white" />
                 </span>
                 <div>
-                  <p className="font-semibold">Regulatory paperwork</p>
-                  <p className="text-sm leading-relaxed text-primary-foreground/70">
-                    Permits, licenses, and filings tracked before they lapse.
+                  <p className="font-semibold text-white">Regulatory paperwork[cite: 1]</p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-white/70">
+                    Permits, licenses, and filings tracked before they lapse.[cite: 1]
                   </p>
                 </div>
               </li>
