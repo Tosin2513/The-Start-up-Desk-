@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import { MessageCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 import { PricingTiers } from "@/components/services/pricing-tiers"
+import { whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Services — The Startup Desk",
@@ -111,7 +113,11 @@ export default function ServicesPage() {
             </h2>
             <div className="mt-8 flex justify-center">
               <a
-                href="https://wa.me/"
+                href={whatsappLink(
+                  "Hi The Startup Desk, I'm not sure which tier fits my startup — can you help me figure it out?",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:brightness-105 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               >
                 <MessageCircle className="h-5 w-5" />
@@ -121,6 +127,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <SiteFooter />
     </main>
   )
 }

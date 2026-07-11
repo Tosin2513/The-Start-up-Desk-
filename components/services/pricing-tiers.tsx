@@ -1,5 +1,6 @@
 import { ArrowRight, MessageCircle, Check, Rocket, Radar, TrendingUp } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import { whatsappLink } from "@/lib/site"
 
 type Tier = {
   id: string
@@ -38,7 +39,9 @@ const tiers: Tier[] = [
     priceLabel: "From",
     price: "₦75,000",
     cta: "Get Started",
-    href: "#contact?plan=launch",
+    href: whatsappLink(
+      "Hi The Startup Desk, I'm interested in the Launch package for my newly incorporated company.",
+    ),
   },
   {
     id: "monitoring",
@@ -59,7 +62,9 @@ const tiers: Tier[] = [
     priceLabel: "From",
     price: "₦12,000/mo",
     cta: "Subscribe",
-    href: "#contact?plan=monitoring",
+    href: whatsappLink(
+      "Hi The Startup Desk, I'd like to set up the Monitoring plan to stay on top of my filings and deadlines.",
+    ),
     featured: true,
   },
   {
@@ -80,7 +85,9 @@ const tiers: Tier[] = [
     priceLabel: "",
     price: "Custom scope",
     cta: "Book a Consultation",
-    href: "https://wa.me/?text=Advisory",
+    href: whatsappLink(
+      "Hi The Startup Desk, I'd like to book an Advisory consultation about compliance for my scaling startup.",
+    ),
   },
 ]
 
@@ -198,6 +205,8 @@ export function PricingTiers() {
 
                 <a
                   href={tier.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`group mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     featured
                       ? "bg-accent text-accent-foreground shadow-sm hover:brightness-105 hover:shadow-md focus-visible:ring-accent"
