@@ -3,24 +3,24 @@
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-
-  --color-background: #f7f5ef;
-  --color-foreground: #0f2b25;
-
+  
+  /* Upgraded Palette: Clean White and Premium Blues */
+  --color-background: #ffffff;
+  --color-foreground: #090d16;
   --color-card: #ffffff;
-  --color-card-foreground: #0f2b25;
-
-  --color-primary: #0d4d40;
-  --color-primary-foreground: #f7f5ef;
-
-  --color-accent: #e8a838;
-  --color-accent-foreground: #1a1200;
-
-  --color-muted: #eae7dd;
-  --color-muted-foreground: #4a5c56;
-
-  --color-border: #d8d3c4;
-
+  --color-card-foreground: #090d16;
+  
+  /* Deep Navy Royal Blue */
+  --color-primary: #0a2540;
+  --color-primary-foreground: #ffffff;
+  
+  /* Vibrant Electric Action Blue */
+  --color-accent: #0066cc;
+  --color-accent-foreground: #ffffff;
+  
+  --color-muted: #f4f6f8;
+  --color-muted-foreground: #606f7b;
+  --color-border: #e2e8f0;
   --radius: 0.75rem;
 }
 
@@ -35,6 +35,7 @@
   }
 }
 
+/* Base fade animations */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -51,9 +52,45 @@
   animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* Word-changing keyframes (Cycles through 3 sequential concepts) */
+@keyframes word-change {
+  0%, 25% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  30%, 55% {
+    transform: translateY(-33.33%);
+    opacity: 1;
+  }
+  60%, 85% {
+    transform: translateY(-66.66%);
+    opacity: 1;
+  }
+  90%, 100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.animate-word-slide {
+  display: inline-flex;
+  flex-direction: column;
+  height: 1.15em;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.word-slider {
+  animation: word-change 7.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in-up {
+  .animate-fade-in-up, .word-slider {
     animation: none;
     opacity: 1;
+  }
+  .animate-word-slide {
+    height: auto;
+    overflow: visible;
   }
 }
