@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { ShieldCheck } from "lucide-react"
+import { ShieldCheck, MessageCircle } from "lucide-react"
+import { whatsappLink } from "@/lib/site"
 
 export function SiteHeader() {
   return (
@@ -18,10 +19,19 @@ export function SiteHeader() {
         >
           Services
         </Link>
-        <a
-          href="https://wa.me/"
+        <Link
+          href="/about"
           className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block"
         >
+          About
+        </Link>
+        <a
+          href={whatsappLink("Hi The Startup Desk, I'd like to talk about compliance for my startup.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-primary/25 px-3.5 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
+        >
+          <MessageCircle className="h-4 w-4" />
           Talk to us
         </a>
       </nav>

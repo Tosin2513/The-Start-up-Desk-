@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowRight, MessageCircle, ShieldCheck, FileCheck2, Landmark } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
+import { whatsappLink } from "@/lib/site"
 
 export function Hero() {
   return (
@@ -54,7 +55,11 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <a
-                href="https://wa.me/"
+                href={whatsappLink(
+                  "Hi The Startup Desk, I'd like to talk about keeping my startup compliant.",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/25 bg-transparent px-6 py-3.5 text-base font-semibold text-primary transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <MessageCircle className="h-5 w-5" />
