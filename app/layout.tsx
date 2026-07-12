@@ -1,33 +1,37 @@
-import type { Metadata } from "next"
-import { Inter, Space_Grotesk } from "next/font/google"
+import type { Metadata } from "next" 
+import { Inter, Space_Grotesk } from "next/font/google" 
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+const inter = Inter({   
+  subsets: ["latin"],   
+  variable: "--font-inter",   
+  display: "swap", 
 })
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
+const spaceGrotesk = Space_Grotesk({   
+  subsets: ["latin"],   
+  variable: "--font-space-grotesk",   
+  display: "swap", 
 })
 
-export const metadata: Metadata = {
-  title: "The Startup Desk — Compliance without the fines",
-  description:
-    "We handle your CAC filings, tax registration, and regulatory paperwork so your startup stays compliant and fine-free.",
+export const metadata: Metadata = {   
+  title: "The Startup Desk — Compliance without the fines",   
+  description: "We handle your CAC filings, tax registration, and regulatory paperwork so your startup stays compliant and fine-free.", 
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} bg-background`}>
-      <body className="font-sans antialiased">{children}</body>
-    </html>
+export default function RootLayout({   
+  children, 
+}: {   
+  children: React.ReactNode 
+}) {   
+  return (     
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} bg-background`}>       
+      <body className="font-sans antialiased">
+        {children}
+        <SpeedInsights />
+      </body>     
+    </html> 
   )
 }
+
