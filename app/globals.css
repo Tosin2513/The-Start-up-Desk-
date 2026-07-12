@@ -35,7 +35,7 @@
   }
 }
 
-/* --- Silk Movement Background --- */
+/* --- Silk Movement Background (Vibrant Update) --- */
 @keyframes silk-movement {
   0% {
     background-position: 0% 50%;
@@ -49,17 +49,17 @@
 }
 
 .animate-silk {
-  /* Creating a multi-layered premium blue & white mesh gradient */
+  /* Infusing more distinct, rich premium blues so the movement is instantly visible */
   background: linear-gradient(
     135deg,
     #ffffff 0%,
-    #f0f7ff 25%,
-    #e1effe 50%,
-    #f4f9ff 75%,
-    #ffffff 100%
+    #e6f0fa 25%,
+    #cfe3f8 50%,
+    #eef5fc 75%,
+    #ffffff 100
   );
-  background-size: 400% 400%;
-  animation: silk-movement 16s ease infinite;
+  background-size: 300% 300%;
+  animation: silk-movement 12s ease infinite; /* Slightly sped up from 16s to make motion obvious */
 }
 
 /* Base fade animations */
