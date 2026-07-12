@@ -12,7 +12,7 @@
     "next": "latest",
     "react": "^19",
     "react-dom": "^19",
-    "lucide-react": "latest"
+    "lucide-react": "latest",
     "@vercel/speed-insights": "latest"
   },
   "devDependencies": {
