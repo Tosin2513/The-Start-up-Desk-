@@ -16,6 +16,7 @@
     "@vercel/speed-insights": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
     "postcss": "^8",
     "autoprefixer": "^10",
