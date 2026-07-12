@@ -18,6 +18,10 @@
   --color-accent: #0066cc;
   --color-accent-foreground: #ffffff;
   
+  /* WhatsApp Green */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-foreground: #ffffff;
+  
   --color-muted: #f4f6f8;
   --color-muted-foreground: #606f7b;
   --color-border: #e2e8f0;
@@ -35,7 +39,7 @@
   }
 }
 
-/* --- Silk Movement Background (Vibrant Update) --- */
+/* --- Silk Movement Background (Smooth, Flowing Animation) --- */
 @keyframes silk-movement {
   0% {
     background-position: 0% 50%;
@@ -49,17 +53,17 @@
 }
 
 .animate-silk {
-  /* Infusing more distinct, rich premium blues so the movement is instantly visible */
+  /* Smooth, silky gradient that flows and moves */
   background: linear-gradient(
     135deg,
     #ffffff 0%,
     #e6f0fa 25%,
     #cfe3f8 50%,
     #eef5fc 75%,
-    #ffffff 100
+    #ffffff 100%
   );
   background-size: 300% 300%;
-  animation: silk-movement 12s ease infinite; /* Slightly sped up from 16s to make motion obvious */
+  animation: silk-movement 12s ease infinite;
 }
 
 /* Base fade animations */
@@ -86,11 +90,11 @@
     opacity: 1;
   }
   30%, 55% {
-    transform: translateY(-33.33%);
+    transform: translateY(-100%);
     opacity: 1;
   }
   60%, 85% {
-    transform: translateY(-66.66%);
+    transform: translateY(-200%);
     opacity: 1;
   }
   90%, 100% {
@@ -102,7 +106,6 @@
 .animate-word-slide {
   display: inline-flex;
   flex-direction: column;
-  height: 1.15em;
   overflow: hidden;
   vertical-align: top;
 }
@@ -111,13 +114,21 @@
   animation: word-change 7.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
 }
 
+.word-slider span {
+  display: block;
+  height: 1.15em;
+  line-height: 1.15;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up, .word-slider, .animate-silk {
     animation: none;
     opacity: 1;
   }
   .animate-word-slide {
-    height: auto;
     overflow: visible;
+  }
+  .word-slider {
+    display: contents;
   }
 }
