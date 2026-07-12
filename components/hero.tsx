@@ -147,7 +147,6 @@ export function Hero() {
               The Startup Desk was built on an experienced legal compliance background to interpret regulation into plain, actionable checklists. We are a dedicated compliance consultancy, not an active law firm, meaning we focus entirely on corporate management paperwork frameworks rather than court litigation or representation.
             </p>
           </div>
-          <span className="text-xs font-extrabold bg-muted text-primary border border-border px-3 py-1.5 rounded-lg whitespace-nowrap shrink-0">RC: {siteConfig.rcNumber}</span>
         </div>
 
         {/* 7. RESOURCES TEASER */}
@@ -174,22 +173,22 @@ export function Hero() {
             </div>
           </div>
         </div>
-
-        {/* 8. FINAL CTA BAND */}
-        <div className="animate-fade-in-up relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground shadow-xl md:px-12" style={{ animationDelay: "200ms" }}>
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0"><div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/10 blur-xl" /></div>
-          <h2 className="font-display text-2xl font-bold tracking-tight text-white sm:text-4xl">Ready to stop guessing what is required?</h2>
-          <p className="mt-4 text-sm text-white/80 max-w-xl mx-auto">Get your corporate registry frameworks configured and audited cleanly before structural limits block your next transaction phase.</p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <Link href="/services" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-base font-bold text-white shadow-sm hover:bg-accent/90 transition-all hover:scale-[1.02]">
-              Get Started <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-7 py-3.5 text-base font-bold text-white shadow-sm hover:bg-white/20 transition-all hover:scale-[1.02]">
-              <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
-            </a>
-          </div>
-        </div>
-
+{/* 8. FINAL CTA BAND */}
+<div className="animate-fade-in-up relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground shadow-xl md:px-12" style={{ animationDelay: "200ms" }}>
+  <div aria-hidden="true" className="pointer-events-none absolute inset-0"><div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/10 blur-xl" /></div>
+  <h2 className="font-display text-2xl font-bold tracking-tight text-white sm:text-4xl">Ready to stop guessing what is required?</h2>
+  <p className="mt-4 text-sm text-white/80 max-w-xl mx-auto">Get your corporate registry frameworks configured and audited cleanly before structural limits block your next transaction phase.</p>
+  <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+    <Link href="/services" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-base font-bold text-white shadow-sm hover:bg-accent/90 transition-all hover:scale-[1.02]">
+      Get Started <ArrowRight className="h-4 w-4" />
+    </Link>
+    <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-[#25D366] px-7 py-3.5 text-base font-bold text-white shadow-sm hover:bg-[#20ba59] transition-all hover:scale-[1.02]">
+      <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
+    </a>
+  </div>
+</div>
+        
+        
       </div>
     </section>
   )
