@@ -32,7 +32,7 @@ export function Hero() {
             >
               Compliance shouldn&apos;t be the reason your startup{" "}
               <span className="animate-word-slide text-accent">
-                <span className="word-slider flex flex-col text-left">
+                <span className="word-slider">
                   <span>gets fined.</span>
                   <span>stalls growth.</span>
                   <span>loses momentum.</span>
@@ -44,8 +44,7 @@ export function Hero() {
               className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground"
               style={{ animationDelay: "240ms" }}
             >
-              We handle your CAC filings, tax registration, and the regulatory paperwork that
-              trips founders up—so you can stay focused on building, not battling deadlines.
+              We handle your CAC filings, tax registration, and regulatory paperwork so you can stay focused on building, not battling deadlines.
             </p>
 
             <div
@@ -54,7 +53,7 @@ export function Hero() {
             >
               <Link
                 href="/services"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-sm transition-all hover:bg-accent/90"
               >
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -65,9 +64,9 @@ export function Hero() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white/90 backdrop-blur-sm px-6 py-3.5 text-base font-semibold text-primary transition-all hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl border border-whatsapp bg-whatsapp px-6 py-3.5 text-base font-semibold text-whatsapp-foreground shadow-sm transition-all hover:bg-whatsapp/90"
               >
-                <MessageCircle className="h-5 w-5 text-accent transition-transform group-hover:scale-105" />
+                <MessageCircle className="h-5 w-5 transition-transform group-hover:scale-105" />
                 Chat on WhatsApp
               </a>
             </div>
