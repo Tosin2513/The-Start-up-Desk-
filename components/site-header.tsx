@@ -29,7 +29,7 @@ export function SiteHeader() {
           href={whatsappLink("Hi The Startup Desk, I'd like to talk about compliance for my startup.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-primary/25 px-3.5 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/5"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-whatsapp bg-whatsapp px-3.5 py-2 text-sm font-medium text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
         >
           <MessageCircle className="h-4 w-4" />
           Talk to us
