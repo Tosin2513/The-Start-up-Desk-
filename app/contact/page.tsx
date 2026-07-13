@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Script from "next/script"
+import Link from "next/link"
 import { MessageCircle, Mail, FileText, ArrowRight, ShieldCheck, Phone } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
