@@ -84,13 +84,18 @@ export function Hero() {
         </div>
 
         {/* 3. PROBLEM SECTION */}
-        <div className="animate-fade-in-up bg-white/40 border border-border/60 p-8 rounded-2xl text-center max-w-3xl mx-auto space-y-4" style={{ animationDelay: "200ms" }}>
-          <h2 className="font-display text-2xl font-extrabold text-primary">The gap nobody warns you about</h2>
-          <p className="text-base text-muted-foreground leading-relaxed font-medium">
-            Most compliance problems start in your first few months because nobody hands you a clear manual. 
-            Google leaves you with ten different half answers and unexpected fines. We exist to close that gap plainly and consistently before it becomes a hazard.
-          </p>
-        </div>
+        <div 
+  className="animate-fade-in-up bg-card-surface border border-border p-8 rounded-2xl text-center max-w-3xl mx-auto space-y-4" 
+  style={{ animationDelay: "200ms" }}
+>
+  <h2 className="font-display text-2xl font-extrabold text-primary">
+    The gap nobody warns you about
+  </h2>
+  <p className="text-base text-muted-foreground leading-relaxed font-medium">
+    Most compliance problems start in your first few months because nobody hands you a clear manual. 
+    Google leaves you with ten different half answers and unexpected fines. We exist to close that gap plainly and consistently before it becomes a hazard.
+  </p>
+</div>
 
         {/* 4. WHAT WE TAKE OFF YOUR PLATE SECTION */}
         <div className="space-y-6">
@@ -120,23 +125,27 @@ export function Hero() {
         </div>
 
         {/* 5. HOW IT WORKS SECTION */}
-        <div className="bg-white/60 border border-border/80 rounded-3xl p-8 space-y-8">
-          <div className="text-center max-w-xl mx-auto"><h2 className="font-display text-2xl font-extrabold text-primary">How it works</h2></div>
-          <div className="grid gap-6 sm:grid-cols-4 text-center">
-            {[
-              { step: "01", t: "Tell us your stage", d: "Brief our desk on your current incorporation metrics via a quick baseline query." },
-              { step: "02", t: "We map requirements", d: "Our consulting layer extracts your exact sector obligations and pending filing tasks." },
-              { step: "03", t: "We handle paperwork", d: "We prepare files, interface directly with registries, and clear backlogs cleanly." },
-              { step: "04", t: "You stay covered", d: "Your structural frameworks stay secure under active monitoring routines." }
-            ].map((item, idx) => (
-              <div key={idx} className="space-y-2">
-                <span className="text-sm font-extrabold text-accent block tracking-wider">{item.step}</span>
-                <h4 className="font-display font-bold text-base text-primary">{item.t}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed px-2">{item.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+<div className="bg-card-surface border border-border rounded-3xl p-8 space-y-8">
+  <div className="text-center max-w-xl mx-auto">
+    <h2 className="font-display text-2xl font-extrabold text-primary">
+      How it works
+    </h2>
+  </div>
+  <div className="grid gap-6 sm:grid-cols-4 text-center">
+    {[
+      { step: "01", t: "Tell us your stage", d: "Brief our desk on your current incorporation metrics via a quick baseline query." },
+      { step: "02", t: "We map requirements", d: "Our consulting layer extracts your exact sector obligations and pending filing tasks." },
+      { step: "03", t: "We handle paperwork", d: "We prepare files, interface directly with registries, and clear backlogs cleanly." },
+      { step: "04", t: "You stay covered", d: "Your structural frameworks stay secure under active monitoring routines." }
+    ].map((item, idx) => (
+      <div key={idx} className="space-y-2">
+        <span className="text-sm font-extrabold text-accent block tracking-wider">{item.step}</span>
+        <h4 className="font-display font-bold text-base text-primary">{item.t}</h4>
+        <p className="text-xs text-muted-foreground leading-relaxed px-2">{item.d}</p>
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* 6. TRUST / CREDIBILITY DISCLAIMER BANNER */}
         <div className="animate-fade-in-up border border-dashed border-border bg-white p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4" style={{ animationDelay: "100ms" }}>
