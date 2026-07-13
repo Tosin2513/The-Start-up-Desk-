@@ -1,27 +1,37 @@
 @import "tailwindcss";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
-  /* --- LIGHT MODE VARIABLES --- */
-  --color-background: #ffffff;
-  --color-foreground: #090d16;
-  --color-primary: #0a2540;
-  --color-accent: #0066cc;
-  --color-muted: #f4f6f8;
-  --color-border: #e2e8f0;
+  /* --- BASE PALETTE MAPPED TO VARIABLES --- */
+  --color-background: var(--bg-current);
+  --color-foreground: var(--text-current);
+  --color-primary: var(--primary-current);
+  --color-muted-foreground: var(--muted-text-current);
+  --color-border: var(--border-current);
 }
 
-/* --- DARK MODE OVERRIDES --- */
+/* ─── LIGHT MODE DESIGN CONFIG ─── */
+:root {
+  --bg-current: #ffffff;
+  --text-current: #090d16;
+  --primary-current: #0a2540;          /* Deep rich navy */
+  --muted-text-current: #606f7b;
+  --border-current: #e2e8f0;
+  --color-accent: #0066cc;
+}
+
+/* ─── PREMIUM DARK MODE DESIGN CONFIG ─── */
 .dark {
-  --color-background: #090d16;
-  --color-foreground: #f4f6f8;
-  --color-primary: #ffffff;
-  --color-accent: #3b82f6;
-  --color-muted: #1e293b;
-  --color-border: #1e293b;
+  --bg-current: #060913;               /* Deep rich space black */
+  --text-current: #f4f6f8;             /* Crisp clean off-white */
+  --primary-current: #ffffff;          /* Force headlines to go pure white */
+  --muted-text-current: #94a3b8;       /* Readable soft silver for paragraphs */
+  --border-current: #1e293b;
+  --color-accent: #3b82f6;             /* Neon glow blue for highlights */
 }
 
 @layer base {
@@ -29,10 +39,11 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-/* --- FIX: DYNAMIC SILK BACKGROUND --- */
+/* ─── DYNAMIC TRANSITION FOR THE SILK GRADIENT ─── */
 .animate-silk {
   background: linear-gradient(135deg, #ffffff 0%, #e6f0fa 25%, #cfe3f8 50%, #eef5fc 75%, #ffffff 100%);
   background-size: 300% 300%;
@@ -40,8 +51,7 @@
 }
 
 .dark .animate-silk {
-  /* Dark mode gradient variant */
-  background: linear-gradient(135deg, #090d16 0%, #0a1628 25%, #0f1c30 50%, #0a1628 75%, #090d16 100%);
+  background: linear-gradient(135deg, #060913 0%, #0a1424 40%, #060913 100%);
 }
 
 /* --- Silk Movement Background (Smooth, Flowing) --- */
