@@ -4,45 +4,43 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
-  /* --- LIGHT MODE (DEFAULT) --- */
+  /* --- LIGHT MODE VARIABLES --- */
   --color-background: #ffffff;
   --color-foreground: #090d16;
-  --color-card: #ffffff;
-  --color-card-foreground: #090d16;
   --color-primary: #0a2540;
-  --color-primary-foreground: #ffffff;
   --color-accent: #0066cc;
-  --color-accent-foreground: #ffffff;
   --color-muted: #f4f6f8;
-  --color-muted-foreground: #606f7b;
   --color-border: #e2e8f0;
-  --radius: 0.75rem;
 }
 
 /* --- DARK MODE OVERRIDES --- */
 .dark {
   --color-background: #090d16;
   --color-foreground: #f4f6f8;
-  --color-card: #0a101d;
-  --color-card-foreground: #f4f6f8;
   --color-primary: #ffffff;
-  --color-primary-foreground: #090d16;
-  --color-accent: #3b82f6; /* Lighter blue for dark mode visibility */
-  --color-accent-foreground: #ffffff;
+  --color-accent: #3b82f6;
   --color-muted: #1e293b;
-  --color-muted-foreground: #94a3b8;
   --color-border: #1e293b;
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+}
+
+/* --- FIX: DYNAMIC SILK BACKGROUND --- */
+.animate-silk {
+  background: linear-gradient(135deg, #ffffff 0%, #e6f0fa 25%, #cfe3f8 50%, #eef5fc 75%, #ffffff 100%);
+  background-size: 300% 300%;
+  animation: silk-movement 15s ease infinite;
+}
+
+.dark .animate-silk {
+  /* Dark mode gradient variant */
+  background: linear-gradient(135deg, #090d16 0%, #0a1628 25%, #0f1c30 50%, #0a1628 75%, #090d16 100%);
 }
 
 /* --- Silk Movement Background (Smooth, Flowing) --- */
