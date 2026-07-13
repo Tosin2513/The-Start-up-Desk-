@@ -6,41 +6,57 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
-  /* --- MASTER SEMANTIC VARIABLES --- */
-  --color-background: var(--bg-main);
-  --color-foreground: var(--text-main);
+  /* ─── THEME CONFIGURATION MAPPING (TAILWIND V4 ENGINE) ─── */
+  --color-background: var(--bg-current);
+  --color-foreground: var(--text-current);
+  --color-primary: var(--primary-current);
+  --color-muted-foreground: var(--muted-text-current);
+  --color-border: var(--border-current);
   
-  --color-primary: var(--text-heading);        /* For main headings */
-  --color-muted-foreground: var(--text-body);  /* For paragraphs */
-  
-  /* Semi-transparent adaptive containers */
-  --color-card-surface: var(--bg-card);
-  --color-border: var(--border-main);
+  --color-accent: var(--accent-current);
+  --color-card: var(--card-current);
+  --color-primary-foreground: var(--primary-fg-current);
+  --color-accent-foreground: var(--accent-fg-current);
+  --color-whatsapp: var(--whatsapp-current);
+  --color-whatsapp-foreground: var(--whatsapp-fg-current);
 }
 
-/* ─── LIGHT MODE: Crisp & Clear ─── */
+/* ─── LIGHT MODE SYSTEM CONFIG ─── */
 :root {
-  --bg-main: #ffffff;
-  --text-main: #090d16;
-  --text-heading: #0a2540;       /* Your deep premium navy */
-  --text-body: #606f7b;          /* Clean readable slate gray */
-  --bg-card: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-  --border-main: #e2e8f0;
-  --color-accent: #0066cc;
+  --bg-current: #ffffff;
+  --text-current: #0b132b;           /* Core Dark Brand Color */
+  --primary-current: #0066cc;        /* Pure Blue Brand Color */
+  --muted-text-current: #606f7b;
+  --border-current: #e2e8f0;
+  
+  --accent-current: #f2a71b;         /* Locked Amber Accent */
+  --card-current: #ffffff;
+  --primary-fg-current: #ffffff;
+  --accent-fg-current: #0b132b;
+  --whatsapp-current: #25d366;
+  --whatsapp-fg-current: #ffffff;
 }
 
-/* ─── DARK MODE: High-Contrast Midnight Executive ─── */
+/* ─── PREMIUM DARK MODE SYSTEM CONFIG ─── */
 .dark {
-  --bg-main: #090d16;            /* Matches your footer's beautiful deep space dark */
-  --text-main: #f4f6f8;
-  --text-heading: #ffffff;       /* Forces ALL primary headings to pop in pure white */
-  --text-body: #94a3b8;          /* Light slate gray so long descriptions are effortless to read */
-  --bg-card: rgba(255, 255, 255, 0.03); /* Soft translucent dark glassmorphism */
-  --border-main: #1e293b;        /* Subtle dark borders instead of bright white lines */
-  --color-accent: #f5a623;       /* Your gold/orange accent color stands out perfectly here */
+  --bg-current: #0b132b;             /* Core Dark Brand Canvas */
+  --text-current: #f4f6f8;
+  --primary-current: #4d9fff;        /* Lightened Blue for contrast */
+  --muted-text-current: #94a3b8;
+  --border-current: #1e293b;
+  
+  --accent-current: #f2c14e;         /* High-visibility Amber Accent */
+  --card-current: #131c3a;           /* Perfect elevation off Core Dark */
+  --primary-fg-current: #0b132b;
+  --accent-fg-current: #0b132b;
+  --whatsapp-current: #25d366;
+  --whatsapp-fg-current: #ffffff;
 }
 
 @layer base {
+  * {
+    border-color: var(--color-border);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -49,7 +65,7 @@
   }
 }
 
-/* ─── SILK BACKGROUND HANDLING FOR BOTH MODES ─── */
+/* ─── DYNAMIC TRANSITION FOR THE SILK GRADIENT ─── */
 .animate-silk {
   background: linear-gradient(135deg, #ffffff 0%, #e6f0fa 25%, #cfe3f8 50%, #eef5fc 75%, #ffffff 100%);
   background-size: 300% 300%;
@@ -57,10 +73,8 @@
 }
 
 .dark .animate-silk {
-  background: linear-gradient(135deg, #090d16 0%, #0d1b2e 50%, #090d16 100__);
+  background: linear-gradient(135deg, #0b132b 0%, #131f42 40%, #0b132b 100%);
 }
-
-/* ... Keep all your existing keyframe animations below here ... */
 
 /* --- Silk Movement Background Keyframes --- */
 @keyframes silk-movement {
