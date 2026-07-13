@@ -32,7 +32,12 @@ export function SiteHeader() {
           className="inline-flex items-center gap-1.5 rounded-lg border border-whatsapp bg-whatsapp px-3.5 py-2 text-sm font-medium text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
         >
           <MessageCircle className="h-4 w-4" />
-          Talk to us
+          Talk to us 
+          // Add this import at the top:
+import { ThemeToggle } from "@/components/theme-toggle"
+
+// Inside your <nav className="flex items-center gap-x-6"> layout block, insert it cleanly:
+<ThemeToggle />
         </a>
       </nav>
     </header>
