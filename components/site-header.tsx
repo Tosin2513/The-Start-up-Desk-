@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { ShieldCheck, MessageCircle } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
