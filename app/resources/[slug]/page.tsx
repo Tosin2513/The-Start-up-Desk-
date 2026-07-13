@@ -4,7 +4,17 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
 
-export default function IndividualGuide({ params }: { params: { slug: string } }) {
+// 1. Updated the type definition so Next.js knows params is an async Promise
+export default async function IndividualGuide({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  
+  // 2. We await the promise right here to safely get your slug variable
+  const resolvedParams = await params
+  const { slug } = resolvedParams
+
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
       <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
@@ -95,4 +105,3 @@ export default function IndividualGuide({ params }: { params: { slug: string } }
     </main>
   )
 }
-
