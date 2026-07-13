@@ -4,28 +4,34 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
-  /* Palette: Crisp White and Premium Blues */
+  /* --- LIGHT MODE (DEFAULT) --- */
   --color-background: #ffffff;
   --color-foreground: #090d16;
   --color-card: #ffffff;
   --color-card-foreground: #090d16;
-  
-  /* Deep Navy Royal Blue */
   --color-primary: #0a2540;
   --color-primary-foreground: #ffffff;
-  
-  /* Vibrant Electric Action Blue */
   --color-accent: #0066cc;
   --color-accent-foreground: #ffffff;
-  
-  /* WhatsApp Green */
-  --color-whatsapp: #25d366;
-  --color-whatsapp-foreground: #ffffff;
-  
   --color-muted: #f4f6f8;
   --color-muted-foreground: #606f7b;
   --color-border: #e2e8f0;
   --radius: 0.75rem;
+}
+
+/* --- DARK MODE OVERRIDES --- */
+.dark {
+  --color-background: #090d16;
+  --color-foreground: #f4f6f8;
+  --color-card: #0a101d;
+  --color-card-foreground: #f4f6f8;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #090d16;
+  --color-accent: #3b82f6; /* Lighter blue for dark mode visibility */
+  --color-accent-foreground: #ffffff;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #1e293b;
 }
 
 @layer base {
