@@ -6,35 +6,57 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   
-  /* --- BASE PALETTE MAPPED TO VARIABLES --- */
+  /* ─── THEME CONFIGURATION MAPPING (TAILWIND V4 ENGINE) ─── */
   --color-background: var(--bg-current);
   --color-foreground: var(--text-current);
   --color-primary: var(--primary-current);
   --color-muted-foreground: var(--muted-text-current);
   --color-border: var(--border-current);
+  
+  --color-accent: var(--accent-current);
+  --color-card: var(--card-current);
+  --color-primary-foreground: var(--primary-fg-current);
+  --color-accent-foreground: var(--accent-fg-current);
+  --color-whatsapp: var(--whatsapp-current);
+  --color-whatsapp-foreground: var(--whatsapp-fg-current);
 }
 
-/* ─── LIGHT MODE DESIGN CONFIG ─── */
+/* ─── LIGHT MODE SYSTEM CONFIG ─── */
 :root {
   --bg-current: #ffffff;
-  --text-current: #090d16;
-  --primary-current: #0a2540;          /* Deep rich navy */
+  --text-current: #0b132b;           /* Core Dark Brand Color */
+  --primary-current: #0066cc;        /* Pure Blue Brand Color */
   --muted-text-current: #606f7b;
   --border-current: #e2e8f0;
-  --color-accent: #0066cc;
+  
+  --accent-current: #f2a71b;         /* Locked Amber Accent */
+  --card-current: #ffffff;
+  --primary-fg-current: #ffffff;
+  --accent-fg-current: #0b132b;
+  --whatsapp-current: #25d366;
+  --whatsapp-fg-current: #ffffff;
 }
 
-/* ─── PREMIUM DARK MODE DESIGN CONFIG ─── */
+/* ─── PREMIUM DARK MODE SYSTEM CONFIG ─── */
 .dark {
-  --bg-current: #060913;               /* Deep rich space black */
-  --text-current: #f4f6f8;             /* Crisp clean off-white */
-  --primary-current: #ffffff;          /* Force headlines to go pure white */
-  --muted-text-current: #94a3b8;       /* Readable soft silver for paragraphs */
+  --bg-current: #0b132b;             /* Core Dark Brand Canvas */
+  --text-current: #f4f6f8;
+  --primary-current: #4d9fff;        /* Lightened Blue for contrast */
+  --muted-text-current: #94a3b8;
   --border-current: #1e293b;
-  --color-accent: #3b82f6;             /* Neon glow blue for highlights */
+  
+  --accent-current: #f2c14e;         /* High-visibility Amber Accent */
+  --card-current: #131c3a;           /* Perfect elevation off Core Dark */
+  --primary-fg-current: #0b132b;
+  --accent-fg-current: #0b132b;
+  --whatsapp-current: #25d366;
+  --whatsapp-fg-current: #ffffff;
 }
 
 @layer base {
+  * {
+    border-color: var(--color-border);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -51,33 +73,14 @@
 }
 
 .dark .animate-silk {
-  background: linear-gradient(135deg, #060913 0%, #0a1424 40%, #060913 100%);
+  background: linear-gradient(135deg, #0b132b 0%, #131f42 40%, #0b132b 100%);
 }
 
-/* --- Silk Movement Background (Smooth, Flowing) --- */
+/* --- Silk Movement Background Keyframes --- */
 @keyframes silk-movement {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-silk {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #e6f0fa 25%,
-    #cfe3f8 50%,
-    #eef5fc 75%,
-    #ffffff 100%
-  );
-  background-size: 300% 300%;
-  animation: silk-movement 15s ease infinite;
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Base fade animations */
@@ -99,22 +102,10 @@
 
 /* Word-changing keyframes */
 @keyframes word-change {
-  0%, 25% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-  30%, 55% {
-    transform: translateY(-33.33%);
-    opacity: 1;
-  }
-  60%, 85% {
-    transform: translateY(-66.66%);
-    opacity: 1;
-  }
-  90%, 100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
+  0%, 25% { transform: translateY(0%); opacity: 1; }
+  30%, 55% { transform: translateY(-33.33%); opacity: 1; }
+  60%, 85% { transform: translateY(-66.66%); opacity: 1; }
+  90%, 100% { transform: translateY(0%); opacity: 1; }
 }
 
 .animate-word-slide {
@@ -131,23 +122,13 @@
 
 /* Page transition animations */
 @keyframes page-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes page-slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-page-in {
