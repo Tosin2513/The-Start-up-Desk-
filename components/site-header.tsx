@@ -26,17 +26,22 @@ export function SiteHeader() {
     <header className="w-full relative z-50">
       <div className="flex items-center justify-between py-4">
         
-        {/* Image Logo Container (Case-Corrected for Logo.png) */}
-        <Link href="/" className="flex items-center gap-2 relative z-[60]">
-          <div className="relative h-9 w-28 sm:w-32"> 
+        {/* Logo and Bold Name Group */}
+        <Link href="/" className="flex items-center gap-3 relative z-[60]">
+          {/* Logo Mark (Pointed to Logo.png, adjust extension to .svg if you upload one instead) */}
+          <div className="relative h-8 w-8 shrink-0"> 
             <Image
-              src="/Logo.png" // <─── Capitalized L to match your file name exactly
+              src="/Logo.svg" 
               alt="The Startup Desk Logo"
               fill
               priority
-              className="object-contain object-left dark:brightness-0 dark:invert"
+              className="object-contain dark:brightness-0 dark:invert"
             />
           </div>
+          {/* Bolded Text Brand Name */}
+          <span className="font-display text-lg font-extrabold tracking-tight text-foreground whitespace-nowrap">
+            The Startup Desk
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -147,5 +152,4 @@ export function SiteHeader() {
       )}
     </header>
   )
-              }
-
+}
