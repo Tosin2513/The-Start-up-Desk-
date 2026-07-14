@@ -9,8 +9,20 @@ import { whatsappLink } from "@/lib/site"
 export function SiteHeader() {
   const [isOpen, setIsOpen] = React.useState(false)
 
+  // Block background scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [isOpen])
+
   return (
-    <header className="relative animate-fade-in-up">
+    <header className="animate-fade-in-up w-full">
       <div className="flex items-center justify-between py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 z-50">
@@ -68,13 +80,13 @@ export function SiteHeader() {
         </nav>
 
         {/* Mobile Controls Right Side */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 md:hidden z-50">
           <ThemeToggle />
           
           {/* Hamburger Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card-surface text-foreground transition-all z-50"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card-surface text-foreground transition-all"
             aria-label="Toggle Navigation Menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -82,14 +94,18 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Modern Fullscreen Mobile Drawer Overlay */}
       {isOpen && (
-        <div className="absolute top-16 left-0 right-0 bg-card-surface border border-border/80 rounded-2xl p-6 shadow-xl z-40 md:hidden animate-page-slide space-y-5">
-          <nav className="flex flex-col space-y-4">
+        <div className="fixed inset-0 bg-background/98 backdrop-blur-md z-40 md:hidden flex flex-col justify-between p-6 animate-page-slide">
+          {/* Menu Link List */}
+          <nav className="flex flex-col space-y-6 pt-24 text-left">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-muted-foreground/50 border-b border-border/40 pb-2">
+              Navigation Menu
+            </span>
             <Link
               href="/services"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+              className="font-display text-2xl font-bold text-foreground hover:text-accent transition-colors"
             >
               Services
             </Link>
@@ -97,7 +113,7 @@ export function SiteHeader() {
             <Link
               href="/resources"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+              className="font-display text-2xl font-bold text-foreground hover:text-accent transition-colors"
             >
               Resources
             </Link>
@@ -105,7 +121,7 @@ export function SiteHeader() {
             <Link
               href="/about"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+              className="font-display text-2xl font-bold text-foreground hover:text-accent transition-colors"
             >
               About
             </Link>
@@ -113,30 +129,30 @@ export function SiteHeader() {
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
+              className="font-display text-2xl font-bold text-foreground hover:text-accent transition-colors"
             >
               Contact
             </Link>
           </nav>
 
-          <hr className="border-border/60" />
-
-          {/* Mobile CTA */}
-          <a
-            href={whatsappLink(
-              "Hi The Startup Desk, I'd like to talk about compliance for my startup."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center justify-center gap-2 w-full rounded-xl border border-whatsapp bg-whatsapp py-3 text-sm font-bold text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
-          >
-            <MessageCircle className="h-4 w-4" />
-            Talk on WhatsApp
-          </a>
+          {/* Fixed Mobile Drawer Bottom CTAs */}
+          <div className="space-y-4 pb-10">
+            <hr className="border-border/60" />
+            <a
+              href={whatsappLink(
+                "Hi The Startup Desk, I'd like to talk about compliance for my startup."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 w-full rounded-xl border border-whatsapp bg-whatsapp py-3.5 text-sm font-bold text-whatsapp-foreground transition-colors hover:bg-whatsapp/90 shadow-sm"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Talk on WhatsApp
+            </a>
+          </div>
         </div>
       )}
     </header>
   )
 }
-
