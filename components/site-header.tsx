@@ -31,7 +31,7 @@ export function SiteHeader() {
           {/* Logo Mark (Pointed to Logo.png, adjust extension to .svg if you upload one instead) */}
           <div className="relative h-8 w-8 shrink-0"> 
             <Image
-              src="/Logo.svg" 
+              src="/Logo.png" 
               alt="The Startup Desk Logo"
               fill
               priority
