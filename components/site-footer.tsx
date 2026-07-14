@@ -18,7 +18,7 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="text-xs leading-relaxed text-muted-foreground">
-              Compliance handled from your first CAC filing to your first funding round. A compliance consultancy for early-stage Nigerian startups, not a law firm.[span_7](start_span)[span_7](end_span)
+              Compliance handled from your first CAC filing to your first funding round. A compliance consultancy for early-stage Nigerian startups, not a law firm.
             </p>
           </div>
 
@@ -28,6 +28,7 @@ export function SiteFooter() {
               <li><Link href="/services" className="text-muted-foreground transition-colors hover:text-primary">Services</Link></li>
               <li><Link href="/about" className="text-muted-foreground transition-colors hover:text-primary">About</Link></li>
               <li><Link href="/resources" className="text-muted-foreground transition-colors hover:text-primary">Resources Hub</Link></li>
+               <li><Link href="/faq" className="text-muted-foreground transition-colors hover:text-primary">FAQ</Link></li>
             </ul>
           </div>
 
@@ -61,7 +62,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 text-[11px] text-muted-foreground/80 sm:flex-row sm:items-center sm:justify-between font-medium">
           <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. Registered with the Corporate Affairs Commission, Nigeria.[span_8](start_span)[span_8](end_span)
+            &copy; {new Date().getFullYear()} {siteConfig.name}. We're here for you.
           </p>
           <p className="bg-muted px-2.5 py-1 rounded-md border border-border/60">RC Number: {siteConfig.rcNumber}</p>
         </div>
