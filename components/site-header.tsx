@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ShieldCheck, MessageCircle, Menu, X } from "lucide-react"
+import Image from "next/image"
+import { MessageCircle, Menu, X } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { whatsappLink } from "@/lib/site"
 
@@ -22,54 +23,42 @@ export function SiteHeader() {
   }, [isOpen])
 
   return (
-    <header className="animate-fade-in-up w-full">
+    <header className="w-full relative z-50">
       <div className="flex items-center justify-between py-4">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 z-50">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-            The Startup Desk
-          </span>
+        
+        {/* Image Logo Container (Case-Corrected for Logo.png) */}
+        <Link href="/" className="flex items-center gap-2 relative z-[60]">
+          <div className="relative h-9 w-28 sm:w-32"> 
+            <Image
+              src="/Logo.png" // <─── Capitalized L to match your file name exactly
+              alt="The Startup Desk Logo"
+              fill
+              priority
+              className="object-contain object-left dark:brightness-0 dark:invert"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 md:flex">
-          <Link
-            href="/services"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <Link href="/services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Services
           </Link>
-
-          <Link
-            href="/resources"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <Link href="/resources" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Resources
           </Link>
-
-          <Link
-            href="/about"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <Link href="/faq" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+            FAQ
+          </Link>
+          <Link href="/about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             About
           </Link>
-
-          <Link
-            href="/contact"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
+          <Link href="/contact" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Contact
           </Link>
-
           <ThemeToggle />
-
           <a
-            href={whatsappLink(
-              "Hi The Startup Desk, I'd like to talk about compliance for my startup."
-            )}
+            href={whatsappLink("Hi The Startup Desk, I'd like to talk about compliance for my startup.")}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg border border-whatsapp bg-whatsapp px-3.5 py-2 text-sm font-medium text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
@@ -80,13 +69,13 @@ export function SiteHeader() {
         </nav>
 
         {/* Mobile Controls Right Side */}
-        <div className="flex items-center gap-2 md:hidden z-50">
+        <div className="flex items-center gap-2 md:hidden relative z-[60]">
           <ThemeToggle />
           
-          {/* Hamburger Button */}
+          {/* Hamburger / Close Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card-surface text-foreground transition-all"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white dark:bg-black text-foreground transition-all focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -94,9 +83,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Modern Fullscreen Mobile Drawer Overlay */}
+      {/* Modern Opaque Fullscreen Mobile Drawer Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-background/98 backdrop-blur-md z-40 md:hidden flex flex-col justify-between p-6 animate-page-slide">
+        <div className="fixed inset-0 top-0 left-0 w-screen h-screen bg-white dark:bg-[#090d16] z-[55] md:hidden flex flex-col justify-between p-6">
+          
           {/* Menu Link List */}
           <nav className="flex flex-col space-y-6 pt-24 text-left">
             <span className="text-[10px] font-bold tracking-wider uppercase text-muted-foreground/50 border-b border-border/40 pb-2">
@@ -109,7 +99,6 @@ export function SiteHeader() {
             >
               Services
             </Link>
-
             <Link
               href="/resources"
               onClick={() => setIsOpen(false)}
@@ -117,7 +106,13 @@ export function SiteHeader() {
             >
               Resources
             </Link>
-
+            <Link
+              href="/faq"
+              onClick={() => setIsOpen(false)}
+              className="font-display text-2xl font-bold text-foreground hover:text-accent transition-colors"
+            >
+              FAQ
+            </Link>
             <Link
               href="/about"
               onClick={() => setIsOpen(false)}
@@ -125,7 +120,6 @@ export function SiteHeader() {
             >
               About
             </Link>
-
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
@@ -139,9 +133,7 @@ export function SiteHeader() {
           <div className="space-y-4 pb-10">
             <hr className="border-border/60" />
             <a
-              href={whatsappLink(
-                "Hi The Startup Desk, I'd like to talk about compliance for my startup."
-              )}
+              href={whatsappLink("Hi The Startup Desk, I'd like to talk about compliance for my startup.")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
@@ -155,4 +147,5 @@ export function SiteHeader() {
       )}
     </header>
   )
-}
+              }
+
