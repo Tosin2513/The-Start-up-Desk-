@@ -9,21 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^15.0.0",
-    "react": "^19",
-    "react-dom": "^19",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "latest",
     "lucide-react": "latest",
+    "next": "^15.0.0",
     "next-themes": "^0.4.4",
-    "@vercel/speed-insights": "latest"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "postcss": "^8",
-    "autoprefixer": "^10",
-    "typescript": "^5",
     "@types/node": "^22",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
