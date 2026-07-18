@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "The Startup Desk",
   rcNumber: "9668977",
-  email: "the.start.up.desk1@gmail.com",
+  email: "hello@thestartupdesk.com.ng",
   phone: "+234 813 794 1914",
   whatsappNumber: "2348137941914",
 } as const

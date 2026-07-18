@@ -26,29 +26,33 @@ export function Hero() {
             </span>
 
             <h1
-              className="animate-fade-in-up font-display text-4xl font-extrabold leading-[1.15] tracking-tight text-primary sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "160ms" }}
+              className="animate-fade-in-up font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl leading-[1.15] text-primary"
+              style={{ animationDelay: "190ms" }}
             >
               Compliance shouldn&apos;t be the reason your startup{" "}
-              <span className="animate-word-slide text-accent">
-                <span className="word-slider flex flex-col text-left">
-                  <span>gets fined.</span>
-                  <span>stalls growth.</span>
-                  <span>loses momentum.</span>
+              {/* Isolated sliding block container with strict alignment and hardware acceleration */}
+              <span className="inline-flex h-[1.2em] flex-col overflow-hidden align-bottom relative translation-all duration-500 ease-in-out will-change-transform">
+                <span 
+                  className="animate-word-slide flex flex-col text-left text-accent"
+                  style={{ transform: "translateZ(0)" }}
+                >
+                  <span className="block h-[1.2em] leading-[1.2em]">gets fined.</span>
+                  <span className="block h-[1.2em] leading-[1.2em]">stalls growth.</span>
+                  <span className="block h-[1.2em] leading-[1.2em]">loses momentum.</span>
+                  <span className="block h-[1.2em] leading-[1.2em]">misses deadlines.</span>
                 </span>
               </span>
             </h1>
 
             <p
-              className="animate-fade-in-up max-w-xl text-lg leading-relaxed text-muted-foreground font-medium"
+              className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground font-medium"
               style={{ animationDelay: "240ms" }}
             >
-              We handle your CAC filings, tax registration, and the regulatory paperwork that
-              trips founders up so you can stay focused on building, not battling deadlines.
+              We handle the regulatory paperwork that trips founders up so you can stay focused on building, not battling deadlines.
             </p>
 
             <div
-              className="animate-fade-in-up flex w-full flex-col gap-3 sm:flex-row sm:items-center"
+              className="animate-fade-in-up mt-8 flex w-full flex-col gap-3 sm:flex-row sm:items-center"
               style={{ animationDelay: "320ms" }}
             >
               <Link
@@ -88,34 +92,19 @@ export function Hero() {
           <h2 className="font-display text-2xl font-extrabold text-primary">The gap nobody warns you about</h2>
           <p className="text-base text-muted-foreground leading-relaxed font-medium">
             Most compliance problems start in your first few months because nobody hands you a clear manual. 
-            Google leaves you with ten different half answers and unexpected fines. We exist to close that gap plainly and consistently before it becomes a hazard.
+            Google leaves you with ten different half answers and unexpected fines. We exist to close that gap before it becomes a hazard.
           </p>
         </div>
 
         {/* 4. WHAT WE TAKE OFF YOUR PLATE SECTION */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="font-display text-2xl font-extrabold text-primary">What we take off your plate</h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            <div className="animate-fade-in-up bg-white border border-border p-6 rounded-2xl shadow-sm hover:scale-[1.01] transition-transform" style={{ animationDelay: "100ms" }}>
-              <div className="h-10 w-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4"><Landmark className="h-5 w-5" /></div>
-              <h3 className="font-display font-bold text-lg text-primary">CAC filings</h3>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">Registration, annual returns, and official entity status updates executed securely.</p>
-              <Link href="/services" className="inline-flex items-center gap-1 text-xs font-bold text-accent mt-4 hover:underline">Explore Launch Tiers <ArrowRight className="h-3 w-3" /></Link>
-            </div>
-            <div className="animate-fade-in-up bg-white border border-border p-6 rounded-2xl shadow-sm hover:scale-[1.01] transition-transform" style={{ animationDelay: "200ms" }}>
-              <div className="h-10 w-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4"><FileCheck2 className="h-5 w-5" /></div>
-              <h3 className="font-display font-bold text-lg text-primary">Tax registration</h3>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">Corporate TIN onboarding, VAT structures, and clean FIRS status records from day one.</p>
-              <Link href="/services" className="inline-flex items-center gap-1 text-xs font-bold text-accent mt-4 hover:underline">Explore Launch Tiers <ArrowRight className="h-3 w-3" /></Link>
-            </div>
-            <div className="animate-fade-in-up bg-white border border-border p-6 rounded-2xl shadow-sm hover:scale-[1.01] transition-transform" style={{ animationDelay: "300ms" }}>
-              <div className="h-10 w-10 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-4"><ShieldCheck className="h-5 w-5" /></div>
-              <h3 className="font-display font-bold text-lg text-primary">Regulatory paperwork</h3>
-              <p className="text-sm text-muted-foreground mt-2 leading-relaxed">NDPA data mandates, industry operational licenses, and ongoing statutory timelines monitored.</p>
-              <Link href="/services" className="inline-flex items-center gap-1 text-xs font-bold text-accent mt-4 hover:underline">Explore Advisory Scope <ArrowRight className="h-3 w-3" /></Link>
-            </div>
+        <div className="mx-auto max-w-3xl py-12 text-center">
+          <div className="animate-fade-in-up rounded-2xl border border-border bg-card p-8 md:p-12 shadow-sm">
+            <h2 className="font-display text-2xl font-extrabold text-foreground sm:text-3xl">
+              What we take off your plate
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-pretty text-muted-foreground">
+              We handle the regulatory side of running a business; registration, tax, compliance, licensing so you can stay focused on building, not paperwork.
+            </p>
           </div>
         </div>
 

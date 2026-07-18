@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { ShieldCheck, ArrowRight, MessageCircle, HeartHandshake, Compass, Scale, CheckCircle } from "lucide-react"
+import { ShieldCheck, ArrowRight, MessageCircle, Compass, CheckCircle, Eye, Heart } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink, siteConfig } from "@/lib/site"
-
+import Image from "next/image"
 export const metadata = {
   title: "About Us | The Startup Desk",
   description: "We started The Startup Desk because compliance shouldn't be the reason a good business fails.",
@@ -35,17 +35,17 @@ export default function AboutPage() {
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
               style={{ animationDelay: "200ms" }}
             >
-              Not because founders don&apos;t care, because nobody hands you the manual.
+              Not because founders don&apos;t care because nobody hands you the manual.
             </p>
           </div>
         </div>
       </div>
 
-      {/* THE STORY & WHO WE ARE (Two-Column Interactive Block) */}
+      {/* THE GAP & MEET THE FOUNDER (Two-Column Interactive Block) */}
       <section className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
           
-          {/* Column 1: The Story */}
+          {/* Column 1: The Gap Nobody Warns You About */}
           <div className="space-y-6">
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
               <Compass className="h-5 w-5" />
@@ -55,52 +55,69 @@ export default function AboutPage() {
             </h2>
             <div className="text-base md:text-lg leading-relaxed text-muted-foreground space-y-4">
               <p>
-                Getting your CAC certificate feels like the finish line. It&apos;s actually the starting line. What comes after, annual returns, tax registration, statutory registers, data protection rules, rarely gets explained clearly and even more rarely gets explained in time.
+                Getting your CAC certificate feels like the finish line. It&apos;s actually the starting line. What comes after annual returns, tax registration, statutory registers, data protection rules rarely gets explained clearly, and even more rarely gets explained in time.
               </p>
-              <p className="border-l-4 border-accent pl-4 font-medium text-primary italic bg-muted/40 py-2 rounded-r-xl">
+              <p className="border-l-4 border-accent pl-4 font-medium text-primary bg-muted/40 py-2 rounded-r-xl">
                 We&apos;ve sat across from founders who did everything right at incorporation and still got caught out eighteen months later by a filing they didn&apos;t know existed. Not because they were careless. Because nobody told them, and Google gives you ten different half-answers.
               </p>
-              <p>
-                The Startup Desk exists to close that gap, plainly, consistently, and before it becomes a problem instead of after.
+              <p className="font-semibold text-primary">
+                The Startup Desk exists to close that gap before it becomes a problem instead of after.
               </p>
             </div>
           </div>
 
-          {/* Column 2: Who We Are */}
+          {/* Column 2: Meet The Founder */}
+          {/* Column 2: Meet The Founder */}
           <div className="space-y-6 lg:p-8 lg:bg-muted/30 lg:rounded-3xl lg:border lg:border-border/60">
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-              <Scale className="h-5 w-5" />
+            <div className="flex items-center gap-6">
+              {/* Profile Avatar Outer Pulse Ring */}
+              <div className="relative w-20 h-20 rounded-full bg-gradient-to-tr from-accent/20 to-accent/40 flex items-center justify-center p-1 shadow-inner border border-accent/20 flex-shrink-0">
+                <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
+                  <Image src="/Founder.png" 
+                    alt="Oluwatosin Emabino"
+                    fill
+                    className="object-cover"
+                    sizes="80px"
+                    priority
+                  />
+                </div>
+              </div>
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-accent block mb-1">Founder</span>
+                <h2 className="font-display text-2xl font-extrabold tracking-tight text-primary">
+                  Started by someone who&apos;s been in the room
+                </h2>
+              </div>
             </div>
-            <h2 className="font-display text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
-              Built on a compliance background, built for founders
-            </h2>
+            
             <div className="text-base leading-relaxed text-muted-foreground space-y-4">
               <p>
-                The Startup Desk was founded on a legal compliance background, not to give you legal advice, but to translate regulation into steps you can actually act on. <span className="font-bold text-primary">We&apos;re a compliance consultancy, not a law firm.</span> That distinction matters: we&apos;re not here to represent you in a dispute. We&apos;re here to make sure you never end up in one over something preventable.
+                The Startup Desk is founded by Oluwatosin Emabino, who built this after working around legal compliance work and watching the same pattern repeat, good founders, solid businesses, getting caught out by paperwork nobody explained to them in time.
               </p>
               <p>
-                Where something genuinely requires legal representation, we&apos;ll tell you plainly and point you to a licensed lawyer we trust. Most of what threatens early-stage companies isn&apos;t a legal battle, it&apos;s a missed deadline or a document filed wrong. That&apos;s our lane, and we know it well.
+                That experience shapes how we work: easy to understand, prevention over rescue, and being upfront about what we do and don&apos;t handle so you always know exactly where you stand.
               </p>
             </div>
-          </div>
+          </div> {/* This closes Column 2 */}
 
-        </div>
-      </section>
+        </div> {/* This closes the grid wrapper */}
+      </section> {/* This closes the entire section */}
+            
 
       {/* HOW WE WORK BLOCK */}
       <section className="bg-primary text-primary-foreground py-16 lg:py-20 relative overflow-hidden">
         <div aria-hidden="true" className="absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-accent/10 blur-2xl" />
         <div className="mx-auto max-w-4xl px-6 text-center relative">
           <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
-            No jargon. No scare tactics. Just what&apos;s actually required.
+            Just what&apos;s actually required.
           </h2>
           <p className="mt-6 text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto">
-            We explain the <span className="text-accent font-bold">why</span> behind every requirement, not just the what, because founders who understand the stakes make better decisions than founders who are just following a checklist blindly. We keep things in plain English, we tell you what happens if something&apos;s missed, and we handle the parts you&apos;d rather not learn how to do yourself.
+            We explain the <span className="text-accent font-bold">why</span> behind every requirement, not just the what, because founders who understand the stakes make better decisions than founders who are just following a checklist blindly. We keep things easy to understand, we tell you what happens if something&apos;s missed, and we handle the parts you&apos;d rather not learn how to do yourself.
           </p>
         </div>
       </section>
 
-      {/* WHAT WE STAND FOR (Bento Grid Style) */}
+      {/* WHAT WE STAND FOR (Bento Grid Style Layout) */}
       <section className="mx-auto w-full max-w-6xl px-6 py-16 lg:py-24">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
@@ -110,35 +127,51 @@ export default function AboutPage() {
         
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-            <span className="text-xl font-bold text-accent mb-2 block">01</span>
-            <h3 className="font-display font-bold text-lg text-primary">Plain English, always.</h3>
+          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
+                <Eye className="w-4 h-4" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary">Transparency</h3>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               If we can&apos;t explain it simply, we haven&apos;t understood it well enough ourselves.
             </p>
           </div>
 
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-            <span className="text-xl font-bold text-accent mb-2 block">02</span>
-            <h3 className="font-display font-bold text-lg text-primary">Prevention over rescue.</h3>
+          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary">Prevention over rescue</h3>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               We&apos;d rather get you ahead of a deadline than help you recover from missing one.
             </p>
           </div>
 
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-            <span className="text-xl font-bold text-accent mb-2 block">03</span>
-            <h3 className="font-display font-bold text-lg text-primary">Honest about our lane.</h3>
+          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
+                <Compass className="w-4 h-4" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary">Built for where you actually are</h3>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Compliance consulting, not legal representation, and we&apos;ll tell you when you need the latter.
+              Whether you&apos;re three weeks or three years post-incorporation, the advice should fit your stage, not a generic template.
             </p>
           </div>
 
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
-            <span className="text-xl font-bold text-accent mb-2 block">04</span>
-            <h3 className="font-display font-bold text-lg text-primary">Built for where you are.</h3>
+          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
+                <Heart className="w-4 h-4" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary">People, not just paperwork</h3>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Whether you&apos;re three weeks or three years post-incorporation, the advice should fit your stage, not a generic template.
+              We&apos;m a small team that actually reads what you send us.
             </p>
           </div>
 
@@ -161,7 +194,7 @@ export default function AboutPage() {
             {/* Trust Signal Stamp Embedded Inside CTA */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-accent border border-white/10">
               <CheckCircle className="h-3.5 w-3.5" />
-              Registered with CAC Nigeria • RC: {siteConfig.rcNumber}
+          <a>we&apos;re here for you</a>
             </div>
 
             <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
@@ -173,14 +206,21 @@ export default function AboutPage() {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <a
-                href={whatsappLink("Hi The Startup Desk, I want to review my company's post-incorporation status.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-8 py-4 text-base font-bold text-white transition-all hover:bg-white/20"
-              >
-                <MessageCircle className="h-5 w-5 text-white transition-transform group-hover:rotate-12" />
-                Chat on WhatsApp
-              </a>
+  href={whatsappLink("Hi The Startup Desk, I want to review my company's post-incorporation status.")}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-8 py-4 text-base font-bold text-white transition-all hover:bg-white/20 hover:border-[#25D366]/40"
+>
+  {/* Official WhatsApp Branding SVG with Brand Green */}
+  <svg 
+    className="h-5 w-5 fill-current text-[#25D366] transition-transform group-hover:scale-110" 
+    viewBox="0 0 24 24" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+  Chat on WhatsApp
+</a>
             </div>
           </div>
         </div>

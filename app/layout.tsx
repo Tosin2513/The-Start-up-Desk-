@@ -18,8 +18,8 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {   
-  title: "The Startup Desk — Compliance without the fines",   
-  description: "We handle your CAC filings, tax registration, and regulatory paperwork so your startup stays compliant and fine-free.", 
+  title: "The Startup Desk; Compliance made easy.",   
+  description: "We handle your  regulatory paperwork so your startup stays compliant and fine-free.", 
 }
 
 export default function RootLayout({   

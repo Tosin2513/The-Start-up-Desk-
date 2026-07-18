@@ -16,7 +16,7 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "CAC & Incorporation",
     question: "How long does a standard corporate incorporation take in Nigeria?",
-    answer: "Typically, a standard limited liability company registration with the Corporate Affairs Commission (CAC) takes between 3 to 7 business days, provided all documentation, unique name reservations, and shareholder details are submitted correctly."
+    answer: "Typically, a standard limited liability company registration with the Corporate Affairs Commission (CAC) takes between 3 to 14 business days, provided all documentation are submitted correctly."
   },
   {
     category: "CAC & Incorporation",
@@ -36,7 +36,7 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "General",
     question: "What is the difference between a lawyer and your compliance desk?",
-    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory renewals faster, more efficiently, and at a fraction of the cost of a traditional law firm retainer."
+    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory compliance, more efficiently, and at a fraction of the cost of a traditional law firm retainer."
   },
   {
     category: "General",

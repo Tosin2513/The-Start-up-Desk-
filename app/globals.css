@@ -42,7 +42,7 @@
   --bg-current: #0b132b;             /* Core Dark Brand Canvas */
   --text-current: #f4f6f8;
   --primary-current: #4d9fff;        /* Lightened Blue for contrast */
-  --muted-text-current: #94a3b8;
+  --muted-text-current: #606f7b;
   --border-current: #1e293b;
   
   --accent-current: #f2c14e;         /* High-visibility Amber Accent */
@@ -96,7 +96,7 @@
 }
 
 .animate-fade-in-up {
-  opacity: 0;
+  opacity: 1;
   animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
