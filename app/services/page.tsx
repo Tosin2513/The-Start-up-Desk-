@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Services — The Startup Desk",
-  description: "CAC, FIRS, NDPA, sector licensing — whatever stage you're at, there's a clear path to getting compliant and staying that way.",
+  title: "Services: The Startup Desk",
+  description: "CAC, NAFDAC, NDPA, sector licensing; whatever stage you're at, there's a clear path to getting compliant and staying that way.",
 }
 
 const comparison = [
@@ -43,7 +43,7 @@ export default function ServicesPage() {
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
               style={{ animationDelay: "200ms" }}
             >
-              CAC, FIRS, NDPA, sector licensing &mdash; whatever stage you&apos;re at, there&apos;s a clear path to getting compliant and staying that way.
+              CAC, NAFDAC, NDPA, sector licensing; whatever stage you&apos;re at, there&apos;s a clear path to getting compliant and staying that way.
             </p>
           </div>
         </div>
@@ -62,14 +62,15 @@ export default function ServicesPage() {
                 Before you even get your CAC certificate, decisions get made that follow your company for years: structure, share allocation, and categories. Getting this right avoids expensive fixes later.
               </p>
               <ul className="mt-6 space-y-3 text-sm font-medium text-foreground border-t border-border/60 pt-6">
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Name availability &amp; reservation</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Structure &amp; share guidance</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Full CAC registration filing</li>
+                
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Structure Guidance</li>
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> CAC registration filing</li>
                 <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Post-registration roadmap</li>
               </ul>
             </div>
             <div className="mt-8 pt-4 border-t border-border/40">
               <p className="text-sm text-muted-foreground font-medium">From <span className="text-3xl font-extrabold text-primary">₦50,000</span></p>
+              <p className="text-xs italic text-muted-foreground mt-1"> *Fees start from ₦50,000 for Business Name registration</p>
               <a
                 href={whatsappLink("Hi, I'd like pricing for Pre-Incorporation services")}
                 target="_blank"
@@ -96,10 +97,10 @@ export default function ServicesPage() {
                 Getting your CAC certificate is the starting line. Statutory registers, tax registration, annual returns, and data protection setup all follow. Miss them, and penalties pile up.
               </p>
               <ul className="mt-6 space-y-3 text-sm font-medium text-foreground border-t border-border/60 pt-6">
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Tax registration (TIN)</li>
+              
                 <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Statutory registers setup</li>
                 <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Annual returns tracking &amp; filing</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> NDPA data protection basics</li>
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Data protection basics</li>
               </ul>
             </div>
             <div className="mt-8 pt-4 border-t border-border/40">
@@ -128,9 +129,9 @@ export default function ServicesPage() {
               </p>
               <ul className="mt-6 space-y-3 text-sm font-medium text-foreground border-t border-border/60 pt-6">
                 <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Sector-specific licensing guidance</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Employment &amp; HR compliance</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Full NDPA program builds</li>
-                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Investor-readiness audits</li>
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Employment compliance</li>
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Full program builds</li>
+                <li className="flex items-start gap-2.5"><CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" /> Readiness audits</li>
               </ul>
             </div>
             <div className="mt-8 pt-4 border-t border-border/40">
@@ -151,32 +152,16 @@ export default function ServicesPage() {
 
         </div>
       </section>
-
-      {/* COMPARISON STRIP */}
-      <section className="mx-auto w-full max-w-6xl px-6 py-4 lg:px-8">
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="p-4 font-medium text-muted-foreground" />
-                <th className="p-4 font-display font-bold text-primary">Pre-Incorporation</th>
-                <th className="p-4 font-display font-bold text-primary">Post-Incorporation</th>
-                <th className="p-4 font-display font-bold text-primary">Consulting</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/60 font-medium text-muted-foreground">
-              {comparison.map((row) => (
-                <tr key={row.label} className="hover:bg-muted/20 transition-colors">
-                  <td className="p-4 font-bold text-primary">{row.label}</td>
-                  <td className="p-4 text-foreground/90">{row.pre}</td>
-                  <td className="p-4 text-foreground/90">{row.post}</td>
-                  <td className="p-4 text-foreground/90">{row.advisory}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+{/* Tally Form Callout Band */}
+<div className="mx-auto mt-16 max-w-xl border border-dashed border-border/80 bg-white/40 dark:bg-card/40 p-8 rounded-2xl text-center space-y-4 backdrop-blur-sm">
+  <h3 className="font-display text-xl font-extrabold text-primary"OR</h3>
+  <p className="text-sm font-medium text-muted-foreground leading-relaxed max-w-md mx-auto">
+    Fill out our quick onboarding form below and our team will get back to you with a custom compliance checklist within 24 hours.
+  </p>
+  
+  {/* If your Tally form embeds inline automatically right below, this serves as the perfect structural anchor header! */}
+</div>
+      
 
       {/* STRATEGIC HYBRID INTAKE FORM (Embedded Tally Instance) */}
       <section className="mx-auto w-full max-w-xl px-6 py-16 lg:py-20">
