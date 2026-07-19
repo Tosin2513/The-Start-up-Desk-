@@ -199,7 +199,7 @@ export default function AboutPage() {
 
             <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
               <Link
-                href="/register"
+                href="/services"
                 className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-xl bg-accent px-8 py-4 text-base font-bold text-accent-foreground transition-all hover:bg-accent/90 shadow-sm"
               >
                 Get Started
