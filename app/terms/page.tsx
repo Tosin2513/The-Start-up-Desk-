@@ -1,19 +1,27 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function TermsOfServicePage() {
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-300 py-16 px-6 sm:px-8">
+    <main className="min-h-screen bg-background text-foreground py-16 px-6 sm:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
         
+        {/* Navigation Return Hook */}
+        <div className="flex items-center justify-between text-xs font-medium">
+          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+            ← Back to Home
+          </Link>
+          <span className="text-muted-foreground/60">Compliance Hub</span>
+        </div>
+
         {/* Header Section */}
-        <div className="border-b border-neutral-800 pb-6">
-          <h1 className="text-3xl font-bold text-white tracking-tight mb-2">TERMS OF SERVICE</h1>
-          <p className="text-sm text-neutral-500">LAST UPDATED: July 19, 2026</p>
-          <p className="text-xs text-neutral-400 mt-2 italic">Please read these Terms of Service carefully before using our Service.</p>
+        <div className="border-b border-border pb-6">
+          <h1 className="font-display text-3xl font-bold text-primary tracking-tight mb-2">TERMS OF SERVICE</h1>
+          <p className="text-sm text-muted-foreground">EFFECTIVE DATE: July 19, 2026</p>
         </div>
 
         {/* Policy Body */}
-        <div className="space-y-6 text-sm leading-relaxed">
+        <div className="space-y-6 text-sm leading-relaxed text-muted-foreground">
           
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">Interpretation &amp; Definitions</h2>
@@ -21,7 +29,7 @@ export default function TermsOfServicePage() {
             <p><strong>Definitions:</strong> For the purposes of these Terms of Service:</p>
             <ul className="list-disc pl-5 space-y-2 text-neutral-400">
               <li><strong>Account</strong> means access granted to you to engage with our services, whether via our website, WhatsApp, email, or in-person/virtual communication.</li>
-              <li><strong>Company</strong> (referred to as &ldquo;the Company,&rdquo; &ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) refers to The Startup Desk, a compliance consultancy (RC: 9668977).</li>
+              <li><strong>Company</strong> (referred to as &ldquo;the Company,&rdquo; &ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) refers to The Startup Desk, a compliance consultancy.</li>
               <li><strong>Country</strong> refers to Nigeria.</li>
               <li><strong>Content</strong> refers to text, documents, images, or other information posted, uploaded, or otherwise made available by you in connection with our services.</li>
               <li><strong>Service</strong> refers to the compliance consulting services offered by The Startup Desk, including our Launch, Monitoring, and Advisory tiers, our website, and our AI chat assistant.</li>
@@ -75,7 +83,7 @@ export default function TermsOfServicePage() {
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">6. Confidentiality</h2>
-            <p><strong>6.1</strong> All information you share with us in connection with our services will be treated as confidential and will not be disclosed to any third party except as described in our Privacy Policy, as required by law, or as necessary to fulfil regulatory filings on your behalf (e.g., submissions to CAC, FIRS, or NDPC).</p>
+            <p><strong>6.1</strong> All information you share with us in connection with our services will be treated as confidential and will not be disclosed to any third party except as described in our Privacy Policy, as required by law, or as necessary to fulfil regulatory filings on your behalf.</p>
             <p><strong>6.2</strong> This confidentiality obligation survives the conclusion of your engagement with us.</p>
           </section>
 

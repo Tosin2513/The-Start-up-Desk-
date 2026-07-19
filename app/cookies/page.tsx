@@ -1,18 +1,27 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function CookiePolicyPage() {
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-300 py-16 px-6 sm:px-8">
+    <main className="min-h-screen bg-background text-foreground py-16 px-6 sm:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
         
+        {/* Navigation Return Hook */}
+        <div className="flex items-center justify-between text-xs font-medium">
+          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+            ← Back to Home
+          </Link>
+          <span className="text-muted-foreground/60">Compliance Hub</span>
+        </div>
+
         {/* Header Section */}
-        <div className="border-b border-neutral-800 pb-6">
-          <h1 className="text-3xl font-bold text-white tracking-tight mb-2">COOKIE POLICY</h1>
-          <p className="text-sm text-neutral-500">EFFECTIVE DATE: July 19, 2026</p>
+        <div className="border-b border-border pb-6">
+          <h1 className="font-display text-3xl font-bold text-primary tracking-tight mb-2">COOKIE POLICY</h1>
+          <p className="text-sm text-muted-foreground">EFFECTIVE DATE: July 19, 2026</p>
         </div>
 
         {/* Policy Body */}
-        <div className="space-y-6 text-sm leading-relaxed">
+        <div className="space-y-6 text-sm leading-relaxed text-muted-foreground">
           
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">1. What This Policy Covers</h2>
@@ -22,7 +31,7 @@ export default function CookiePolicyPage() {
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">2. What Are Cookies</h2>
-            <p><strong>2.1</strong> Cookies are small text files placed on your device when you visit a website. They allow the site, or a trusted third party, to recognise your device and remember certain information about your visit &mdash; such as your interface preferences or how you navigated the site.</p>
+            <p><strong>2.1</strong> Cookies are small text files placed on your device when you visit a website. They allow the site, or a trusted third party, to recognise your device and remember certain information about your visit such as your interface preferences or how you navigated the site.</p>
           </section>
 
           <section className="space-y-3">
@@ -57,7 +66,7 @@ export default function CookiePolicyPage() {
               </table>
             </div>
 
-            <p className="pt-2"><strong>3.2</strong> These cookies help us understand how visitors use our website &mdash; for example, which pages are visited most, how long visitors stay, and how they arrive at our site. This information is aggregated and does not, by itself, identify you personally.</p>
+            <p className="pt-2"><strong>3.2</strong> These cookies help us understand how visitors use our website; for example, which pages are visited most, how long visitors stay, and how they arrive at our site. This information is aggregated and does not, by itself, identify you personally.</p>
             <p><strong>3.3</strong> We strictly do not use:</p>
             <ul className="list-disc pl-5 space-y-1 text-neutral-400">
               <li>Behavioral advertising or retargeting cookies</li>
@@ -68,26 +77,30 @@ export default function CookiePolicyPage() {
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">4. Other Infrastructure Processing</h2>
-            <p><strong>4.1 Infrastructure:</strong> Our website is hosted via Cloudflare, which may process technical request data (such as IP addresses) as part of standard web security and content delivery &mdash; this is infrastructure-level processing, not a cookie database, and does not track you across other external sites for marketing purposes.</p>
+            <p><strong>4.1 Infrastructure:</strong> Our website is hosted via Cloudflare, which may process technical request data (such as IP addresses) as part of standard web security and content delivery, this is infrastructure-level processing, not a cookie database, and does not track you across other external sites for marketing purposes.</p>
             <p><strong>4.2 AI Assistant:</strong> If you interact with our AI chat assistant (powered by AssistLoop), it may use session-based technical identifiers to maintain your active conversation sequence. This data is used solely to operate the live chat engine window.</p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">5. Your Choices</h2>
-            <p><strong>5.1 Controls:</strong> You can control or disable cookies at any time through your browser settings. Most browsers allow you to:</p>
+            <p><strong>5.1 Controls:</strong> You can control or disable cookies at any time through your browser settings. Most modern browsers allow you to:</p>
             <ul className="list-disc pl-5 space-y-1 text-neutral-400">
               <li>View what cookies are actively stored on your physical device</li>
               <li>Delete cookies individually or purge them entirely</li>
               <li>Block cookies from specific or all websites going forward</li>
             </ul>
-            <p><strong>5.2 Non-Discrimination:</strong> If you disable analytics cookies, our website will continue to function normally &mdash; you will not lose access to any content, forms, or consultancy tiers. You will simply no longer be included in our anonymised usage analytics models.</p>
-            <p><strong>5.3</strong> Because we do not use cookies for advertising, marketing, or cross-site profiling tracking, there is no &ldquo;personalised experience&rdquo; layout you would lose by disabling them.</p>
+            <p><strong>5.2 Non-Discrimination:</strong> If you disable analytics cookies, our website will continue to function normally; you will not lose access to any content, forms, or consultancy tiers. You will simply no longer be included in our anonymised usage analytics models.</p>
+            <p><strong>5.3 Advertising Disclaimer:</strong> Because we do not use cookies for advertising, marketing, or cross-site profiling tracking, there is no &ldquo;personalised experience&rdquo; layout you would lose by disabling them.</p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">6. Consent Framework</h2>
-            <p><strong>6.1</strong> By continuing to browse this website, you consent to our use of analytics cookies as described above.</p>
-            <p><strong>6.2</strong> If you do not consent, please disable cookies in your browser panel before continuing to use the site, per the details in Section 5.</p>
+            <p><strong>6.1 Explicit Choice:</strong> Consent on our platform is granted strictly through explicit, affirmative action. When you first visit our website, you will be presented with a cookie consent banner.</p>
+            <ul className="list-disc pl-5 space-y-1 text-neutral-400">
+              <li><strong>Accepting</strong> the banner authorizes Google Analytics to deploy cookies and analyze your anonymized session data.</li>
+              <li><strong>Declining or ignoring the banner</strong> restricts tracking entirely; our analytics engine will remain in an absolute idle state, and no persistent tracking cookies will be stored on your device.</li>
+            </ul>
+            <p><strong>6.2 Revocation:</strong> You may revoke or modify your consent at any time. To do so, simply clear your browser's cache and site cookies, which will remove your stored preference and force the consent choices to reappear upon your next visit.</p>
           </section>
 
           <section className="space-y-3">

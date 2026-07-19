@@ -1,19 +1,27 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-300 py-16 px-6 sm:px-8">
+    <main className="min-h-screen bg-background text-foreground py-16 px-6 sm:px-8">
       <div className="max-w-3xl mx-auto space-y-8">
         
+        {/* Navigation Return Hook */}
+        <div className="flex items-center justify-between text-xs font-medium">
+          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+            ← Back to Home
+          </Link>
+          <span className="text-muted-foreground/60">Compliance Hub</span>
+        </div>
+
         {/* Header Section */}
-        <div className="border-b border-neutral-800 pb-6">
-          <h1 className="text-3xl font-bold text-white tracking-tight mb-2">PRIVACY POLICY</h1>
-          <p className="text-sm text-neutral-500">EFFECTIVE DATE: July 19, 2026</p>
+        <div className="border-b border-border pb-6">
+          <h1 className="font-display text-3xl font-bold text-primary tracking-tight mb-2">PRIVACY POLICY</h1>
+          <p className="text-sm text-muted-foreground">EFFECTIVE DATE: July 19, 2026</p>
         </div>
 
         {/* Policy Body */}
-        <div className="space-y-6 text-sm leading-relaxed">
-          
+        <div className="space-y-6 text-sm leading-relaxed text-muted-foreground"> 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">1. Our Approach to Privacy</h2>
             <p><strong>1.1</strong> The Startup Desk (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This privacy policy sets out how we collect, store, process, transfer, share, and use data that identifies or is associated with you (&ldquo;personal information&rdquo;), and our use of cookies.</p>
@@ -38,12 +46,12 @@ export default function PrivacyPolicyPage() {
             <p><strong>3.3 Legal Protections:</strong> We may disclose personal information to comply with a legal obligation, enforce our Terms of Service, or protect the rights, property, or safety of The Startup Desk or our clients.</p>
             <p><strong>3.4 Third-Party Sub-processors:</strong> We work with a limited number of trusted third-party service providers who process personal data on our behalf:</p>
             <ul className="list-disc pl-5 space-y-1 text-neutral-400">
-              <li>Cloudflare &mdash; Website hosting, performance, and security infrastructure.</li>
-              <li>Zoho Mail &mdash; Secure corporate business email communications.</li>
-              <li>Tally.so / Formspree &mdash; Client intake and enquiry form processing.</li>
-              <li>Paystack &mdash; Secure payment processing (we do not process or store your card details).</li>
-              <li>AssistLoop AI &mdash; Our AI-powered web chat assistant (see Section 9).</li>
-              <li>Google Analytics &mdash; Anonymous website usage analytics (see Section 8).</li>
+              <li>Cloudflare: Website hosting, performance, and security infrastructure.</li>
+              <li>Zoho Mail: Secure corporate business email communications.</li>
+              <li>Tally.so / Formspree: Client intake and enquiry form processing.</li>
+              <li>Secure payment processing (we do not process or store your card details).</li>
+              <li>AssistLoop AI: Our AI-powered web chat assistant (see Section 9).</li>
+              <li>Google Analytics: Anonymous website usage analytics (see Section 8).</li>
             </ul>
           </section>
 
@@ -86,7 +94,7 @@ export default function PrivacyPolicyPage() {
 
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-white">8. Cookies and Tracking Tools</h2>
-            <p><strong>8.1 Analytics:</strong> Our website uses Google Analytics, which sets cookies (including _ga and _gid) to help us understand how visitors interact with our site &mdash; such as pages visited, traffic channels, and general usage patterns. These cookies do not, by themselves, identify you personally.</p>
+            <p><strong>8.1 Analytics:</strong> Our website uses Google Analytics, which sets cookies (including _ga and _gid) to help us understand how visitors interact with our site, such as pages visited, traffic channels, and general usage patterns. These cookies do not, by themselves, identify you personally.</p>
             <p><strong>8.2 First-Party Data Processing:</strong> To optimize performance and privacy, our tracking tags are served via a first-party Google Tag Gateway managed securely through Cloudflare. This ensures that analytics data is proxied directly via our domain framework rather than allowing direct third-party script intervention on your device.</p>
             <p><strong>8.3 Management:</strong> By continuing to use this website, you acknowledge and consent to this use of analytics cookies. You can disable cookies at any time via your browser settings. Doing so will not prevent you from contacting us or accessing our core services. <strong>See our full <a href="/cookies" className="text-blue-400 hover:underline">Cookie Policy</a> for complete management details.</strong></p>
             <p><strong>8.4</strong> We do not use third-party behavioral advertising cookies on this website.</p>
@@ -117,7 +125,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Annex 1 Table */}
           <div className="pt-6 space-y-2">
-            <h3 className="text-md font-bold text-white uppercase tracking-wider text-xs">ANNEX 1 &mdash; Information You Provide Directly</h3>
+            <h3 className="text-md font-bold text-white uppercase tracking-wider text-xs">ANNEX 1 - Information You Provide Directly</h3>
             <div className="overflow-x-auto border border-neutral-800 rounded-lg">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
@@ -155,9 +163,9 @@ export default function PrivacyPolicyPage() {
                   </tr>
                   <tr>
                     <td className="p-3 font-medium text-white">Payment Info</td>
-                    <td className="p-3">Processing service payments (via Paystack)</td>
+                    <td className="p-3">Processing service payments (via Payment Processors)</td>
                     <td className="p-3">Performance of a Contract</td>
-                    <td className="p-3">Per Paystack terms (we don&rsquo;t store cards)</td>
+                    <td className="p-3">Per the payment processors terms (we don&rsquo;t store cards)</td>
                   </tr>
                   <tr className="bg-neutral-900/40">
                     <td className="p-3 font-medium text-white">Leads Data</td>
@@ -172,7 +180,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Annex 2 Table */}
           <div className="pt-4 space-y-2">
-            <h3 className="text-md font-bold text-white uppercase tracking-wider text-xs">ANNEX 2 &mdash; Information Collected Automatically</h3>
+            <h3 className="text-md font-bold text-white uppercase tracking-wider text-xs">ANNEX 2 - Information Collected Automatically</h3>
             <div className="overflow-x-auto border border-neutral-800 rounded-lg">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
