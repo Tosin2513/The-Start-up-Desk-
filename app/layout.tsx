@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import type { Metadata } from "next" 
 import { Inter, Space_Grotesk } from "next/font/google" 
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -45,7 +45,19 @@ export default function RootLayout({
           <SpeedInsights />
           <Analytics />
         </ThemeProvider>
-<GoogleAnalytics gaId="G-MY119FWLRP" />
+<Script
+  src="https://www.googletagmanager.com/gtag/js?id=G-MY119FWLRP"
+  strategy="afterInteractive"
+/>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MY119FWLRP');
+  `}
+</Script>
+
       </body>     
     </html> 
   )
