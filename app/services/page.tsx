@@ -135,7 +135,7 @@ export default function ServicesPage() {
               </ul>
             </div>
             <div className="mt-8 pt-4 border-t border-border/40">
-              <p className="text-sm text-muted-foreground font-medium">Pricing: <span className="text-3xl font-extrabold text-primary">Custom Scope</span></p>
+              <p className="text-sm text-muted-foreground font-medium"> <span className="text-3xl font-extrabold text-primary">Custom Scope</span></p>
               <a
                 href={whatsappLink("Hi, I'd like to discuss Business Consulting for my company")}
                 target="_blank"
@@ -154,11 +154,7 @@ export default function ServicesPage() {
       </section>
 {/* Tally Form Callout Band */}
 <div className="mx-auto mt-16 max-w-xl border border-dashed border-border/80 bg-white/40 dark:bg-card/40 p-8 rounded-2xl text-center space-y-4 backdrop-blur-sm">
-  <h3 className="font-display text-xl font-extrabold text-primary"> OR</h3>
-  <p className="text-sm font-medium text-muted-foreground leading-relaxed max-w-md mx-auto">
-    Prefer email or formal proposals over chat? Share your business parameters via our secure form. 
-  </p>
-  
+  <h3 className="font-display text-xl font-extrabold text-primary"> Prefer email or formal proposals over chat? Share your business parameters via our secure form. </h3> 
   {/* If your Tally form embeds inline automatically right below, this serves as the perfect structural anchor header! */}
 </div>
         {/* STRATEGIC HYBRID INTAKE FORM (Embedded Tally Instance) */}
