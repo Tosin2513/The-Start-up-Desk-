@@ -50,7 +50,7 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "Data Privacy",
     question: "Is my information shared with any third parties (e.g. CAC, FIRS)?",
-    answer: "We only share your metrics and documentation with official regulatory commissions—such as the Corporate Affairs Commission (CAC) and the Federal Inland Revenue Service (FIRS)—solely to execute the legal filing sequences you purchase. We never sell, lease, or distribute your startup’s assets or data pipelines to commercial third parties."
+    answer: "We only share your metrics and documentation with official regulatory commissions such as the Corporate Affairs Commission (CAC) and the Federal Inland Revenue Service (FIRS) solely to execute the legal filing sequences you purchase. We never sell, lease, or distribute your startup’s assets or data pipelines to commercial third parties."
   },
   {
     category: "Data Privacy",
@@ -81,12 +81,12 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "Billing & Refund",
     question: "Can I cancel my Monitoring subscription anytime?",
-    answer: "Absolutely. Our recurring compliance monitoring plans operate on an un-bonded, monthly or annual rolling schedule. You can deactivate your subscription at any point from your profile settings with zero cancelation fees or lock-in penalties, and your coverage will stay active until the end of your current paid billing phase."
+    answer: " Our recurring compliance monitoring plans operate on an un-bonded, monthly or annual rolling schedule. You can deactivate your subscription at any point from your profile settings with zero cancelation fees or lock-in penalties, and your coverage will stay active until the end of your current paid billing phase."
   },
   {
     category: "General",
     question: "What is the difference between a lawyer and your compliance desk?",
-    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory compliance, more efficiently, and at a fraction of the cost of a traditional law firm retainer."
+    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory compliance."
   },
   {
     category: "General",
