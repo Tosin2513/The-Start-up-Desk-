@@ -37,11 +37,6 @@ export function SiteFooter() {
               <li><Link href="/about" className="text-muted-foreground transition-colors hover:text-primary">About</Link></li>
               <li><Link href="/resources" className="text-muted-foreground transition-colors hover:text-primary">Resources Hub</Link></li>
               <li><Link href="/faq" className="text-muted-foreground transition-colors hover:text-primary">FAQ</Link></li>
-              <li><Link href="/privacy">Privacy Policy</Link></li>
-<li><Link href="/cookies">Cookie Policy</Link></li>
-<li><Link href="/terms">Terms of Service</Link></li>
-<li><Link href="/disclosure">Regulatory Disclosures</Link></li>
-<li><Link href="/refund-policy">Refund & Cancellation Policy</Link></li>
             </ul>
           </div>
 
