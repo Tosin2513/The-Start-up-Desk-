@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from "next" 
 import { Inter, Space_Grotesk } from "next/font/google" 
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -44,6 +45,7 @@ export default function RootLayout({
           <SpeedInsights />
           <Analytics />
         </ThemeProvider>
+<GoogleAnalytics gaId="G-MY119FWLRP" />
       </body>     
     </html> 
   )
