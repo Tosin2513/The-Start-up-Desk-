@@ -12,7 +12,7 @@ export function SiteFooter() {
             <Link href="/" className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <Image 
-                  src="/Logo.svg" 
+                  src="/Logo.png" 
                   alt="Logo" 
                   width={20} 
                   height={20} 
@@ -35,6 +35,11 @@ export function SiteFooter() {
               <li><Link href="/about" className="text-muted-foreground transition-colors hover:text-primary">About</Link></li>
               <li><Link href="/resources" className="text-muted-foreground transition-colors hover:text-primary">Resources Hub</Link></li>
               <li><Link href="/faq" className="text-muted-foreground transition-colors hover:text-primary">FAQ</Link></li>
+              <li><Link href="/privacy">Privacy Policy</Link></li>
+<li><Link href="/cookies">Cookie Policy</Link></li>
+<li><Link href="/terms">Terms of Service</Link></li>
+<li><Link href="/disclosure">Regulatory Disclosures</Link></li>
+<li><Link href="/refund-policy">Refund & Cancellation Policy</Link></li>
             </ul>
           </div>
 <div>
