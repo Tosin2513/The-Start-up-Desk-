@@ -1,232 +1,240 @@
+"use client"
+
+import * as React from "react"
+import Script from "next/script"
 import Link from "next/link"
-import { ShieldCheck, ArrowRight, MessageCircle, Compass, CheckCircle, Eye, Heart } from "lucide-react"
+import { ArrowRight, Mail, Bot, MessageSquare, Clock, ShieldCheck, HelpCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { whatsappLink, siteConfig } from "@/lib/site"
-import Image from "next/image"
-export const metadata = {
-  title: "About Us | The Startup Desk",
-  description: "We started The Startup Desk because compliance shouldn't be the reason a good business fails.",
+import { whatsappLink } from "@/lib/site"
+
+// Declare global interface for AssistLoop & Tally initializers
+declare global {
+  interface Window {
+    AssistLoopWidget?: {
+      init: (config: { agentId?: string }) => void
+    }
+    Tally?: {
+      loadEmbeds: () => void
+    }
+  }
 }
 
-export default function AboutPage() {
+export default function ContactPage() {
+  const [showAiBot, setShowAiBot] = React.useState(false)
+
+  // Trigger Tally to re-parse data attribute embeds once DOM is fully responsive
+  const handleTallyLoad = () => {
+    if (typeof window.Tally !== "undefined") {
+      window.Tally.loadEmbeds()
+    } else {
+      const d = document;
+      const w = "https://tally.so/widgets/embed.js";
+      if (d.querySelector(`script[src="${w}"]`) === null) {
+        const s = d.createElement("script");
+        s.src = w;
+        s.onload = () => window.Tally?.loadEmbeds();
+        s.onerror = () => window.Tally?.loadEmbeds();
+        d.body.appendChild(s);
+      }
+    }
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
-      
-      {/* Dynamic Animated Backdrop Section */}
-      <div className="relative overflow-hidden animate-silk py-6 border-b border-border/40">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white/10 backdrop-blur-[1px]" />
-        
-        <div className="relative mx-auto w-full max-w-6xl px-6 lg:px-8">
-          <SiteHeader />
+      {/* AssistLoop Script Loader */}
+      <Script
+        src="https://assistloop.ai/assistloop-widget.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          window.AssistLoopWidget?.init({
+            agentId: process.env.NEXT_PUBLIC_ASSISTLOOP_AGENT_ID,
+          });
+        }}
+      />
 
-          {/* PAGE HEADER */}
-          <div className="mx-auto max-w-3xl py-16 text-center md:py-24">
-            <span className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-accent/20 bg-white/90 backdrop-blur-md px-4 py-2 text-xs font-bold tracking-wider text-accent">
-              Our Mission
-            </span>
-            <h1 
-              className="animate-fade-in-up mt-6 font-display text-4xl font-extrabold leading-[1.1] tracking-tight text-primary sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "100ms" }}
-            >
-              We started The Startup Desk because compliance shouldn&apos;t be the reason a good business fails.
-            </h1>
-            <p 
-              className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
-              style={{ animationDelay: "200ms" }}
-            >
-              Not because founders don&apos;t care because nobody hands you the manual.
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Tally Embedded Script Loader */}
+      <Script 
+        src="https://tally.so/widgets/embed.js"
+        strategy="afterInteractive"
+        onLoad={handleTallyLoad}
+      />
 
-      {/* THE GAP & MEET THE FOUNDER (Two-Column Interactive Block) */}
-      <section className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+      <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
+        <SiteHeader />
+
+        {/* 1. PAGE HEADER */}
+        <section className="py-12 md:py-16 text-center max-w-3xl mx-auto space-y-4">
+          <span className="inline-block bg-muted text-primary text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md">
+            Get in touch
+          </span>
+          <h1 className="font-display text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
+            Still figuring things out? Let&apos;s talk.
+          </h1>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Choose whichever path works best for you. Reach our team directly, access our interactive assistant, or leave a detailed brief below.
+          </p>
+        </section>
+
+        {/* 2. THE THREE EQUAL-WEIGHT PLATFORM TILES */}
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto mb-16">
           
-          {/* Column 1: The Gap Nobody Warns You About */}
-          <div className="space-y-6">
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-              <Compass className="h-5 w-5" />
+          {/* Card A: WhatsApp */}
+          <a 
+            href={whatsappLink("Hi, I wanted to reach out regarding company compliance assistance.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group border border-border bg-card p-6 rounded-2xl flex flex-col justify-between hover:border-primary/20 transition-all hover:shadow-md"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-[#25D366]/10 flex items-center justify-center mb-4 shrink-0">
+                <svg 
+                  className="h-5 w-5 fill-current text-[#25D366] transition-transform group-hover:scale-110" 
+                  viewBox="0 0 24 24" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">Instant WhatsApp</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Fastest way to reach us for quick questions or to sync directly with a team member.
+              </p>
             </div>
-            <h2 className="font-display text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
-              The gap nobody warns you about
-            </h2>
-            <div className="text-base md:text-lg leading-relaxed text-muted-foreground space-y-4">
-              <p>
-                Getting your CAC certificate feels like the finish line. It&apos;s actually the starting line. What comes after annual returns, tax registration, statutory registers, data protection rules rarely gets explained clearly, and even more rarely gets explained in time.
-              </p>
-              <p className="border-l-4 border-accent pl-4 font-medium text-primary bg-muted/40 py-2 rounded-r-xl">
-                We&apos;ve sat across from founders who did everything right at incorporation and still got caught out eighteen months later by a filing they didn&apos;t know existed. Not because they were careless. Because nobody told them, and Google gives you ten different half-answers.
-              </p>
-              <p className="font-semibold text-primary">
-                The Startup Desk exists to close that gap before it becomes a problem instead of after.
-              </p>
+            <div className="mt-6 flex items-center gap-1 text-xs font-bold text-accent">
+              Chat Now <ArrowRight className="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" />
             </div>
-          </div>
+          </a>
 
-          {/* Column 2: Meet The Founder */}
-          {/* Column 2: Meet The Founder */}
-          <div className="space-y-6 lg:p-8 lg:bg-muted/30 lg:rounded-3xl lg:border lg:border-border/60">
-            <div className="flex items-center gap-6">
-              {/* Profile Avatar Outer Pulse Ring */}
-              <div className="relative w-20 h-20 rounded-full bg-gradient-to-tr from-accent/20 to-accent/40 flex items-center justify-center p-1 shadow-inner border border-accent/20 flex-shrink-0">
-                <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden relative">
-                  <Image src="/Founder.png" 
-                    alt="Oluwatosin Emabino"
-                    fill
-                    className="object-cover"
-                    sizes="80px"
-                    priority
-                  />
+          {/* Card B: Direct Professional Email */}
+          <a 
+            href="mailto:hello@thestartupdesk.com.ng"
+            className="group border border-border bg-card p-6 rounded-2xl flex flex-col justify-between hover:border-primary/20 transition-all hover:shadow-md"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4 shrink-0">
+                <Mail className="h-5 w-5" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">Official Email</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Send briefs, share records, or get responses for complicated documentation requirements.
+              </p>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-xs font-bold text-accent">
+              hello@thestartupdesk.com.ng <ArrowRight className="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" />
+            </div>
+          </a>
+
+          {/* Card C: Interactive AI Desk Assistant */}
+          <button 
+            onClick={() => setShowAiBot(!showAiBot)}
+            className="group text-left border border-border bg-card p-6 rounded-2xl flex flex-col justify-between hover:border-primary/20 transition-all hover:shadow-md cursor-pointer animate-none bg-transparent w-full"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 shrink-0">
+                <Bot className="h-5 w-5" />
+              </div>
+              <h3 className="font-display font-bold text-lg text-primary group-hover:text-accent transition-colors">Compliance Desk Bot</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Ask about pricing structures, tiers, rules, or anything related to immediate operations.
+              </p>
+            </div>
+            <div className="mt-6 flex items-center gap-1 text-xs font-bold text-accent">
+              {showAiBot ? "Hide Chat Interface" : "Open Assistant Panel"} <ArrowRight className="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" />
+            </div>
+          </button>
+
+        </section>
+
+        {/* 3. DYNAMIC AI COMPONENT CONTAINER */}
+        {showAiBot && (
+          <section className="max-w-5xl mx-auto mb-16 border border-border bg-muted/20 p-2 rounded-3xl overflow-hidden shadow-inner">
+            <div 
+              id="assistloop-widget-container" 
+              className="w-full rounded-2xl bg-background min-h-[450px]"
+            />
+          </section>
+        )}
+
+        {/* 4. SPLIT GRID FOR DESK DETAILS & INLINE TALLY EMBED */}
+        <section className="grid gap-8 lg:grid-cols-12 items-start max-w-5xl mx-auto mb-20">
+      
+          {/* Left Side (5 Cols): Support Times, SLA Benchmarks, Compliance Note */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="border border-border/80 bg-card p-6 rounded-2xl space-y-6">
+              <h2 className="font-display text-xl font-extrabold text-primary flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-accent" /> Intake Processing
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/30 transition-colors">
+                  <div className="p-3 bg-accent/10 text-accent rounded-xl shrink-0">
+                    <MessageSquare className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-primary">Onboarding Flow</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">Your form data generates a custom timeline and legal assessment.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl border border-dashed border-border/80 bg-muted/10">
+                  <div className="p-3 bg-primary/10 text-primary rounded-xl shrink-0">
+                    <Clock className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-primary">Response SLA</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                      Active Desk Hours: Monday - Friday (9am - 5pm WAT). Brief responses processed within 24 business hours.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-accent block mb-1">Founder</span>
-                <h2 className="font-display text-2xl font-extrabold tracking-tight text-primary">
-                  Started by someone who&apos;s been in the room
-                </h2>
-              </div>
             </div>
-            
-            <div className="text-base leading-relaxed text-muted-foreground space-y-4">
-              <p>
-                The Startup Desk is founded by Oluwatosin Emabino, who built this after working around legal compliance work and watching the same pattern repeat, good founders, solid businesses, getting caught out by paperwork nobody explained to them in time.
-              </p>
-              <p>
-                That experience shapes how we work: easy to understand, prevention over rescue, and being upfront about what we do and don&apos;t handle so you always know exactly where you stand.
+
+            {/* Disclaimer */}
+            <div className="p-5 border border-border/60 bg-muted/10 rounded-xl flex items-start gap-3">
+              <HelpCircle className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                By submitting our onboarding questionnaire, you authorize The Startup Desk to review your provided corporate metrics to formulate an actionable regulatory compliance assessment.
               </p>
             </div>
-          </div> {/* This closes Column 2 */}
+          </div>
 
-        </div> {/* This closes the grid wrapper */}
-      </section> {/* This closes the entire section */}
+          {/* Right Side (7 Cols): Inline Embedded Tally Form */}
+          <div className="border border-border/80 bg-white dark:bg-card rounded-2xl lg:col-span-7 overflow-hidden shadow-sm relative h-[650px]">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
             
+            <iframe 
+              src="https://tally.so/embed/44D4qk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+              data-tally-src="https://tally.so/embed/44D4qk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+              loading="lazy" 
+              width="100%" 
+              height="100%" 
+              style={{ border: "none" }}
+              title="Contact Page Intake"
+            />
+          </div>
 
-      {/* HOW WE WORK BLOCK */}
-      <section className="bg-primary text-primary-foreground py-16 lg:py-20 relative overflow-hidden">
-        <div aria-hidden="true" className="absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-accent/10 blur-2xl" />
-        <div className="mx-auto max-w-4xl px-6 text-center relative">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
-            Just what&apos;s actually required.
-          </h2>
-          <p className="mt-6 text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto">
-            We explain the <span className="text-accent font-bold">why</span> behind every requirement, not just the what, because founders who understand the stakes make better decisions than founders who are just following a checklist blindly. We keep things easy to understand, we tell you what happens if something&apos;s missed, and we handle the parts you&apos;d rather not learn how to do yourself.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      {/* WHAT WE STAND FOR (Bento Grid Style Layout) */}
-      <section className="mx-auto w-full max-w-6xl px-6 py-16 lg:py-24">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
-            What we stand for
-          </h2>
-        </div>
-        
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-            <div>
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <Eye className="w-4 h-4" />
-              </div>
-              <h3 className="font-display font-bold text-lg text-primary">Transparency</h3>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              If we can&apos;t explain it simply, we haven&apos;t understood it well enough ourselves.
+        {/* 5. REDIRECT FOOTER AREA */}
+        <section className="bg-primary text-white p-8 md:p-10 rounded-3xl max-w-5xl mx-auto text-center space-y-4 mb-16 shadow-md">
+          <div className="space-y-1">
+            <h3 className="font-display text-xl font-bold">Already know what package fits?</h3>
+            <p className="text-xs text-white/70 max-w-md mx-auto leading-relaxed">
+              Skip setup adjustments entirely and browse structured post-incorporation solutions directly.
             </p>
           </div>
+          <Link 
+            href="/services" 
+            className="group inline-flex items-center gap-1.5 bg-accent text-accent-foreground font-bold text-xs px-5 py-3 rounded-xl shadow-sm hover:brightness-105 transition-all"
+          >
+            Explore Services <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </section>
 
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-            <div>
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <h3 className="font-display font-bold text-lg text-primary">Prevention over rescue</h3>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              We&apos;d rather get you ahead of a deadline than help you recover from missing one.
-            </p>
-          </div>
-
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-            <div>
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <Compass className="w-4 h-4" />
-              </div>
-              <h3 className="font-display font-bold text-lg text-primary">Built for where you actually are</h3>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Whether you&apos;re three weeks or three years post-incorporation, the advice should fit your stage, not a generic template.
-            </p>
-          </div>
-
-          <div className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-            <div>
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4">
-                <Heart className="w-4 h-4" />
-              </div>
-              <h3 className="font-display font-bold text-lg text-primary">People, not just paperwork</h3>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              We&apos;m a small team that actually reads what you send us.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* CLOSING CTA */}
-      <section className="mx-auto w-full max-w-6xl px-6 pb-24 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary/95 px-6 py-14 text-center text-primary-foreground shadow-2xl md:px-12">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-            <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/10 blur-xl" />
-            <div className="absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-white/5 blur-lg" />
-          </div>
-          
-          <div className="relative max-w-2xl mx-auto space-y-6">
-            <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
-              Ready to stop guessing what&apos;s required?
-            </h2>
-            
-            {/* Trust Signal Stamp Embedded Inside CTA */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide text-accent border border-white/10">
-              <CheckCircle className="h-3.5 w-3.5" />
-          <a>we&apos;re here for you</a>
-            </div>
-
-            <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
-              <Link
-                href="/services"
-                className="group relative inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-xl bg-accent px-8 py-4 text-base font-bold text-accent-foreground transition-all hover:bg-accent/90 shadow-sm"
-              >
-                Get Started
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <a
-  href={whatsappLink("Hi The Startup Desk, I want to review my company's post-incorporation status.")}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm px-8 py-4 text-base font-bold text-white transition-all hover:bg-white/20 hover:border-[#25D366]/40"
->
-  {/* Official WhatsApp Branding SVG with Brand Green */}
-  <svg 
-    className="h-5 w-5 fill-current text-[#25D366] transition-transform group-hover:scale-110" 
-    viewBox="0 0 24 24" 
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-  </svg>
-  Chat on WhatsApp
-</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      </div>
       <SiteFooter />
     </main>
   )
-}
+            }
