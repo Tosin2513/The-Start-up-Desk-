@@ -154,22 +154,20 @@ export default function ServicesPage() {
       </section>
 {/* Tally Form Callout Band */}
 <div className="mx-auto mt-16 max-w-xl border border-dashed border-border/80 bg-white/40 dark:bg-card/40 p-8 rounded-2xl text-center space-y-4 backdrop-blur-sm">
-  <h3 className="font-display text-xl font-extrabold text-primary"OR</h3>
+  <h3 className="font-display text-xl font-extrabold text-primary"> OR</h3>
   <p className="text-sm font-medium text-muted-foreground leading-relaxed max-w-md mx-auto">
-    Fill out our quick onboarding form below and our team will get back to you with a custom compliance checklist within 24 hours.
+    Prefer email or formal proposals over chat? Share your business parameters via our secure form. 
   </p>
   
   {/* If your Tally form embeds inline automatically right below, this serves as the perfect structural anchor header! */}
 </div>
-      
-
-      {/* STRATEGIC HYBRID INTAKE FORM (Embedded Tally Instance) */}
+        {/* STRATEGIC HYBRID INTAKE FORM (Embedded Tally Instance) */}
       <section className="mx-auto w-full max-w-xl px-6 py-16 lg:py-20">
         <div className="bg-card border border-border p-8 rounded-3xl shadow-sm space-y-6">
           <div className="text-center space-y-2">
-            <h2 className="font-display text-2xl font-extrabold tracking-tight text-primary">Request a Custom Compliance Briefing</h2>
+            <h2 className="font-display text-2xl font-extrabold tracking-tight text-primary">Request a Compliance Briefing</h2>
             <p className="text-xs text-muted-foreground font-medium max-w-sm mx-auto"> 
-              Prefer email or formal proposals over chat? Share your business parameters via our secure form. 
+              Fill out our quick onboarding form below and our team will get back to you within 24 hours.
             </p>
           </div>
 
@@ -191,10 +189,10 @@ export default function ServicesPage() {
       <section className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
         <div className="mx-auto max-w-3xl rounded-3xl border border-border/80 bg-muted/30 p-8 text-center md:p-12 backdrop-blur-sm">
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-primary">
-            Not a law firm.
+            
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground font-medium">
-            The Startup Desk is a compliance consultancy &mdash; we handle filings, documentation, and regulatory guidance. For anything that requires actual legal representation, we&apos;ll point you to a licensed lawyer we trust. Most of what trips founders up isn&apos;t a legal battle, it&apos;s paperwork done wrong or filed late. That&apos;s what we fix.
+            The Startup Desk is a compliance consultancy; we handle filings, documentation, and regulatory guidance. For anything that requires actual legal representation, we&apos;ll point you to a licensed lawyer we trust. Most of what trips founders up isn&apos;t a legal battle, it&apos;s paperwork done wrong or filed late. That&apos;s what we fix.
           </p>
         </div>
       </section>
@@ -217,7 +215,7 @@ export default function ServicesPage() {
             
             <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
               <a
-                href={whatsappLink("Hi, I'm not sure which service fits my business — can you help?")}
+                href={whatsappLink("Hi, I'm not sure which service fits my business,can you help?")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-[#25D366] px-8 py-4 text-base font-bold text-white shadow-sm transition-all hover:bg-[#20ba5a]"
