@@ -1,7 +1,5 @@
 import type { Metadata } from "next" 
 import { Inter, Space_Grotesk } from "next/font/google" 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
@@ -40,9 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <SpeedInsights />
-          <Analytics />
+          {children}  
         </ThemeProvider>
       </body>     
     </html> 

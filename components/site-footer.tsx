@@ -37,16 +37,16 @@ export function SiteFooter() {
               <li><Link href="/faq" className="text-muted-foreground transition-colors hover:text-primary">FAQ</Link></li>
             </ul>
           </div>
-
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">Legal &amp; Compliance</p>
-            <ul className="mt-4 flex flex-col gap-3 text-xs font-semibold">
-              <li><Link href="/privacy" className="text-muted-foreground transition-colors hover:text-primary">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="text-muted-foreground transition-colors hover:text-primary">Terms of Service</Link></li>
-              <li><Link href="/disclosures" className="text-muted-foreground transition-colors hover:text-primary">Regulatory Disclosures</Link></li>
-            </ul>
-          </div>
-
+<div>
+  <p className="text-xs font-bold uppercase tracking-wider text-primary">Legal &amp; Compliance</p>
+  <ul className="mt-4 flex flex-col gap-3 text-xs font-semibold">
+    <li><Link href="/privacy" className="text-muted-foreground transition-colors hover:text-primary">Privacy Policy</Link></li>
+    <li><Link href="/cookies" className="text-muted-foreground transition-colors hover:text-primary">Cookie Policy</Link></li>
+    <li><Link href="/terms" className="text-muted-foreground transition-colors hover:text-primary">Terms of Service</Link></li>
+    <li><Link href="/disclosures" className="text-muted-foreground transition-colors hover:text-primary">Regulatory Disclosures</Link></li>
+  </ul>
+</div>
+        
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-primary">Get in touch</p>
             <ul className="mt-4 flex flex-col gap-4 text-xs font-semibold">
@@ -92,9 +92,8 @@ export function SiteFooter() {
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.name}. We&apos;re here for you.
           </p>
-          <p className="bg-muted px-2.5 py-1 rounded-md border border-border/60"> {siteConfig.rcNumber}</p>
         </div>
       </div>
-    </footer>
+    </footer> 
   )
 }

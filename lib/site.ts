@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "The Startup Desk",
-  rcNumber: "9668977",
+  "BN Number": "9668977",
   email: "hello@thestartupdesk.com.ng",
   phone: "+234 813 794 1914",
   whatsappNumber: "2348137941914",
