@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {   
   title: "The Startup Desk; Compliance made easy.",   
-  description: "We handle your  regulatory paperwork so your startup stays compliant and fine-free.", 
+  description: "We handle your regulatory paperwork so your startup stays compliant and fine-free.", 
 }
 
 export default function RootLayout({   
@@ -41,20 +41,22 @@ export default function RootLayout({
         >
           {children}  
         </ThemeProvider>
-<Script
-  src="https://www.googletagmanager.com/gtag/js?id=G-MY119FWLRP"
-  strategy="afterInteractive"
-/>
-<Script id="google-analytics" strategy="afterInteractive">
-  {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MY119FWLRP');
-  `}
-</Script>
 
+        {/* First-Party Cloudflare Google Tag Gateway */}
+        <Script
+          src="/metrics/gtag/js?id=G-MY119FWLRP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MY119FWLRP');
+          `}
+        </Script>
       </body>     
     </html> 
   )
 }
+
