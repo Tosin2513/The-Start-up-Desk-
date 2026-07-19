@@ -24,25 +24,37 @@ export function Hero() {
               <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
               Compliance made effortless for founders
             </span>
-
-            <h1
-              className="animate-fade-in-up font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl leading-[1.15] text-primary"
-              style={{ animationDelay: "190ms" }}
-            >
-              Compliance shouldn&apos;t be the reason your startup{" "}
-              {/* Isolated sliding block container with strict alignment and hardware acceleration */}
-              <span className="inline-flex h-[1.2em] flex-col overflow-hidden align-bottom relative translation-all duration-500 ease-in-out will-change-transform">
-                <span 
-                  className="animate-word-slide flex flex-col text-left text-accent"
-                  style={{ transform: "translateZ(0)" }}
-                >
-                  <span className="block h-[1.2em] leading-[1.2em]">gets fined.</span>
-                  <span className="block h-[1.2em] leading-[1.2em]">stalls growth.</span>
-                  <span className="block h-[1.2em] leading-[1.2em]">loses momentum.</span>
-                  <span className="block h-[1.2em] leading-[1.2em]">misses deadlines.</span>
-                </span>
-              </span>
-            </h1>
+<h1
+  className="animate-fade-in-up font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl leading-[1.15] text-primary"
+  style={{ animationDelay: "190ms" }}
+>
+  Compliance shouldn&apos;t be the reason your startup{" "}
+  {/* Modern, self-contained keyframe engine */}
+  <span className="inline-flex h-[1.2em] flex-col overflow-hidden align-bottom relative font-extrabold">
+    <span 
+      className="flex flex-col text-left text-accent"
+      style={{
+        animation: "slideWords 8s cubic-bezier(0.76, 0, 0.24, 1) infinite"
+      }}
+    >
+      <span className="block h-[1.2em] leading-[1.2em]">gets fined.</span>
+      <span className="block h-[1.2em] leading-[1.2em]">stalls growth.</span>
+      <span className="block h-[1.2em] leading-[1.2em]">loses momentum.</span>
+      <span className="block h-[1.2em] leading-[1.2em]">misses deadlines.</span>
+      <span className="block h-[1.2em] leading-[1.2em]">gets fined.</span>
+    </span>
+    <style jsx global>{`
+      @keyframes slideWords {
+        0%, 20% { transform: translateY(0); }
+        25%, 45% { transform: translateY(-1.2em); }
+        50%, 70% { transform: translateY(-2.4em); }
+        75%, 95% { transform: translateY(-3.6em); }
+        100% { transform: translateY(-4.8em); }
+      }
+    `}</style>
+  </span>
+</h1>
+            
 
             <p
               className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground font-medium"
