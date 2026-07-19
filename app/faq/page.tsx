@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ChevronDown, MessageCircle, HelpCircle } from "lucide-react"
@@ -8,8 +9,8 @@ import { whatsappLink } from "@/lib/site"
 
 interface FAQItem {
   question: string
-  answer: string
-  category: "General" | "CAC & Incorporation" | "Tax & FIRS" | "Data Privacy"
+  answer: React.ReactNode // Changed to ReactNode to allow embedded <Link> tags cleanly
+  category: "General" | "CAC & Incorporation" | "Tax & FIRS" | "Data Privacy" | "Billing & Refund"
 }
 
 const FAQ_DATABASE: FAQItem[] = [
@@ -32,6 +33,55 @@ const FAQ_DATABASE: FAQItem[] = [
     category: "Data Privacy",
     question: "Does my early-stage startup really need to comply with the NDPA?",
     answer: "Yes. If your startup collects, stores, or processes the personal data of Nigerian citizens (like names, emails, phone numbers, or payment info), you fall under the Nigeria Data Protection Act (NDPA). Non-compliance can lead to massive fines and block you from raising venture capital during due diligence."
+  },
+  {
+    category: "Data Privacy",
+    question: "Do you store my personal or business data, and for how long?",
+    answer: (
+      <span>
+        We retain your business metadata and incorporation files securely to process active applications and fulfill statutory record-keeping metrics. Corporate identity assets are archived safely for the lifetime of your entity, while baseline query records are purged automatically after 24 months. For more details, see our complete{" "}
+        <Link href="/privacy" className="text-accent underline font-semibold hover:text-accent/80">
+          Privacy Policy
+        </Link>
+        .
+      </span>
+    )
+  },
+  {
+    category: "Data Privacy",
+    question: "Is my information shared with any third parties (e.g. CAC, FIRS)?",
+    answer: "We only share your metrics and documentation with official regulatory commissions—such as the Corporate Affairs Commission (CAC) and the Federal Inland Revenue Service (FIRS)—solely to execute the legal filing sequences you purchase. We never sell, lease, or distribute your startup’s assets or data pipelines to commercial third parties."
+  },
+  {
+    category: "Data Privacy",
+    question: "Do you use cookies or tracking tools on this website?",
+    answer: (
+      <span>
+        Yes. We use anonymized tracking indicators and a first-party server edge proxy to securely measure platform traffic. Our setup channels tracking details natively through our own domain so that third parties cannot eavesdrop on your session. Read how to manage your active permissions in our{" "}
+        <Link href="/cookies" className="text-accent underline font-semibold hover:text-accent/80">
+          Cookie Policy
+        </Link>
+        .
+      </span>
+    )
+  },
+  {
+    category: "Billing & Refund",
+    question: "What happens if I want a refund after paying for the Launch package?",
+    answer: (
+      <span>
+        Refund requests for our Launch package are fully approved if triggered *before* our consulting layer submits your document batch to the registry. Once government filing processing fees are paid out to the corporate registrar, those statutory components become non-refundable. Check out our billing criteria on the{" "}
+        <Link href="/services" className="text-accent underline font-semibold hover:text-accent/80">
+          Services Panel
+        </Link>
+        .
+      </span>
+    )
+  },
+  {
+    category: "Billing & Refund",
+    question: "Can I cancel my Monitoring subscription anytime?",
+    answer: "Absolutely. Our recurring compliance monitoring plans operate on an un-bonded, monthly or annual rolling schedule. You can deactivate your subscription at any point from your profile settings with zero cancelation fees or lock-in penalties, and your coverage will stay active until the end of your current paid billing phase."
   },
   {
     category: "General",
@@ -83,11 +133,11 @@ export default function FAQPage() {
                   onClick={() => toggleFAQ(index)}
                   className="w-full flex items-center justify-between p-5 text-left font-display font-bold text-base md:text-lg text-primary focus:outline-none hover:bg-muted/30 transition-colors"
                 >
-                  <span className="flex items-start gap-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-md mt-1 shrink-0">
+                  <span className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-md mt-0.5 shrink-0">
                       {faq.category}
                     </span>
-                    {faq.question}
+                    <span className="text-left">{faq.question}</span>
                   </span>
                   <ChevronDown 
                     className={`h-5 w-5 text-muted-foreground shrink-0 transition-transform duration-200 ${
@@ -98,12 +148,12 @@ export default function FAQPage() {
 
                 <div 
                   className={`transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-[300px] border-t border-border/40 p-5 bg-muted/10 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+                    isOpen ? "max-h-[400px] border-t border-border/40 p-5 bg-muted/10 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
                   }`}
                 >
-                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                  <div className="text-sm text-muted-foreground leading-relaxed">
                     {faq.answer}
-                  </p>
+                  </div>
                 </div>
               </div>
             )
@@ -133,7 +183,7 @@ export default function FAQPage() {
               rel="noopener noreferrer"
               className="bg-accent text-accent-foreground font-bold text-xs px-5 py-3 rounded-xl shadow-sm hover:brightness-105 transition-all inline-flex items-center justify-center gap-1.5"
             >
-              <MessageCircle className="h-3.5 w-3.5" /> Speak to a Specialist
+              <MessageCircle className="h-3.5 w-3.5" /> Speak to a member of the Team 
             </a>
           </div>
         </section>
@@ -142,4 +192,5 @@ export default function FAQPage() {
       <SiteFooter />
     </main>
   )
-}
+              }
+
