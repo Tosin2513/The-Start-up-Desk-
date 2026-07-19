@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link"
 import { ArrowRight, MessageCircle, ShieldCheck, FileCheck2, Landmark, HelpCircle, FileText } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
