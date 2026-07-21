@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ShieldCheck, ArrowRight, Compass, CheckCircle, Eye, Heart, Users } from "lucide-react"
+import { ShieldCheck, ArrowRight, Compass, CheckCircle, Eye, Users } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
@@ -36,7 +36,7 @@ export default function AboutPage() {
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
               style={{ animationDelay: "200ms" }}
             >
-              Not because founders don&apos;t care; because nobody hands you the manual.
+              Not because founders don&apos;t care—because nobody hands you the manual.
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function AboutPage() {
             
             <div className="text-base leading-relaxed text-muted-foreground space-y-4">
               <p>
-                The Startup Desk is managed by a dedicated team of personnels who built this platform after repeatedly witnessing the same pattern: solid businesses getting penalized by paperwork nobody explained to them in time.
+                The Startup Desk is managed by a dedicated team of personnel who built this platform after repeatedly witnessing the same pattern: solid businesses getting penalized by paperwork nobody explained to them in time.
               </p>
               <p>
                 Our team operates with a clear mandate: easy-to-understand guidance, prevention over rescue, and complete transparency about what we handle so your business stays audit-ready.
