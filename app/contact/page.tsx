@@ -8,6 +8,11 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
 
+export const metadata = {
+  title: "Contact Our Compliance Desk | The Startup Desk",
+  description: "Get in touch with our team via WhatsApp, professional email routing, or use our interactive AI desk assistant to resolve your startup registration questions.",
+};
+
 // Declare global interface for AssistLoop & Tally initializers
 declare global {
   interface Window {

@@ -6,6 +6,11 @@ import { SiteFooter } from "@/components/site-footer"
 import { ChevronDown, MessageCircle, HelpCircle } from "lucide-react"
 import { whatsappLink } from "@/lib/site"
 
+export const metadata = {
+  title: "Startup Compliance FAQ | The Startup Desk",
+  description: "Clear answers on CAC company incorporation timelines, FIRS tax registrations, corporate annual returns, and data protection compliance rules in Nigeria.",
+};
+
 interface FAQItem {
   question: string
   answer: string
