@@ -8,7 +8,7 @@ import { whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Services: The Startup Desk",
-  description: "CAC, NAFDAC, NDPA, sector licensing; whatever stage you're at, there's a clear path to getting compliant and staying that way.",
+  description: "Sector licensing; whatever stage you're at, there's a clear path to getting compliant and staying that way.",
 }
 
 const comparison = [
@@ -43,7 +43,7 @@ export default function ServicesPage() {
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
               style={{ animationDelay: "200ms" }}
             >
-              CAC, NAFDAC, NDPA, sector licensing; whatever stage you&apos;re at, there&apos;s a clear path to getting compliant and staying that way.
+              Sector licensing; whatever stage you&apos;re at, there&apos;s a clear path to getting compliant and staying that way.
             </p>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function ServicesPage() {
               <span className="text-xs font-bold uppercase tracking-wider text-accent block mb-2 mt-2">For newly registered businesses</span>
               <h3 className="font-display text-2xl font-extrabold tracking-tight text-primary">Post-Incorporation Setup</h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Getting your CAC certificate is the starting line. Statutory registers, tax registration, annual returns, and data protection setup all follow. Miss them, and penalties pile up.
+                Getting your CAC certificate is just the starting line. Keeping up with post-incorporation requirements shouldn't be stressful. Miss a deadline, and penalties pile up fast. That's where we come in providing timely regulatory reminders and seamless management for all your ongoing obligations.
               </p>
               <ul className="mt-6 space-y-3 text-sm font-medium text-foreground border-t border-border/60 pt-6">
               

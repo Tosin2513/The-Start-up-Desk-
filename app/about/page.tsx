@@ -36,7 +36,7 @@ export default function AboutPage() {
               className="animate-fade-in-up mx-auto mt-6 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-muted-foreground"
               style={{ animationDelay: "200ms" }}
             >
-              Not because founders don&apos;t care—because nobody hands you the manual.
+              Not because founders don&apos;t care but because nobody hands you the manual.
             </p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function AboutPage() {
             </h2>
             <div className="text-base md:text-lg leading-relaxed text-muted-foreground space-y-4">
               <p>
-                Getting your CAC certificate feels like the finish line. It&apos;s actually the starting line. What comes after—annual returns, tax registration, statutory registers, and data protection rules—rarely gets explained clearly, and even more rarely gets explained in time.
+                Getting your CAC certificate feels like the finish line. It&apos;s actually the starting line. What comes after; annual returns, tax registration, statutory registers, and data protection rules rarely gets explained clearly, and even more rarely gets explained in time.
               </p>
               <p className="border-l-4 border-accent pl-4 font-medium text-primary bg-muted/40 py-2 rounded-r-xl">
                 We&apos;ve sat across from founders who did everything right at incorporation and still got caught out eighteen months later by a filing they didn&apos;t know existed. Not because they were careless, but because nobody told them.

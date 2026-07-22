@@ -141,7 +141,7 @@ export default function ResourcesPage() {
             Compliance resources designed for founders.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Skip the legal jargon. Access practical guides, templates, and regulatory timelines to keep your startup pristine.
+             Access practical guides, templates, and regulatory timelines to keep your startup pristine.
           </p>
         </section>
 
@@ -259,7 +259,7 @@ export default function ResourcesPage() {
       <div className="space-y-2">
         <h2 className="font-display text-xl font-bold text-primary">Get statutory updates before they pass.</h2>
         <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
-          We track Compliance Obligations so you don't have to. Subscribe to get regulatory reminders directly in your inbox.
+          We track Compliance Obligations so you don't have to. Subscribe to get regulatory updates directly in your inbox.
         </p>
       </div>
 

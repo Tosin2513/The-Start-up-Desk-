@@ -16,10 +16,15 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap", 
 })
 
-export const metadata: Metadata = {   
-  title: "The Startup Desk; Compliance made easy.",   
-  description: "We handle your regulatory paperwork so your startup stays compliant and fine-free.", 
-}
+export const metadata = {
+  title: "The Startup Desk | Business Compliance Made Simple",
+  description: "We handle your regulatory paperwork so your startup stays compliant and fine-free.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
 
 export default function RootLayout({   
   children, 
