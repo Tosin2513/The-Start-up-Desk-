@@ -7,14 +7,9 @@ import { SiteFooter } from "@/components/site-footer"
 import { ChevronDown, MessageCircle, HelpCircle } from "lucide-react"
 import { whatsappLink } from "@/lib/site"
 
-export const metadata = {
-  title: "Startup Compliance FAQ | The Startup Desk",
-  description: "Clear answers on CAC company incorporation timelines, FIRS tax registrations, corporate annual returns, and data protection compliance rules in Nigeria.",
-};
-
 interface FAQItem {
   question: string
-  answer: React.ReactNode // Changed to ReactNode to allow embedded <Link> tags cleanly
+  answer: React.ReactNode
   category: "General" | "CAC & Incorporation" | "Tax & FIRS" | "Data Privacy" | "Billing & Refund"
 }
 
@@ -55,7 +50,7 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "Data Privacy",
     question: "Is my information shared with any third parties (e.g. CAC, FIRS)?",
-    answer: "We only share your metrics and documentation with official regulatory commissions such as the Corporate Affairs Commission (CAC) and the Federal Inland Revenue Service (FIRS) solely to execute the legal filing sequences you purchase. We never sell, lease, or distribute your startup’s assets or data pipelines to commercial third parties."
+    answer: "We only share your metrics and documentation with official regulatory commissions—such as the Corporate Affairs Commission (CAC) and the Federal Inland Revenue Service (FIRS)—solely to execute the legal filing sequences you purchase. We never sell, lease, or distribute your startup’s assets or data pipelines to commercial third parties."
   },
   {
     category: "Data Privacy",
@@ -86,12 +81,12 @@ const FAQ_DATABASE: FAQItem[] = [
   {
     category: "Billing & Refund",
     question: "Can I cancel my Monitoring subscription anytime?",
-    answer: " Our recurring compliance monitoring plans operate on an un-bonded, monthly or annual rolling schedule. You can deactivate your subscription at any point from your profile settings with zero cancelation fees or lock-in penalties, and your coverage will stay active until the end of your current paid billing phase."
+    answer: "Absolutely. Our recurring compliance monitoring plans operate on an un-bonded, monthly or annual rolling schedule. You can deactivate your subscription at any point from your profile settings with zero cancelation fees or lock-in penalties, and your coverage will stay active until the end of your current paid billing phase."
   },
   {
     category: "General",
     question: "What is the difference between a lawyer and your compliance desk?",
-    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory compliance."
+    answer: "Lawyers handle complex litigation, custom contract writing, and high-level disputes. The Startup Desk specializes in operational compliance—handling routine filings, tax registrations, entity management, and statutory compliance, more efficiently, and at a fraction of the cost of a traditional law firm retainer."
   },
   {
     category: "General",
@@ -188,7 +183,7 @@ export default function FAQPage() {
               rel="noopener noreferrer"
               className="bg-accent text-accent-foreground font-bold text-xs px-5 py-3 rounded-xl shadow-sm hover:brightness-105 transition-all inline-flex items-center justify-center gap-1.5"
             >
-              <MessageCircle className="h-3.5 w-3.5" /> Speak to a member of the Team 
+              <MessageCircle className="h-3.5 w-3.5" /> Speak to a Specialist
             </a>
           </div>
         </section>
@@ -197,5 +192,4 @@ export default function FAQPage() {
       <SiteFooter />
     </main>
   )
-              }
-
+}

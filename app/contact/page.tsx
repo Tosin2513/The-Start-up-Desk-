@@ -3,15 +3,10 @@
 import * as React from "react"
 import Script from "next/script"
 import Link from "next/link"
-import { ArrowRight, ShieldCheck, Phone, Mail, Bot } from "lucide-react"
+import { ArrowRight, Mail, Bot, MessageSquare, Clock, ShieldCheck, HelpCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
-
-export const metadata = {
-  title: "Contact Our Compliance Desk | The Startup Desk",
-  description: "Get in touch with our team via WhatsApp, professional email routing, or use our interactive AI desk assistant to resolve your startup registration questions.",
-};
 
 // Declare global interface for AssistLoop & Tally initializers
 declare global {
@@ -84,7 +79,7 @@ export default function ContactPage() {
         {/* 2. THE THREE EQUAL-WEIGHT PLATFORM TILES */}
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto mb-16">
           
-          {/* Card A: WhatsApp (Uses official green branding logo) */}
+          {/* Card A: WhatsApp */}
           <a 
             href={whatsappLink("Hi, I wanted to reach out regarding company compliance assistance.")}
             target="_blank"
@@ -133,7 +128,7 @@ export default function ContactPage() {
           {/* Card C: Interactive AI Desk Assistant */}
           <button 
             onClick={() => setShowAiBot(!showAiBot)}
-            className="group text-left border border-border bg-card p-6 rounded-2xl flex flex-col justify-between hover:border-primary/20 transition-all hover:shadow-md cursor-pointer"
+            className="group text-left border border-border bg-card p-6 rounded-2xl flex flex-col justify-between hover:border-primary/20 transition-all hover:shadow-md cursor-pointer bg-transparent w-full"
           >
             <div>
               <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 shrink-0">
@@ -151,7 +146,7 @@ export default function ContactPage() {
 
         </section>
 
-        {/* 3. DYNAMIC AI COMPONENT CONTAINER (Toggles open/closed smoothly based on Button C click) */}
+        {/* 3. DYNAMIC AI COMPONENT CONTAINER */}
         {showAiBot && (
           <section className="max-w-5xl mx-auto mb-16 border border-border bg-muted/20 p-2 rounded-3xl overflow-hidden shadow-inner">
             <div 
@@ -161,35 +156,63 @@ export default function ContactPage() {
           </section>
         )}
 
-        {/* 4. REAL BACKEND EMBED AREA (Unified Tally Form Grid Structure) */}
+        {/* 4. SPLIT GRID FOR DESK DETAILS & INLINE TALLY EMBED */}
         <section className="grid gap-8 lg:grid-cols-12 items-start max-w-5xl mx-auto mb-20">
       
-          {/* Interactive Live Tally Form Popup Trigger */}
-          <div className="border border-border bg-card p-8 rounded-3xl lg:col-span-8 shadow-sm flex flex-col justify-between min-h-[220px]">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">
-                Project Intake
+          {/* Left Side (5 Cols): Support Times, SLA Benchmarks, Compliance Note */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="border border-border/80 bg-card p-6 rounded-2xl space-y-6">
+              <h2 className="font-display text-xl font-extrabold text-primary flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-accent" /> Intake Processing
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 rounded-xl border border-border/40 hover:bg-muted/30 transition-colors">
+                  <div className="p-3 bg-accent/10 text-accent rounded-xl shrink-0">
+                    <MessageSquare className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-primary">Onboarding Flow</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">Your form data generates a custom timeline and legal assessment.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl border border-dashed border-border/80 bg-muted/10">
+                  <div className="p-3 bg-primary/10 text-primary rounded-xl shrink-0">
+                    <Clock className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-primary">Response SLA</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                      Active Desk Hours: Monday - Friday (9am - 5pm WAT). Brief responses processed within 24 business hours.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h4 className="font-display text-xl font-bold text-primary">
-                Leave a Detailed Brief
-              </h4>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
-                Prefer to spell out your project parameters? Skip the manual back-and-forth and use our guided form to drop your structural inquiries or business context.
-              </p>
             </div>
 
-            <div className="mt-6 pt-2">
-              <button
-                data-tally-open="44D4qk" 
-                data-tally-emoji-text="👋" 
-                data-tally-emoji-animation="wave" 
-                data-tally-auto-close="4000"
-                className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-6 py-3.5 rounded-xl shadow-sm hover:brightness-105 transition-all cursor-pointer w-full sm:w-auto justify-center"
-              >
-                Open Brief Builder
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
+            {/* Disclaimer */}
+            <div className="p-5 border border-border/60 bg-muted/10 rounded-xl flex items-start gap-3">
+              <HelpCircle className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                By submitting our onboarding questionnaire, you authorize The Startup Desk to review your provided corporate metrics to formulate an actionable regulatory compliance assessment.
+              </p>
             </div>
+          </div>
+
+          {/* Right Side (7 Cols): Inline Embedded Tally Form */}
+          <div className="border border-border/80 bg-white dark:bg-card rounded-2xl lg:col-span-7 overflow-hidden shadow-sm relative h-[650px]">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
+            
+            <iframe 
+              src="https://tally.so/embed/44D4qk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+              data-tally-src="https://tally.so/embed/44D4qk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+              loading="lazy" 
+              width="100%" 
+              height="100%" 
+              style={{ border: "none" }}
+              title="Contact Page Intake"
+            />
           </div>
 
         </section>
