@@ -1,11 +1,12 @@
-const NOTION_TOKEN = process.env.NOTION_TOKEN!
-const DATABASE_ID = process.env.NOTION_DATABASE_ID!
 const NOTION_VERSION = "2022-06-28"
 
-const headers = {
-  Authorization: `Bearer ${NOTION_TOKEN}`,
-  "Notion-Version": NOTION_VERSION,
-  "Content-Type": "application/json",
+function getHeaders() {
+  const token = process.env.NOTION_TOKEN || process.env.NOTION_API_KEY || ""
+  return {
+    Authorization: `Bearer ${token}`,
+    "Notion-Version": NOTION_VERSION,
+    "Content-Type": "application/json",
+  }
 }
 
 function getText(prop: any): string {
@@ -63,45 +64,63 @@ function mapPage(page: any): ResourceArticle {
 }
 
 export async function getPublishedResources(): Promise<ResourceSummary[]> {
-  const res = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID}/query`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      filter: { property: "Published", checkbox: { equals: true } },
-      sorts: [{ property: "PublishDate", direction: "descending" }],
-    }),
-    next: { revalidate: 3600 },
-  })
-  if (!res.ok) return []
-  const data = await res.json()
-  return data.results.map((page: any) => {
-    const article = mapPage(page)
-    return {
-      slug: article.slug,
-      title: article.title,
-      category: article.category,
-      subheading: article.subheading,
-      publishDate: article.publishDate,
-    }
-  })
+  const databaseId = process.env.NOTION_DATABASE_ID
+  if (!databaseId) return []
+
+  try {
+    const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify({
+        filter: { property: "Published", checkbox: { equals: true } },
+        sorts: [{ property: "PublishDate", direction: "descending" }],
+      }),
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) return []
+    const data = await res.json()
+    return data.results.map((page: any) => {
+      const article = mapPage(page)
+      return {
+        slug: article.slug,
+        title: article.title,
+        category: article.category,
+        subheading: article.subheading,
+        publishDate: article.publishDate,
+      }
+    })
+  } catch (error) {
+    console.error("Error fetching Notion resources:", error)
+    return []
+  }
 }
 
 export async function getResourceBySlug(slug: string): Promise<ResourceArticle | null> {
-  const res = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID}/query`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      filter: {
-        and: [
-          { property: "Slug", rich_text: { equals: slug } },
-          { property: "Published", checkbox: { equals: true } },
-        ],
-      },
-    }),
-    next: { revalidate: 3600 },
-  })
-  if (!res.ok) return null
-  const data = await res.json()
-  if (!data.results.length) return null
-  return mapPage(data.results[0])
+  const databaseId = process.env.NOTION_DATABASE_ID
+  if (!databaseId) return null
+
+  try {
+    const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify({
+        filter: {
+          and: [
+            { property: "Slug", rich_text: { equals: slug } },
+            { property: "Published", checkbox: { equals: true } },
+          ],
+        },
+      }),
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) return null
+    const data = await res.json()
+    if (!data.results.length) return null
+    return mapPage(data.results[0])
+  } catch (error) {
+    console.error("Error fetching article by slug:", error)
+    return null
+  }
 }
