@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-5 space-y-1 text-neutral-400">
               <li>Cloudflare: Website hosting, performance, and security infrastructure.</li>
               <li>Zoho Mail: Secure corporate business email communications.</li>
-              <li>Tally.so / Formspree: Client intake and enquiry form processing.</li>
+              <li>Tally.so: Client intake and enquiry form processing.</li>
               <li>Secure payment processing (we do not process or store your card details).</li>
               <li>AssistLoop AI: Our AI-powered web chat assistant (see Section 9).</li>
               <li>Google Analytics: Anonymous website usage analytics (see Section 8).</li>
