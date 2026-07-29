@@ -9,6 +9,23 @@ import { whatsappLink } from "@/lib/site"
 import { getResourceBySlug } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
 
+// Helper function to render **bold** text without showing raw asterisks
+function renderFormattedText(text: string) {
+  if (!text) return null
+  const parts = text.split(/(\*\*.*?\*\*)/g)
+  
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-bold text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    return part
+  })
+}
+
 export default async function IndividualGuide({
   params,
 }: {
@@ -38,10 +55,10 @@ export default async function IndividualGuide({
                 {article.category}
               </span>
               <h1 className="font-display text-3xl font-extrabold text-primary sm:text-4xl lg:text-5xl leading-tight">
-                {article.title}
+                {renderFormattedText(article.title)}
               </h1>
               <p className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
-                {article.subheading}
+                {renderFormattedText(article.subheading)}
               </p>
               {formattedDate && (
                 <p className="text-xs text-muted-foreground font-semibold">Published {formattedDate}</p>
@@ -56,7 +73,7 @@ export default async function IndividualGuide({
                 if (block.type === "h2") {
                   return (
                     <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
-                      {block.content}
+                      {renderFormattedText(block.content)}
                     </h2>
                   )
                 }
@@ -64,7 +81,7 @@ export default async function IndividualGuide({
                 if (block.type === "h3") {
                   return (
                     <h3 key={index} className="font-display text-lg font-bold text-primary pt-4 pb-1">
-                      {block.content}
+                      {renderFormattedText(block.content)}
                     </h3>
                   )
                 }
@@ -73,7 +90,9 @@ export default async function IndividualGuide({
                   return (
                     <div key={index} className="flex items-start gap-3 pl-2 py-1">
                       <div className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />
-                      <p className="text-foreground/90 font-normal leading-relaxed">{block.content}</p>
+                      <p className="text-foreground/90 font-normal leading-relaxed">
+                        {renderFormattedText(block.content)}
+                      </p>
                     </div>
                   )
                 }
@@ -84,7 +103,7 @@ export default async function IndividualGuide({
 
                 return (
                   <p key={index} className="text-foreground/80 leading-relaxed font-normal">
-                    {block.content}
+                    {renderFormattedText(block.content)}
                   </p>
                 )
               })}
@@ -94,10 +113,10 @@ export default async function IndividualGuide({
             <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
               <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
                 <AlertCircle className="h-4 w-4 text-amber-500" />
-                {article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}
+                {renderFormattedText(article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY")}
               </div>
               <p className="text-sm leading-relaxed text-amber-950 font-medium">
-                {article.calloutBody}
+                {renderFormattedText(article.calloutBody)}
               </p>
             </div>
 
