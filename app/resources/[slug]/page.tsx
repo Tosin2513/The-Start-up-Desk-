@@ -2,7 +2,7 @@ export const runtime = 'edge';
 
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { MessageCircle, AlertCircle, CheckCircle2 } from "lucide-react"
+import { MessageCircle, AlertCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
@@ -32,7 +32,7 @@ export default async function IndividualGuide({
           {/* Main Article Body */}
           <article className="space-y-8 animate-fade-in-up">
             
-            {/* Header Header Info */}
+            {/* Header / Title Info */}
             <div className="space-y-4">
               <span className="inline-block bg-primary/10 text-primary text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
                 {article.category}
@@ -50,9 +50,9 @@ export default async function IndividualGuide({
 
             <hr className="border-border/60" />
 
-            {/* Article Blocks (Clean Formatting) */}
+            {/* Article Content Blocks */}
             <div className="text-base leading-relaxed text-muted-foreground space-y-5">
-              {article.blocks.map((block, index) => {
+              {article.blocks?.map((block, index) => {
                 if (block.type === "h2") {
                   return (
                     <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
@@ -90,7 +90,7 @@ export default async function IndividualGuide({
               })}
             </div>
 
-            {/* Golden Rule / Callout Box */}
+            {/* Callout Box */}
             <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
               <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
                 <AlertCircle className="h-4 w-4 text-amber-500" />
@@ -111,7 +111,7 @@ export default async function IndividualGuide({
 
           </article>
 
-          {/* Sticky Right Sidebar */}
+          {/* Sticky Sidebar */}
           <aside className="space-y-8 lg:sticky lg:top-6 h-fit">
             <div className="border border-primary/10 p-6 rounded-2xl bg-primary text-white space-y-4 shadow-lg">
               <h4 className="font-display font-bold text-base">Need help with this?</h4>
