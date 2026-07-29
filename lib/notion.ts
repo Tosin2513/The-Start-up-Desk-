@@ -1,4 +1,4 @@
-const NOTION_VERSION = "2022-06-28"
+Const NOTION_VERSION = "2022-06-28"
 
 function getHeaders() {
   const token = process.env.NOTION_TOKEN || process.env.NOTION_API_KEY || ""
@@ -19,6 +19,11 @@ function getTitle(prop: any): string {
   return prop.title.map((t: any) => t.plain_text).join("")
 }
 
+function getUrl(prop: any): string {
+  if (!prop?.url) return ""
+  return prop.url
+}
+
 export interface ResourceSummary {
   slug: string
   title: string
@@ -31,6 +36,7 @@ export interface ResourceArticle extends ResourceSummary {
   sections: { heading?: string; paragraphs: string[] }[]
   calloutTitle: string
   calloutBody: string
+  downloadLink?: string // <-- Added downloadLink property
 }
 
 function mapPage(page: any): ResourceArticle {
@@ -60,6 +66,7 @@ function mapPage(page: any): ResourceArticle {
     sections,
     calloutTitle: getText(p.CalloutTitle),
     calloutBody: getText(p.CalloutBody),
+    downloadLink: getUrl(p.DownloadLink), // <-- Extract URL from Notion DownloadLink column
   }
 }
 
