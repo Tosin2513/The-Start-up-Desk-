@@ -1,146 +1,137 @@
-const NOTION_VERSION = "2022-06-28"
+export const runtime = 'edge';
 
-function getHeaders() {
-  const token = process.env.NOTION_TOKEN || process.env.NOTION_API_KEY || ""
-  return {
-    Authorization: `Bearer ${token}`,
-    "Notion-Version": NOTION_VERSION,
-    "Content-Type": "application/json",
-  }
-}
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { MessageCircle, AlertCircle } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { whatsappLink } from "@/lib/site"
+import { getResourceBySlug } from "@/lib/notion"
+import { LeadMagnetCard } from "@/components/lead-magnet-card"
 
-function getText(prop: any): string {
-  if (!prop?.rich_text) return ""
-  return prop.rich_text.map((t: any) => t.plain_text).join("")
-}
+export default async function IndividualGuide({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const article = await getResourceBySlug(slug)
 
-function getTitle(prop: any): string {
-  if (!prop?.title) return ""
-  return prop.title.map((t: any) => t.plain_text).join("")
-}
+  if (!article) notFound()
 
-function getUrl(prop: any): string {
-  if (!prop?.url) return ""
-  return prop.url
-}
+  const formattedDate = article.publishDate
+    ? new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null
 
-export interface ResourceSummary {
-  slug: string
-  title: string
-  category: string
-  subheading: string
-  publishDate: string
-}
+  return (
+    <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
+      <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
+        <SiteHeader />
+        
+        <div className="grid gap-12 lg:grid-cols-[1fr_320px] py-12 md:py-16">
+          {/* Main Article Body */}
+          <article className="space-y-8 animate-fade-in-up">
+            
+            {/* Header / Title Info */}
+            <div className="space-y-4">
+              <span className="inline-block bg-primary/10 text-primary text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
+                {article.category}
+              </span>
+              <h1 className="font-display text-3xl font-extrabold text-primary sm:text-4xl lg:text-5xl leading-tight">
+                {article.title}
+              </h1>
+              <p className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
+                {article.subheading}
+              </p>
+              {formattedDate && (
+                <p className="text-xs text-muted-foreground font-semibold">Published {formattedDate}</p>
+              )}
+            </div>
 
-export interface SectionBlock {
-  type: "h2" | "h3" | "paragraph" | "bullet" | "hr"
-  content: string
-}
+            <hr className="border-border/60" />
 
-export interface ResourceArticle extends ResourceSummary {
-  blocks: SectionBlock[]
-  calloutTitle: string
-  calloutBody: string
-  downloadLink?: string
-}
+            {/* Article Content Blocks */}
+            <div className="text-base leading-relaxed text-muted-foreground space-y-5">
+              {article.blocks?.map((block, index) => {
+                if (block.type === "h2") {
+                  return (
+                    <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
+                      {block.content}
+                    </h2>
+                  )
+                }
 
-function mapPage(page: any): ResourceArticle {
-  const p = page.properties
-  const rawBody = getText(p.Body)
-  
-  // Split content by line breaks
-  const rawLines = rawBody.split("\n").filter(line => line.trim().length > 0)
+                if (block.type === "h3") {
+                  return (
+                    <h3 key={index} className="font-display text-lg font-bold text-primary pt-4 pb-1">
+                      {block.content}
+                    </h3>
+                  )
+                }
 
-  const blocks: SectionBlock[] = rawLines.map((line) => {
-    const trimmed = line.trim()
+                if (block.type === "bullet") {
+                  return (
+                    <div key={index} className="flex items-start gap-3 pl-2 py-1">
+                      <div className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />
+                      <p className="text-foreground/90 font-normal leading-relaxed">{block.content}</p>
+                    </div>
+                  )
+                }
 
-    if (trimmed.startsWith("## ")) {
-      return { type: "h2", content: trimmed.replace("## ", "").trim() }
-    }
-    if (trimmed.startsWith("### ")) {
-      return { type: "h3", content: trimmed.replace("### ", "").trim() }
-    }
-    if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.match(/^\d+\.\s/)) {
-      return { type: "bullet", content: trimmed.replace(/^(\*|-|\d+\.)\s*/, "").trim() }
-    }
-    if (trimmed === "---") {
-      return { type: "hr", content: "" }
-    }
+                if (block.type === "hr") {
+                  return <hr key={index} className="my-8 border-border/60" />
+                }
 
-    return { type: "paragraph", content: trimmed }
-  })
+                return (
+                  <p key={index} className="text-foreground/80 leading-relaxed font-normal">
+                    {block.content}
+                  </p>
+                )
+              })}
+            </div>
 
-  return {
-    slug: getText(p.Slug),
-    title: getTitle(p.Title),
-    category: p.Category?.select?.name ?? "Guide",
-    subheading: getText(p.Subheading),
-    publishDate: p.PublishDate?.date?.start ?? "",
-    blocks,
-    calloutTitle: getText(p.CalloutTitle),
-    calloutBody: getText(p.CalloutBody),
-    downloadLink: getUrl(p.DownloadLink),
-  }
-}
+            {/* Callout Box */}
+            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
+              <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
+                <AlertCircle className="h-4 w-4 text-amber-500" />
+                {article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}
+              </div>
+              <p className="text-sm leading-relaxed text-amber-950 font-medium">
+                {article.calloutBody}
+              </p>
+            </div>
 
-export async function getPublishedResources(): Promise<ResourceSummary[]> {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId) return []
+            {/* Lead Magnet Download Form */}
+            {article.downloadLink && (
+              <LeadMagnetCard
+                downloadLink={article.downloadLink}
+                guideTitle={article.title}
+              />
+            )}
 
-  try {
-    const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-      method: "POST",
-      headers: getHeaders(),
-      body: JSON.stringify({
-        filter: { property: "Published", checkbox: { equals: true } },
-        sorts: [{ property: "PublishDate", direction: "descending" }],
-      }),
-      next: { revalidate: 3600 },
-    })
+          </article>
 
-    if (!res.ok) return []
-    const data = await res.json()
-    return data.results.map((page: any) => {
-      const article = mapPage(page)
-      return {
-        slug: article.slug,
-        title: article.title,
-        category: article.category,
-        subheading: article.subheading,
-        publishDate: article.publishDate,
-      }
-    })
-  } catch (error) {
-    console.error("Error fetching Notion resources:", error)
-    return []
-  }
-}
+          {/* Sticky Sidebar */}
+          <aside className="space-y-8 lg:sticky lg:top-6 h-fit">
+            <div className="border border-primary/10 p-6 rounded-2xl bg-primary text-white space-y-4 shadow-lg">
+              <h4 className="font-display font-bold text-base">Need help with this?</h4>
+              <p className="text-xs text-white/80 leading-relaxed">
+                Let our team handle your founder agreements and CAC compliance instead of tracking it yourself.
+              </p>
+              <a 
+                href={whatsappLink(`Hi, I was reading your guide "${article.title}" and need support.`)} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group inline-flex w-full items-center justify-center gap-2 bg-accent text-accent-foreground text-sm font-bold py-3 px-4 rounded-xl hover:opacity-90 transition-opacity"
+              >
+                <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
 
-export async function getResourceBySlug(slug: string): Promise<ResourceArticle | null> {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId) return null
-
-  try {
-    const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-      method: "POST",
-      headers: getHeaders(),
-      body: JSON.stringify({
-        filter: {
-          and: [
-            { property: "Slug", rich_text: { equals: slug } },
-            { property: "Published", checkbox: { equals: true } },
-          ],
-        },
-      }),
-      next: { revalidate: 3600 },
-    })
-
-    if (!res.ok) return null
-    const data = await res.json()
-    if (!data.results.length) return null
-    return mapPage(data.results[0])
-  } catch (error) {
-    console.error("Error fetching article by slug:", error)
-    return null
-  }
+      <SiteFooter />
+    </main>
+  )
 }
