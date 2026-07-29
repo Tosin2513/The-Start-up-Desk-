@@ -4,17 +4,32 @@ export const runtime = "edge"; // Runs instantly on Cloudflare edge nodes
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email, name } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
     }
 
     const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY;
+    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID; // Add your Group ID in Cloudflare env vars!
 
     if (!MAILERLITE_API_KEY) {
       console.error("Missing MAILERLITE_API_KEY environment variable");
       return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    }
+
+    // Prepare payload for MailerLite API
+    const payload: Record<string, any> = {
+      email: email,
+      status: "active",
+      fields: {
+        name: name || "",
+      },
+    };
+
+    // If Group ID is provided, automatically attach subscriber to "The Start-Up Desk" group
+    if (MAILERLITE_GROUP_ID) {
+      payload.groups = [MAILERLITE_GROUP_ID];
     }
 
     // Ping MailerLite official Subscribers endpoint
@@ -25,10 +40,7 @@ export async function POST(request: Request) {
         "Accept": "application/json",
         "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
       },
-      body: JSON.stringify({
-        email: email,
-        status: "active", // Automatically registers them as active subscribers
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
