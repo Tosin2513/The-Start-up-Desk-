@@ -19,6 +19,11 @@ function getTitle(prop: any): string {
   return prop.title.map((t: any) => t.plain_text).join("")
 }
 
+function getUrl(prop: any): string {
+  if (!prop?.url) return ""
+  return prop.url
+}
+
 export interface ResourceSummary {
   slug: string
   title: string
@@ -27,29 +32,43 @@ export interface ResourceSummary {
   publishDate: string
 }
 
+export interface SectionBlock {
+  type: "h2" | "h3" | "paragraph" | "bullet" | "hr"
+  content: string
+}
+
 export interface ResourceArticle extends ResourceSummary {
-  sections: { heading?: string; paragraphs: string[] }[]
+  blocks: SectionBlock[]
   calloutTitle: string
   calloutBody: string
+  downloadLink?: string
 }
 
 function mapPage(page: any): ResourceArticle {
   const p = page.properties
-  const body = getText(p.Body)
-  const blocks = body.split("\n\n").filter(Boolean)
+  const rawBody = getText(p.Body)
+  
+  // Split content by line breaks
+  const rawLines = rawBody.split("\n").filter(line => line.trim().length > 0)
 
-  const sections: { heading?: string; paragraphs: string[] }[] = []
-  let current: { heading?: string; paragraphs: string[] } = { paragraphs: [] }
+  const blocks: SectionBlock[] = rawLines.map((line) => {
+    const trimmed = line.trim()
 
-  for (const block of blocks) {
-    if (block.startsWith("## ")) {
-      if (current.paragraphs.length || current.heading) sections.push(current)
-      current = { heading: block.replace("## ", "").trim(), paragraphs: [] }
-    } else {
-      current.paragraphs.push(block.trim())
+    if (trimmed.startsWith("## ")) {
+      return { type: "h2", content: trimmed.replace("## ", "").trim() }
     }
-  }
-  if (current.paragraphs.length || current.heading) sections.push(current)
+    if (trimmed.startsWith("### ")) {
+      return { type: "h3", content: trimmed.replace("### ", "").trim() }
+    }
+    if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.match(/^\d+\.\s/)) {
+      return { type: "bullet", content: trimmed.replace(/^(\*|-|\d+\.)\s*/, "").trim() }
+    }
+    if (trimmed === "---") {
+      return { type: "hr", content: "" }
+    }
+
+    return { type: "paragraph", content: trimmed }
+  })
 
   return {
     slug: getText(p.Slug),
@@ -57,9 +76,10 @@ function mapPage(page: any): ResourceArticle {
     category: p.Category?.select?.name ?? "Guide",
     subheading: getText(p.Subheading),
     publishDate: p.PublishDate?.date?.start ?? "",
-    sections,
+    blocks,
     calloutTitle: getText(p.CalloutTitle),
     calloutBody: getText(p.CalloutBody),
+    downloadLink: getUrl(p.DownloadLink),
   }
 }
 
