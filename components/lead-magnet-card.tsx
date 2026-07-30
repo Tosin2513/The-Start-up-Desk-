@@ -32,8 +32,14 @@ export function LeadMagnetCard({ downloadLink, guideTitle }: LeadMagnetCardProps
     } finally {
       setSubmitted(true)
       setLoading(false)
-      // 2. Open the Canva PDF immediately for download
-      window.open(downloadLink, "_blank")
+      
+      // Ensure the URL is root-relative or absolute so it never attaches to /resources/
+      const safeUrl = downloadLink.startsWith("http") || downloadLink.startsWith("/")
+        ? downloadLink
+        : `/${downloadLink}`
+
+      // 2. Open the PDF directly in a new tab
+      window.open(safeUrl, "_blank")
     }
   }
 
