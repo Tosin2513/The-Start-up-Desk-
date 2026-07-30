@@ -1,57 +1,52 @@
-import { NextResponse } from "next/server";
+export const runtime = 'edge';
 
-export const runtime = "edge"; // Runs instantly on Cloudflare edge nodes
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { email, name } = await request.json();
+    const { email } = await req.json();
 
-    if (!email || !email.includes("@")) {
-      return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    if (!email || !email.includes('@')) {
+      return Response.json({ error: "Valid email is required" }, { status: 400 });
     }
 
-    const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY;
-    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID; // Add your Group ID in Cloudflare env vars!
+    const apiKey = process.env.MAILERLITE_API_KEY;
+    const rawGroupId = process.env.MAILERLITE_GROUP_ID;
 
-    if (!MAILERLITE_API_KEY) {
-      console.error("Missing MAILERLITE_API_KEY environment variable");
-      return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    if (!apiKey) {
+      console.error("MAILERLITE_API_KEY is missing in Cloudflare environment variables.");
+      return Response.json({ error: "Server configuration error" }, { status: 500 });
     }
 
-    // Prepare payload for MailerLite API
-    const payload: Record<string, any> = {
-      email: email,
-      status: "active",
-      fields: {
-        name: name || "",
-      },
+    // Build base subscriber object
+    const bodyPayload: Record<string, any> = {
+      email: email.trim(),
+      status: 'active',
     };
 
-    // If Group ID is provided, automatically attach subscriber to "The Start-Up Desk" group
-    if (MAILERLITE_GROUP_ID) {
-      payload.groups = [MAILERLITE_GROUP_ID];
+    // Only attach groups if a non-empty string is provided
+    if (rawGroupId && typeof rawGroupId === 'string' && rawGroupId.trim().length > 0) {
+      bodyPayload.groups = [rawGroupId.trim()];
     }
 
-    // Ping MailerLite official Subscribers endpoint
-    const response = await fetch("https://connect.mailerlite.com/api/subscribers", {
-      method: "POST",
+    const res = await fetch('https://connect.mailerlite.com/api/subscribers', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `Bearer ${MAILERLITE_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${apiKey.trim()}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(bodyPayload),
     });
 
-    if (!response.ok) {
-      const errData = await response.json();
-      console.error("MailerLite Error:", errData);
-      return NextResponse.json({ error: "Failed to subscribe" }, { status: response.status });
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      console.error("MailerLite Newsletter Error:", res.status, data);
+      return Response.json({ error: data.message || "Failed to subscribe" }, { status: res.status });
     }
 
-    return NextResponse.json({ success: true, message: "Successfully subscribed!" }, { status: 200 });
+    return Response.json({ success: true });
   } catch (error) {
-    console.error("Newsletter route error:", error);
-    return NextResponse.json({ error: "Internal operational error" }, { status: 500 });
+    console.error("Newsletter Route Exception:", error);
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
