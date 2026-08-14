@@ -80,7 +80,7 @@ export function SiteHeader() {
           {/* Hamburger / Close Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-white dark:bg-black text-foreground transition-all focus:outline-none"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card-surface dark:bg-card text-foreground transition-all focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -90,7 +90,7 @@ export function SiteHeader() {
 
       {/* Modern Opaque Fullscreen Mobile Drawer Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 top-0 left-0 w-screen h-screen bg-white dark:bg-[#090d16] z-[55] md:hidden flex flex-col justify-between p-6">
+        <div className="fixed inset-0 top-0 left-0 w-screen h-screen bg-card-surface dark:bg-card z-[55] md:hidden flex flex-col justify-between p-6">
           
           {/* Menu Link List */}
           <nav className="flex flex-col space-y-6 pt-24 text-left">
@@ -140,13 +140,13 @@ export function SiteHeader() {
             <a
               href={whatsappLink("Hi The Startup Desk, I'd like to talk about compliance for my startup.")}
               target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 w-full rounded-xl border border-whatsapp bg-whatsapp py-3.5 text-sm font-bold text-whatsapp-foreground transition-colors hover:bg-whatsapp/90 shadow-sm"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Talk on WhatsApp
-            </a>
+            rel="noopener noreferrer"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center justify-center gap-2 w-full rounded-xl border border-whatsapp bg-whatsapp py-3.5 text-sm font-bold text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Talk on WhatsApp
+          </a>
           </div>
         </div>
       )}
