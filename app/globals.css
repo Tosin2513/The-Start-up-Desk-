@@ -37,17 +37,17 @@
   --whatsapp-fg-current: #ffffff;
 }
 
-/* ─── PREMIUM DARK MODE SYSTEM CONFIG ─── */
+/* ─── PREMIUM DARK MODE SYSTEM CONFIG (IMPROVED CONTRAST) ─── */
 .dark {
   --bg-current: #0b132b;             /* Core Dark Brand Canvas */
-  --text-current: #f4f6f8;
-  --primary-current: #4d9fff;        /* Lightened Blue for contrast */
-  --muted-text-current: #606f7b;
-  --border-current: #1e293b;
+  --text-current: #e6eef8;           /* Lightened text for strong contrast */
+  --primary-current: #4daeff;        /* Brighter blue for better visibility */
+  --muted-text-current: #9fb6cc;     /* Lighter muted text to improve readability */
+  --border-current: #243248;         /* Slightly lighter border for separation */
   
   --accent-current: #f2c14e;         /* High-visibility Amber Accent */
-  --card-current: #131c3a;           /* Perfect elevation off Core Dark */
-  --primary-fg-current: #0b132b;
+  --card-current: #0f1a33;           /* Slightly deeper card background for elevation */
+  --primary-fg-current: #ffffff;     /* Use white on primary buttons for reliable contrast */
   --accent-fg-current: #0b132b;
   --whatsapp-current: #25d366;
   --whatsapp-fg-current: #ffffff;
@@ -73,7 +73,7 @@
 }
 
 .dark .animate-silk {
-  background: linear-gradient(135deg, #0b132b 0%, #131f42 40%, #0b132b 100%);
+  background: linear-gradient(135deg, #0b132b 0%, #101935 40%, #0b132b 100%);
 }
 
 /* --- Silk Movement Background Keyframes --- */
