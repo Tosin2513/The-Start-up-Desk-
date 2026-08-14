@@ -1,7 +1,23 @@
 const NOTION_VERSION = "2022-06-28"
 
+function getToken(): string {
+  return (
+    process.env.NOTION_TOKEN ||
+    process.env.NOTION_API_KEY ||
+    ""
+  )
+}
+
+function getDatabaseId(): string {
+  return (
+    process.env.NOTION_DATABASE_ID ||
+    process.env.NOTION_RESOURCES_DATABASE_ID ||
+    ""
+  )
+}
+
 function getHeaders() {
-  const token = process.env.NOTION_TOKEN || process.env.NOTION_API_KEY || ""
+  const token = getToken()
   return {
     Authorization: `Bearer ${token}`,
     "Notion-Version": NOTION_VERSION,
@@ -84,8 +100,13 @@ function mapPage(page: any): ResourceArticle {
 }
 
 export async function getPublishedResources(): Promise<ResourceSummary[]> {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId) return []
+  const databaseId = getDatabaseId()
+  const token = getToken()
+
+  if (!databaseId || !token) {
+    console.error("Missing Notion credentials: Check NOTION_TOKEN / NOTION_DATABASE_ID in environment.")
+    return []
+  }
 
   try {
     const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
@@ -95,10 +116,15 @@ export async function getPublishedResources(): Promise<ResourceSummary[]> {
         filter: { property: "Published", checkbox: { equals: true } },
         sorts: [{ property: "PublishDate", direction: "descending" }],
       }),
-      next: { revalidate: 3600 },
+      cache: "no-store",
     })
 
-    if (!res.ok) return []
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Notion API query error (${res.status}):`, errorText)
+      return []
+    }
+
     const data = await res.json()
     return data.results.map((page: any) => {
       const article = mapPage(page)
@@ -117,8 +143,13 @@ export async function getPublishedResources(): Promise<ResourceSummary[]> {
 }
 
 export async function getResourceBySlug(slug: string): Promise<ResourceArticle | null> {
-  const databaseId = process.env.NOTION_DATABASE_ID
-  if (!databaseId) return null
+  const databaseId = getDatabaseId()
+  const token = getToken()
+
+  if (!databaseId || !token) {
+    console.error("Missing Notion credentials: Check NOTION_TOKEN / NOTION_DATABASE_ID in environment.")
+    return null
+  }
 
   try {
     const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
@@ -132,12 +163,21 @@ export async function getResourceBySlug(slug: string): Promise<ResourceArticle |
           ],
         },
       }),
-      next: { revalidate: 3600 },
+      cache: "no-store",
     })
 
-    if (!res.ok) return null
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error(`Notion API query error for slug "${slug}" (${res.status}):`, errorText)
+      return null
+    }
+
     const data = await res.json()
-    if (!data.results.length) return null
+    if (!data.results || !data.results.length) {
+      console.warn(`No published Notion record found matching slug: "${slug}"`)
+      return null
+    }
+
     return mapPage(data.results[0])
   } catch (error) {
     console.error("Error fetching article by slug:", error)
