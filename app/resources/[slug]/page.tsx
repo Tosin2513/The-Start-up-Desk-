@@ -134,19 +134,18 @@ export default async function IndividualGuide({
                 )
               })}
             </div>
-
-            {/* Callout Box */}
-            {article.calloutBody && (
-              <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
-                <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
-                  <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
-                  <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
-                </div>
-                <div className="text-sm leading-relaxed text-amber-950 font-medium">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.calloutBody}</ReactMarkdown>
-                </div>
-              </div>
-            )}
+{/* Callout Box */}
+{article.calloutBody && (
+  <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
+    <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase">
+      <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+      <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
+    </div>
+    <div className="text-sm leading-relaxed text-foreground/90 font-medium">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.calloutBody}</ReactMarkdown>
+    </div>
+  </div>
+)}
 
             {/* Lead Magnet Download Form */}
             {article.downloadLink && (
