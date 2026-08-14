@@ -10,7 +10,6 @@ import { getResourceBySlug } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 
-// Dynamic SEO Metadata for individual Notion guides
 export async function generateMetadata({
   params,
 }: {
@@ -49,37 +48,6 @@ export default async function IndividualGuide({
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
-      {/* Article Structured Data (JSON-LD) for Google Rich Snippets */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": article.title,
-            "description": article.subheading || article.title,
-            "datePublished": article.publishDate || new Date().toISOString(),
-            "author": {
-              "@type": "Organization",
-              "name": "The Startup Desk",
-              "url": "https://thestartupdesk.com.ng",
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "The Startup Desk",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://thestartupdesk.com.ng/Logo.svg",
-              },
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://thestartupdesk.com.ng/resources/${slug}`,
-            },
-          }),
-        }}
-      />
-
       <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
         <SiteHeader />
         
@@ -149,7 +117,7 @@ export default async function IndividualGuide({
               })}
             </div>
 
-            {/* Callout Box */}
+            {/* Callout Box with Dark Mode Theme Fix */}
             {article.calloutBody && (
               <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
                 <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase">
