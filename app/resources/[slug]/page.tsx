@@ -1,7 +1,10 @@
 export const runtime = 'edge';
 
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 import { MessageCircle, AlertCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -9,21 +12,27 @@ import { whatsappLink } from "@/lib/site"
 import { getResourceBySlug } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
 
-// Helper function to render **bold** text without showing raw asterisks
-function renderFormattedText(text: string) {
-  if (!text) return null
-  const parts = text.split(/(\*\*.*?\*\*)/g)
-  
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={i} className="font-bold text-foreground">
-          {part.slice(2, -2)}
-        </strong>
-      )
-    }
-    return part
-  })
+// Dynamic SEO Metadata for every individual Notion guide
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const article = await getResourceBySlug(slug)
+
+  if (!article) return { title: "Guide Not Found" }
+
+  return {
+    title: `${article.title} | The Startup Desk`,
+    description: article.subheading || "Legal and compliance guide for startups.",
+    openGraph: {
+      title: article.title,
+      description: article.subheading || "Legal and compliance guide for startups.",
+      url: `https://thestartupdesk.com.ng/resources/${slug}`,
+      type: "article",
+    },
+  }
 }
 
 export default async function IndividualGuide({
@@ -55,11 +64,13 @@ export default async function IndividualGuide({
                 {article.category}
               </span>
               <h1 className="font-display text-3xl font-extrabold text-primary sm:text-4xl lg:text-5xl leading-tight">
-                {renderFormattedText(article.title)}
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.title}</ReactMarkdown>
               </h1>
-              <p className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
-                {renderFormattedText(article.subheading)}
-              </p>
+              {article.subheading && (
+                <div className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.subheading}</ReactMarkdown>
+                </div>
+              )}
               {formattedDate && (
                 <p className="text-xs text-muted-foreground font-semibold">Published {formattedDate}</p>
               )}
@@ -73,7 +84,7 @@ export default async function IndividualGuide({
                 if (block.type === "h2") {
                   return (
                     <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
-                      {renderFormattedText(block.content)}
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
                     </h2>
                   )
                 }
@@ -81,7 +92,7 @@ export default async function IndividualGuide({
                 if (block.type === "h3") {
                   return (
                     <h3 key={index} className="font-display text-lg font-bold text-primary pt-4 pb-1">
-                      {renderFormattedText(block.content)}
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
                     </h3>
                   )
                 }
@@ -90,9 +101,9 @@ export default async function IndividualGuide({
                   return (
                     <div key={index} className="flex items-start gap-3 pl-2 py-1">
                       <div className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />
-                      <p className="text-foreground/90 font-normal leading-relaxed">
-                        {renderFormattedText(block.content)}
-                      </p>
+                      <div className="text-foreground/90 font-normal leading-relaxed">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
+                      </div>
                     </div>
                   )
                 }
@@ -102,23 +113,40 @@ export default async function IndividualGuide({
                 }
 
                 return (
-                  <p key={index} className="text-foreground/80 leading-relaxed font-normal">
-                    {renderFormattedText(block.content)}
-                  </p>
+                  <div key={index} className="text-foreground/80 leading-relaxed font-normal">
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a {...props} className="text-accent underline hover:opacity-80 font-medium" target="_blank" rel="noopener noreferrer" />
+                        ),
+                        strong: ({ node, ...props }) => (
+                          <strong {...props} className="font-bold text-foreground" />
+                        ),
+                        code: ({ node, ...props }) => (
+                          <code {...props} className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" />
+                        )
+                      }}
+                    >
+                      {block.content}
+                    </ReactMarkdown>
+                  </div>
                 )
               })}
             </div>
 
             {/* Callout Box */}
-            <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
-              <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
-                <AlertCircle className="h-4 w-4 text-amber-500" />
-                {renderFormattedText(article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY")}
+            {article.calloutBody && (
+              <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
+                <div className="flex items-center gap-2 text-amber-700 font-bold text-xs tracking-widest uppercase">
+                  <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                  <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
+                </div>
+                <div className="text-sm leading-relaxed text-amber-950 font-medium">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.calloutBody}</ReactMarkdown>
+                </div>
               </div>
-              <p className="text-sm leading-relaxed text-amber-950 font-medium">
-                {renderFormattedText(article.calloutBody)}
-              </p>
-            </div>
+            )}
 
             {/* Lead Magnet Download Form */}
             {article.downloadLink && (

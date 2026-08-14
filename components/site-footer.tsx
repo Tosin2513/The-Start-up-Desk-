@@ -75,7 +75,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <a 
-                  href="https://www.linkedin.com/in/the-start-up-desk-/" 
+                  href="https://www.linkedin.com/company/thestartupdesk/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="flex items-center gap-2.5 text-muted-foreground transition-colors hover:text-primary"

@@ -1,7 +1,8 @@
-import Script from 'next/script';
+import Script from 'next/script'
 import type { Metadata } from "next" 
 import { Inter, Space_Grotesk } from "next/font/google" 
 import { ThemeProvider } from "@/components/theme-provider"
+import { CookieBanner } from "@/components/cookie-banner"
 import "./globals.css"
 
 const inter = Inter({   
@@ -16,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap", 
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "The Startup Desk | Business Compliance Made Simple",
   description: "We handle your regulatory paperwork so your startup stays compliant and fine-free.",
   icons: {
@@ -24,7 +25,7 @@ export const metadata = {
     shortcut: "/icon.svg",
     apple: "/icon.svg",
   },
-};
+}
 
 export default function RootLayout({   
   children, 
@@ -44,18 +45,56 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}  
+          {children}
+          {/* Site-wide Cookie Banner */}
+          <CookieBanner />
         </ThemeProvider>
 
-        {/* First-Party Cloudflare Google Tag Gateway */}
+        {/* Structured Data (JSON-LD) */}
         <Script
-          src="/metrics/gtag/js?id=G-MY119FWLRP"
-          strategy="afterInteractive"
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              "name": "The Startup Desk",
+              "url": "https://thestartupdesk.com.ng",
+              "logo": "https://thestartupdesk.com.ng/Logo.svg",
+              "description": "Compliance, CAC filings, and regulatory advisory consultancy for early-stage Nigerian startups.",
+              "areaServed": "Nigeria",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "hello@thestartupdesk.com.ng",
+                "contactType": "Customer Support"
+              }
+            }),
+          }}
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+
+        {/* Google Consent Mode v2: Defaults to 'denied' */}
+        <Script id="google-consent-default" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied',
+              'wait_for_update': 500
+            });
+          `}
+        </Script>
+
+        {/* Google Tag Manager / Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MY119FWLRP"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
             gtag('js', new Date());
             gtag('config', 'G-MY119FWLRP');
           `}
@@ -64,4 +103,3 @@ export default function RootLayout({
     </html> 
   )
 }
-
