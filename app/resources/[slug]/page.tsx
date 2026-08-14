@@ -1,18 +1,16 @@
 export const runtime = 'edge';
 
 import type { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
 import { MessageCircle, AlertCircle } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
 import { getResourceBySlug } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
+import { MarkdownRenderer } from "@/components/markdown-renderer"
 
-// Dynamic SEO Metadata for every individual Notion guide
+// Dynamic SEO Metadata for individual Notion guides
 export async function generateMetadata({
   params,
 }: {
@@ -51,6 +49,37 @@ export default async function IndividualGuide({
 
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
+      {/* Article Structured Data (JSON-LD) for Google Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "description": article.subheading || article.title,
+            "datePublished": article.publishDate || new Date().toISOString(),
+            "author": {
+              "@type": "Organization",
+              "name": "The Startup Desk",
+              "url": "https://thestartupdesk.com.ng",
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "The Startup Desk",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://thestartupdesk.com.ng/Logo.svg",
+              },
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://thestartupdesk.com.ng/resources/${slug}`,
+            },
+          }),
+        }}
+      />
+
       <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
         <SiteHeader />
         
@@ -64,11 +93,11 @@ export default async function IndividualGuide({
                 {article.category}
               </span>
               <h1 className="font-display text-3xl font-extrabold text-primary sm:text-4xl lg:text-5xl leading-tight">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.title}</ReactMarkdown>
+                <MarkdownRenderer content={article.title} />
               </h1>
               {article.subheading && (
                 <div className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.subheading}</ReactMarkdown>
+                  <MarkdownRenderer content={article.subheading} />
                 </div>
               )}
               {formattedDate && (
@@ -84,7 +113,7 @@ export default async function IndividualGuide({
                 if (block.type === "h2") {
                   return (
                     <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
+                      <MarkdownRenderer content={block.content} />
                     </h2>
                   )
                 }
@@ -92,7 +121,7 @@ export default async function IndividualGuide({
                 if (block.type === "h3") {
                   return (
                     <h3 key={index} className="font-display text-lg font-bold text-primary pt-4 pb-1">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
+                      <MarkdownRenderer content={block.content} />
                     </h3>
                   )
                 }
@@ -102,7 +131,7 @@ export default async function IndividualGuide({
                     <div key={index} className="flex items-start gap-3 pl-2 py-1">
                       <div className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />
                       <div className="text-foreground/90 font-normal leading-relaxed">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{block.content}</ReactMarkdown>
+                        <MarkdownRenderer content={block.content} />
                       </div>
                     </div>
                   )
@@ -114,38 +143,24 @@ export default async function IndividualGuide({
 
                 return (
                   <div key={index} className="text-foreground/80 leading-relaxed font-normal">
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        a: ({ node, ...props }) => (
-                          <a {...props} className="text-accent underline hover:opacity-80 font-medium" target="_blank" rel="noopener noreferrer" />
-                        ),
-                        strong: ({ node, ...props }) => (
-                          <strong {...props} className="font-bold text-foreground" />
-                        ),
-                        code: ({ node, ...props }) => (
-                          <code {...props} className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" />
-                        )
-                      }}
-                    >
-                      {block.content}
-                    </ReactMarkdown>
+                    <MarkdownRenderer content={block.content} />
                   </div>
                 )
               })}
             </div>
-{/* Callout Box */}
-{article.calloutBody && (
-  <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
-    <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase">
-      <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
-      <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
-    </div>
-    <div className="text-sm leading-relaxed text-foreground/90 font-medium">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.calloutBody}</ReactMarkdown>
-    </div>
-  </div>
-)}
+
+            {/* Callout Box */}
+            {article.calloutBody && (
+              <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase">
+                  <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                  <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
+                </div>
+                <div className="text-sm leading-relaxed text-foreground/90 font-medium">
+                  <MarkdownRenderer content={article.calloutBody} />
+                </div>
+              </div>
+            )}
 
             {/* Lead Magnet Download Form */}
             {article.downloadLink && (
