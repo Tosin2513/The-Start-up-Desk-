@@ -15,3 +15,12 @@ export function whatsappLink(message?: string): string {
   if (!message) return base
   return `${base}?text=${encodeURIComponent(message)}`
 }
+
+// Added email helper
+export function emailLink(subject?: string, body?: string) {
+  const base = `mailto:${siteConfig.email}`
+  const params: string[] = []
+  if (subject) params.push(`subject=${encodeURIComponent(subject)}`)
+  if (body) params.push(`body=${encodeURIComponent(body)}`)
+  return params.length ? `${base}?${params.join("&")}` : base
+}
