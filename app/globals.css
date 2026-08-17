@@ -37,20 +37,18 @@
   --whatsapp-fg-current: #ffffff;
 }
 
-/* ─── PREMIUM DARK MODE SYSTEM CONFIG (TUNED TO MATCH PREVIOUS LOOK) ─── */
+/* ─── PREMIUM DARK MODE SYSTEM CONFIG ─── */
 .dark {
-  /* Background and core text color tuned to be visually close to the previous dark theme
-     while preserving accessible contrast ratios for body text and primary UI elements. */
-  --bg-current: #0b1228;             /* Deep navy canvas (slightly warmer than pure black) */
-  --text-current: #e6eef8;           /* Softer off-white for reduced glare */
-  --primary-current: #0066cc;        /* Preserve brand blue for buttons/links */
-  --muted-text-current: #94a3b8;     /* Lighter muted text for secondary copy */
-  --border-current: #122032;         /* Subtle border for card separation */
+  --bg-current: #0b132b;             /* Core Dark Brand Canvas */
+  --text-current: #f4f6f8;
+  --primary-current: #4d9fff;        /* Lightened Blue for contrast */
+  --muted-text-current: #606f7b;
+  --border-current: #1e293b;
   
-  --accent-current: #f2a71b;         /* Original amber accent restored */
-  --card-current: #07102a;           /* Slight elevation off the background for cards */
-  --primary-fg-current: #ffffff;     /* Ensure readable text on primary buttons */
-  --accent-fg-current: #0b132b;      /* Dark accent foreground for contrast on amber */
+  --accent-current: #f2c14e;         /* High-visibility Amber Accent */
+  --card-current: #131c3a;           /* Perfect elevation off Core Dark */
+  --primary-fg-current: #0b132b;
+  --accent-fg-current: #0b132b;
   --whatsapp-current: #25d366;
   --whatsapp-fg-current: #ffffff;
 }
@@ -140,6 +138,32 @@
 .animate-page-slide {
   animation: page-slide-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Backwards compatibility: map legacy white/opaque utility classes to token-driven surfaces */
+/* This ensures components that still use Tailwind's bg-white variants will respect your theme tokens. */
+.bg-white { background-color: var(--color-card) !important; }
+.bg-white\/5,
+.bg-white\/10,
+.bg-white\/20,
+.bg-white\/40,
+.bg-white\/60,
+.bg-white\/90 {
+  background-color: var(--color-card) !important;
+}
+
+/* Map common border-white usages to your border token */
+.border-white\/10,
+.border-white\/20,
+.border-white\/40 {
+  border-color: var(--color-border) !important;
+}
+
+/* Map a few semantic helpers used across components */
+.bg-card { background-color: var(--color-card) !important; }
+.bg-card-surface { background-color: var(--color-card) !important; }
+.bg-background { background-color: var(--color-background) !important; }
+.text-foreground { color: var(--color-foreground) !important; }
+.border-border { border-color: var(--color-border) !important; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up, .word-slider, .animate-silk, .animate-page-in, .animate-page-slide {
