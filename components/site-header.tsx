@@ -63,17 +63,16 @@ export function SiteHeader() {
           </Link>
           <ThemeToggle />
           <a
-            href={emailLink("Compliance help")}
+            href={whatsappLink("Hi The Startup Desk, I'd like compliance help")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-whatsapp bg-whatsapp px-3.5 py-2 text-sm font-medium text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-whatsapp bg-whatsapp px-3.5 py-2 text-sm font-medium text-white transition-colors hover:bg-whatsapp/90"
           >
-            {/* mail icon */}
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M2 5.75C2 4.23122 3.23122 3 4.75 3H19.25C20.7688 3 22 4.23122 22 5.75V18.25C22 19.7688 20.7688 21 19.25 21H4.75C3.23122 21 2 19.7688 2 18.25V5.75Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M3.5 6.75L12 12.25L20.5 6.75" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* whatsapp icon (white) */}
+            <svg className="h-4 w-4 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.058-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.297-.496.099-.198.05-.372-.025-.52-.075-.149-.67-1.618-.92-2.218-.242-.579-.487-.5-.67-.51l-.572-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487 2.982 1.287 2.982.859 3.52.805.538-.05 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.414-.074-.124-.273-.198-.57-.347z" />
             </svg>
-            <span>Talk to us</span>
+            <span>WhatsApp</span>
           </a>
         </nav>
 
@@ -149,7 +148,7 @@ export function SiteHeader() {
               className="flex items-center justify-center gap-2 w-full rounded-xl border border-whatsapp bg-whatsapp py-3.5 text-sm font-bold text-whatsapp-foreground transition-colors hover:bg-whatsapp/90"
             >
               <svg className="h-4 w-4 fill-current text-[#25D366]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20.52 3.48A11.76 11.76 0 0 0 12 .25C6.1.25 1.5 4.86 1.5 10.77c0 1.9.5 3.66 1.47 5.22L.5 23.5l7.9-2.07A11.82 11.82 0 0 0 12 22.5c5.9 0 10.5-4.6 10.5-10.5 0-2.8-1.08-5.4-3-7.02Zm-8.52 15.32c-1.6 0-3.12-.43-4.44-1.24l-.32-.19-4.69 1.23 1.26-4.57-.21-.37A8.78 8.78 0 0 1 3.5 10.77c0-4.7 3.83-8.53 8.53-8.53 2.28 0 4.44.89 6.06 2.51 1.62 1.62 2.51 3.78 2.51 6.05 0 4.7-3.83 8.53-8.53 8.53Zm4.78-6.38c-.26-.13-1.54-.77-1.78-.86-.24-.09-.42-.13-.6.13-.18.26-.7.86-.86 1.04-.16.18-.32.2-.59.07-.27-.13-1.13-.42-2.15-1.32-.8-.7-1.34-1.56-1.5-1.83-.16-.27-.02-.42.12-.55.12-.12.26-.32.39-.48.13-.16.17-.27.26-.45.09-.18.04-.33-.02-.46-.07-.13-.6-1.44-.82-1.98-.22-.53-.44-.45-.6-.46l-.51-.01c-.17 0-.46.06-.7.33-.24.26-.92.9-.92 2.2 0 1.3.94 2.56 1.07 2.74.13.18 1.85 2.86 4.56 3.9 3 .6 3.38.43 4 .4.62-.03 1.98-.8 2.26-1.57.28-.76.28-1.41.2-1.57-.09-.16-.26-.27-.52-.4Z"/>
+                <path d="M20.52 3.48A11.76 11.76 0 0 0 12 .25C6.1.25 1.5 4.86 1.5 10.77c0 1.9.5 3.66 1.47 5.22L.5 23.5l7.9-2.07A11.82 11.82 0 0 0 12 22.5c5.9 0 10.5-4.6 10.5-10.5 0-2.8-1.08-5.4-3.48-7.02z" />
               </svg>
               Talk on WhatsApp
             </a>
