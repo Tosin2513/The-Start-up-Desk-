@@ -37,33 +37,59 @@ function getHeaders() {
 
 function extractPlainText(property: any): string {
   if (!property) return ""
-  if (property.type === "title" && Array.isArray(property.title)) {
-    return property.title.map((t: any) => t.plain_text).join("")
+
+  switch (property.type) {
+    case "title":
+      return Array.isArray(property.title)
+        ? property.title.map((t: any) => t?.plain_text || "").join("")
+        : ""
+    case "rich_text":
+      return Array.isArray(property.rich_text)
+        ? property.rich_text.map((t: any) => t?.plain_text || "").join("")
+        : ""
+    case "select":
+      return property.select?.name || ""
+    case "multi_select":
+      return Array.isArray(property.multi_select)
+        ? property.multi_select.map((s: any) => s?.name || "").filter(Boolean).join(", ")
+        : ""
+    case "status":
+      return property.status?.name || ""
+    case "date":
+      return property.date?.start || ""
+    case "url":
+      return property.url || ""
+    case "email":
+      return property.email || ""
+    case "phone_number":
+      return property.phone_number || ""
+    case "number":
+      return property.number !== null && property.number !== undefined ? String(property.number) : ""
+    default:
+      // Fallback if property structure is nested differently
+      if (Array.isArray(property)) {
+        return property.map((t: any) => t?.plain_text || "").join("")
+      }
+      return ""
   }
-  if (property.type === "rich_text" && Array.isArray(property.rich_text)) {
-    return property.rich_text.map((t: any) => t.plain_text).join("")
-  }
-  if (property.type === "select" && property.select) {
-    return property.select.name || ""
-  }
-  if (property.type === "date" && property.date) {
-    return property.date.start || ""
-  }
-  if (property.type === "url" && property.url) {
-    return property.url
-  }
-  return ""
 }
 
 function mapPageToSummary(page: any): ResourceSummary {
   const props = page.properties || {}
+  
+  const titleProp = props.Title || props.title || props.Name || props.name
+  const slugProp = props.Slug || props.slug
+  const categoryProp = props.Category || props.category
+  const subheadingProp = props.Subheading || props.subheading
+  const publishDateProp = props.PublishDate || props.publishDate || props.Date || props.date
+
   return {
-    id: page.id,
-    title: extractPlainText(props.Title) || "Untitled Resource",
-    slug: extractPlainText(props.Slug) || page.id,
-    category: extractPlainText(props.Category) || "General",
-    subheading: extractPlainText(props.Subheading) || "",
-    publishDate: extractPlainText(props.PublishDate) || "",
+    id: page.id || "",
+    title: extractPlainText(titleProp) || "Untitled Resource",
+    slug: extractPlainText(slugProp) || page.id,
+    category: extractPlainText(categoryProp) || "General",
+    subheading: extractPlainText(subheadingProp) || "",
+    publishDate: extractPlainText(publishDateProp) || "",
   }
 }
 
@@ -71,12 +97,17 @@ function mapPageToDetail(page: any): ResourceDetail {
   const summary = mapPageToSummary(page)
   const props = page.properties || {}
 
+  const calloutTitleProp = props.CalloutTitle || props.calloutTitle
+  const calloutBodyProp = props.CalloutBody || props.calloutBody
+  const downloadLinkProp = props.DownloadLink || props.downloadLink
+  const bodyProp = props.Body || props.body || props.Content || props.content
+
   return {
     ...summary,
-    calloutTitle: extractPlainText(props.CalloutTitle) || undefined,
-    calloutBody: extractPlainText(props.CalloutBody) || undefined,
-    downloadLink: extractPlainText(props.DownloadLink) || undefined,
-    body: extractPlainText(props.Body) || "",
+    calloutTitle: extractPlainText(calloutTitleProp) || undefined,
+    calloutBody: extractPlainText(calloutBodyProp) || undefined,
+    downloadLink: extractPlainText(downloadLinkProp) || undefined,
+    body: extractPlainText(bodyProp) || "",
   }
 }
 
