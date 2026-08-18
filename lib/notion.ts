@@ -14,10 +14,18 @@ export interface ResourceDetail extends ResourceSummary {
   body: string
 }
 
+function getApiKey(): string {
+  return process.env.NOTION_API_KEY || process.env.NOTION_TOKEN || ""
+}
+
+function getDatabaseId(): string {
+  return process.env.NOTION_RESOURCES_DATABASE_ID || process.env.NOTION_DATABASE_ID || ""
+}
+
 function getHeaders() {
-  const apiKey = process.env.NOTION_API_KEY
+  const apiKey = getApiKey()
   if (!apiKey) {
-    throw new Error("Missing NOTION_API_KEY environment variable.")
+    throw new Error("Missing Notion API token/key.")
   }
 
   return {
@@ -73,9 +81,9 @@ function mapPageToDetail(page: any): ResourceDetail {
 }
 
 export async function getPublishedResources(): Promise<ResourceSummary[]> {
-  const databaseId = process.env.NOTION_RESOURCES_DATABASE_ID
-  if (!databaseId) {
-    console.warn("NOTION_RESOURCES_DATABASE_ID is not configured.")
+  const databaseId = getDatabaseId()
+  if (!databaseId || !getApiKey()) {
+    console.warn("Notion credentials not configured.")
     return []
   }
 
@@ -111,9 +119,9 @@ export async function getPublishedResources(): Promise<ResourceSummary[]> {
 }
 
 export async function getResourceBySlug(slug: string): Promise<ResourceDetail | null> {
-  const databaseId = process.env.NOTION_RESOURCES_DATABASE_ID
-  if (!databaseId) {
-    console.warn("NOTION_RESOURCES_DATABASE_ID is not configured.")
+  const databaseId = getDatabaseId()
+  if (!databaseId || !getApiKey()) {
+    console.warn("Notion credentials not configured.")
     return null
   }
 
