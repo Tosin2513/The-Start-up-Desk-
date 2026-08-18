@@ -111,8 +111,8 @@ export default async function IndividualGuide({
               <span className="inline-block bg-primary/10 text-primary text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
                 {article.category}
               </span>
-              <h1 className="font-display text-3xl font-extrabold text-primary sm:text-4xl lg:text-5xl leading-tight">
-                <MarkdownRenderer content={article.title} />
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight leading-tight">
+                {article.title}
               </h1>
               {article.subheading && (
                 <div className="text-lg md:text-xl font-medium text-muted-foreground leading-relaxed pt-1">
