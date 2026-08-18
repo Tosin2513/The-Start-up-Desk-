@@ -18,16 +18,15 @@ export function Comments() {
     script.async = true;
     script.crossOrigin = "anonymous";
 
-    // Configuration from your GitHub Repo Discussions setup at https://giscus.app
     script.setAttribute("data-repo", "tosin2513/the-start-up-desk-");
-    script.setAttribute("data-repo-id", "YOUR_REPO_ID");
+    script.setAttribute("data-repo-id", "R_kgDOTU2iqw");
     script.setAttribute("data-category", "Announcements");
-    script.setAttribute("data-category-id", "YOUR_CATEGORY_ID");
+    script.setAttribute("data-category-id", "DIC_kwDOTU2iq84DDrCp");
     script.setAttribute("data-mapping", "pathname");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-input-position", "bottom");
     script.setAttribute("data-theme", resolvedTheme === "dark" ? "dark" : "light");
     script.setAttribute("data-lang", "en");
     script.setAttribute("data-loading", "lazy");
