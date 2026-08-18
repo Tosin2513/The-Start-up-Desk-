@@ -1,155 +1,123 @@
-const NOTION_VERSION = "2022-06-28"
-
-function getToken(): string {
-  return (
-    process.env.NOTION_TOKEN ||
-    process.env.NOTION_API_KEY ||
-    ""
-  )
-}
-
-function getDatabaseId(): string {
-  return (
-    process.env.NOTION_DATABASE_ID ||
-    process.env.NOTION_RESOURCES_DATABASE_ID ||
-    ""
-  )
-}
-
-function getHeaders() {
-  const token = getToken()
-  return {
-    Authorization: `Bearer ${token}`,
-    "Notion-Version": NOTION_VERSION,
-    "Content-Type": "application/json",
-  }
-}
-
-function getText(prop: any): string {
-  if (!prop?.rich_text) return ""
-  return prop.rich_text.map((t: any) => t.plain_text).join("")
-}
-
-function getTitle(prop: any): string {
-  if (!prop?.title) return ""
-  return prop.title.map((t: any) => t.plain_text).join("")
-}
-
-function getUrl(prop: any): string {
-  if (!prop?.url) return ""
-  return prop.url
-}
-
 export interface ResourceSummary {
-  slug: string
+  id: string
   title: string
+  slug: string
   category: string
   subheading: string
   publishDate: string
 }
 
-export interface SectionBlock {
-  type: "h2" | "h3" | "paragraph" | "bullet" | "hr"
-  content: string
-}
-
-export interface ResourceArticle extends ResourceSummary {
-  blocks: SectionBlock[]
-  calloutTitle: string
-  calloutBody: string
+export interface ResourceDetail extends ResourceSummary {
+  calloutTitle?: string
+  calloutBody?: string
   downloadLink?: string
+  body: string
 }
 
-function mapPage(page: any): ResourceArticle {
-  const p = page.properties
-  const rawBody = getText(p.Body)
-  
-  // Split content by line breaks
-  const rawLines = rawBody.split("\n").filter(line => line.trim().length > 0)
-
-  const blocks: SectionBlock[] = rawLines.map((line) => {
-    const trimmed = line.trim()
-
-    if (trimmed.startsWith("## ")) {
-      return { type: "h2", content: trimmed.replace("## ", "").trim() }
-    }
-    if (trimmed.startsWith("### ")) {
-      return { type: "h3", content: trimmed.replace("### ", "").trim() }
-    }
-    if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.match(/^\d+\.\s/)) {
-      return { type: "bullet", content: trimmed.replace(/^(\*|-|\d+\.)\s*/, "").trim() }
-    }
-    if (trimmed === "---") {
-      return { type: "hr", content: "" }
-    }
-
-    return { type: "paragraph", content: trimmed }
-  })
+function getHeaders() {
+  const apiKey = process.env.NOTION_API_KEY
+  if (!apiKey) {
+    throw new Error("Missing NOTION_API_KEY environment variable.")
+  }
 
   return {
-    slug: getText(p.Slug),
-    title: getTitle(p.Title),
-    category: p.Category?.select?.name ?? "Guide",
-    subheading: getText(p.Subheading),
-    publishDate: p.PublishDate?.date?.start ?? "",
-    blocks,
-    calloutTitle: getText(p.CalloutTitle),
-    calloutBody: getText(p.CalloutBody),
-    downloadLink: getUrl(p.DownloadLink),
+    Authorization: `Bearer ${apiKey}`,
+    "Notion-Version": "2022-06-28",
+    "Content-Type": "application/json",
+  }
+}
+
+function extractPlainText(property: any): string {
+  if (!property) return ""
+  if (property.type === "title" && Array.isArray(property.title)) {
+    return property.title.map((t: any) => t.plain_text).join("")
+  }
+  if (property.type === "rich_text" && Array.isArray(property.rich_text)) {
+    return property.rich_text.map((t: any) => t.plain_text).join("")
+  }
+  if (property.type === "select" && property.select) {
+    return property.select.name || ""
+  }
+  if (property.type === "date" && property.date) {
+    return property.date.start || ""
+  }
+  if (property.type === "url" && property.url) {
+    return property.url
+  }
+  return ""
+}
+
+function mapPageToSummary(page: any): ResourceSummary {
+  const props = page.properties || {}
+  return {
+    id: page.id,
+    title: extractPlainText(props.Title) || "Untitled Resource",
+    slug: extractPlainText(props.Slug) || page.id,
+    category: extractPlainText(props.Category) || "General",
+    subheading: extractPlainText(props.Subheading) || "",
+    publishDate: extractPlainText(props.PublishDate) || "",
+  }
+}
+
+function mapPageToDetail(page: any): ResourceDetail {
+  const summary = mapPageToSummary(page)
+  const props = page.properties || {}
+
+  return {
+    ...summary,
+    calloutTitle: extractPlainText(props.CalloutTitle) || undefined,
+    calloutBody: extractPlainText(props.CalloutBody) || undefined,
+    downloadLink: extractPlainText(props.DownloadLink) || undefined,
+    body: extractPlainText(props.Body) || "",
   }
 }
 
 export async function getPublishedResources(): Promise<ResourceSummary[]> {
-  const databaseId = getDatabaseId()
-  const token = getToken()
-
-  if (!databaseId || !token) {
-    console.error("Missing Notion credentials: Check NOTION_TOKEN / NOTION_DATABASE_ID in environment.")
+  const databaseId = process.env.NOTION_RESOURCES_DATABASE_ID
+  if (!databaseId) {
+    console.warn("NOTION_RESOURCES_DATABASE_ID is not configured.")
     return []
   }
+
+  const todayISO = new Date().toISOString().split("T")[0]
 
   try {
     const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
       method: "POST",
       headers: getHeaders(),
       body: JSON.stringify({
-        filter: { property: "Published", checkbox: { equals: true } },
+        filter: {
+          and: [
+            { property: "Published", checkbox: { equals: true } },
+            { property: "PublishDate", date: { on_or_before: todayISO } },
+          ],
+        },
         sorts: [{ property: "PublishDate", direction: "descending" }],
       }),
       cache: "no-store",
     })
 
     if (!res.ok) {
-      const errorText = await res.text()
-      console.error(`Notion API query error (${res.status}):`, errorText)
+      console.error(`Failed to fetch resources from Notion: ${res.status} ${res.statusText}`)
       return []
     }
 
     const data = await res.json()
-    return data.results.map((page: any) => {
-      const article = mapPage(page)
-      return {
-        slug: article.slug,
-        title: article.title,
-        category: article.category,
-        subheading: article.subheading,
-        publishDate: article.publishDate,
-      }
-    })
+    return (data.results || []).map(mapPageToSummary)
   } catch (error) {
-    console.error("Error fetching Notion resources:", error)
+    console.error("Error retrieving resources from Notion:", error)
     return []
   }
 }
 
-export async function getResourceBySlug(slug: string): Promise<ResourceArticle | null> {
-  const databaseId = getDatabaseId()
-  const token = getToken()
-
-  if (!databaseId || !token) {
-    console.error("Missing Notion credentials: Check NOTION_TOKEN / NOTION_DATABASE_ID in environment.")
+export async function getResourceBySlug(slug: string): Promise<ResourceDetail | null> {
+  const databaseId = process.env.NOTION_RESOURCES_DATABASE_ID
+  if (!databaseId) {
+    console.warn("NOTION_RESOURCES_DATABASE_ID is not configured.")
     return null
   }
+
+  const todayISO = new Date().toISOString().split("T")[0]
 
   try {
     const res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
@@ -160,6 +128,7 @@ export async function getResourceBySlug(slug: string): Promise<ResourceArticle |
           and: [
             { property: "Slug", rich_text: { equals: slug } },
             { property: "Published", checkbox: { equals: true } },
+            { property: "PublishDate", date: { on_or_before: todayISO } },
           ],
         },
       }),
@@ -167,20 +136,18 @@ export async function getResourceBySlug(slug: string): Promise<ResourceArticle |
     })
 
     if (!res.ok) {
-      const errorText = await res.text()
-      console.error(`Notion API query error for slug "${slug}" (${res.status}):`, errorText)
+      console.error(`Failed to query resource by slug: ${res.status} ${res.statusText}`)
       return null
     }
 
     const data = await res.json()
-    if (!data.results || !data.results.length) {
-      console.warn(`No published Notion record found matching slug: "${slug}"`)
+    if (!data.results || data.results.length === 0) {
       return null
     }
 
-    return mapPage(data.results[0])
+    return mapPageToDetail(data.results[0])
   } catch (error) {
-    console.error("Error fetching article by slug:", error)
+    console.error(`Error querying resource by slug (${slug}):`, error)
     return null
   }
 }
