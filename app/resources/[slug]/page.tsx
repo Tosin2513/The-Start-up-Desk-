@@ -1,3 +1,4 @@
+export const revalidate = 3600 // Automatically rechecks Notion every hour
 export const runtime = 'edge';
 
 import type { Metadata } from "next"
@@ -9,6 +10,8 @@ import { whatsappLink } from "@/lib/site"
 import { getResourceBySlug } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+import { ShareButtons } from "@/components/share-buttons"
+import { Comments } from "@/components/comments"
 
 export async function generateMetadata({
   params,
@@ -18,16 +21,29 @@ export async function generateMetadata({
   const { slug } = await params
   const article = await getResourceBySlug(slug)
 
-  if (!article) return { title: "Guide Not Found" }
+  if (!article) return { title: "Guide Not Found | The Startup Desk" }
+
+  const pageUrl = `https://thestartupdesk.com.ng/resources/${slug}`
+  const description = article.subheading || `Read our guide on ${article.title} for Nigerian startups.`
 
   return {
     title: `${article.title} | The Startup Desk`,
-    description: article.subheading || "Legal and compliance guide for startups.",
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
-      title: article.title,
-      description: article.subheading || "Legal and compliance guide for startups.",
-      url: `https://thestartupdesk.com.ng/resources/${slug}`,
+      title: `${article.title} | The Startup Desk`,
+      description,
+      url: pageUrl,
       type: "article",
+      publishedTime: article.publishDate || undefined,
+      siteName: "The Startup Desk",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description,
     },
   }
 }
@@ -46,8 +62,43 @@ export default async function IndividualGuide({
     ? new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : null
 
+  const pageUrl = `https://thestartupdesk.com.ng/resources/${slug}`
+
+  // Structured Article Schema for Google Rich Snippets
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.subheading || `Guide on ${article.title} for Nigerian startups.`,
+    datePublished: article.publishDate || undefined,
+    url: pageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: "The Startup Desk",
+      url: "https://thestartupdesk.com.ng",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "The Startup Desk",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://thestartupdesk.com.ng/Logo.svg",
+      },
+    },
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between">
+      {/* Schema.org Article Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+
       <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
         <SiteHeader />
         
@@ -56,7 +107,7 @@ export default async function IndividualGuide({
           <article className="space-y-8 animate-fade-in-up">
             
             {/* Header / Title Info */}
-            <div className="space-y-4">
+            <header className="space-y-4">
               <span className="inline-block bg-primary/10 text-primary text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
                 {article.category}
               </span>
@@ -71,72 +122,41 @@ export default async function IndividualGuide({
               {formattedDate && (
                 <p className="text-xs text-muted-foreground font-semibold">Published {formattedDate}</p>
               )}
-            </div>
+            </header>
 
             <hr className="border-border/60" />
 
-            {/* Article Content Blocks */}
+            {/* Article Markdown Body */}
             <div className="text-base leading-relaxed text-muted-foreground space-y-5">
-              {article.blocks?.map((block, index) => {
-                if (block.type === "h2") {
-                  return (
-                    <h2 key={index} className="font-display text-2xl font-bold text-primary pt-6 pb-1 border-b border-border/40">
-                      <MarkdownRenderer content={block.content} />
-                    </h2>
-                  )
-                }
-
-                if (block.type === "h3") {
-                  return (
-                    <h3 key={index} className="font-display text-lg font-bold text-primary pt-4 pb-1">
-                      <MarkdownRenderer content={block.content} />
-                    </h3>
-                  )
-                }
-
-                if (block.type === "bullet") {
-                  return (
-                    <div key={index} className="flex items-start gap-3 pl-2 py-1">
-                      <div className="h-2 w-2 rounded-full bg-accent mt-2 shrink-0" />
-                      <div className="text-foreground/90 font-normal leading-relaxed">
-                        <MarkdownRenderer content={block.content} />
-                      </div>
-                    </div>
-                  )
-                }
-
-                if (block.type === "hr") {
-                  return <hr key={index} className="my-8 border-border/60" />
-                }
-
-                return (
-                  <div key={index} className="text-foreground/80 leading-relaxed font-normal">
-                    <MarkdownRenderer content={block.content} />
-                  </div>
-                )
-              })}
+              <MarkdownRenderer content={article.body} />
             </div>
 
-            {/* Callout Box with Dark Mode Theme Fix */}
+            {/* Callout Box */}
             {article.calloutBody && (
-              <div className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
+              <aside className="bg-amber-500/10 border-l-4 border-amber-500 p-6 rounded-r-2xl space-y-2 mt-8">
                 <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 font-bold text-xs tracking-widest uppercase">
                   <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
-                  <span>{article.calloutTitle || "THE GOLDEN RULE OF CO-FOUNDER EQUITY"}</span>
+                  <span>{article.calloutTitle || "Key Compliance Takeaway"}</span>
                 </div>
                 <div className="text-sm leading-relaxed text-foreground/90 font-medium">
                   <MarkdownRenderer content={article.calloutBody} />
                 </div>
-              </div>
+              </aside>
             )}
 
-            {/* Lead Magnet Download Form */}
+            {/* 1. Share Buttons */}
+            <ShareButtons title={article.title} url={pageUrl} />
+
+            {/* 2. Lead Magnet Download Form */}
             {article.downloadLink && (
               <LeadMagnetCard
                 downloadLink={article.downloadLink}
                 guideTitle={article.title}
               />
             )}
+
+            {/* 3. Community Comments */}
+            <Comments />
 
           </article>
 

@@ -18,6 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thestartupdesk.com.ng"),
   title: "The Startup Desk | Business Compliance Made Simple",
   description: "We handle your regulatory paperwork so your startup stays compliant and fine-free.",
   icons: {
