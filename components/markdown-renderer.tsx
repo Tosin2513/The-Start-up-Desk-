@@ -17,17 +17,14 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          h1: ({ node, ...props }) => (
+            <h1 {...props} className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary tracking-tight leading-tight" />
+          ),
           h2: ({ node, ...props }) => (
-            <h2
-              {...props}
-              className="font-display text-2xl sm:text-3xl font-extrabold text-primary pt-8 pb-3 mt-4 border-b border-border/40"
-            />
+            <h2 {...props} className="font-display text-2xl sm:text-3xl font-extrabold text-primary pt-8 pb-3 mt-4 border-b border-border/40" />
           ),
           h3: ({ node, ...props }) => (
-            <h3
-              {...props}
-              className="font-display text-lg sm:text-xl font-bold text-foreground pt-6 pb-2"
-            />
+            <h3 {...props} className="font-display text-lg sm:text-xl font-bold text-foreground pt-6 pb-2" />
           ),
           p: ({ node, ...props }) => (
             <p {...props} className="leading-relaxed text-foreground/90 my-4 text-base" />
@@ -39,21 +36,16 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             <ol {...props} className="list-decimal list-outside pl-6 my-4 space-y-2 text-foreground/90" />
           ),
           li: ({ node, ...props }) => (
-            <li {...props} className="leading-relaxed" />
+            <li {...props} className="leading-relaxed font-normal" />
           ),
           strong: ({ node, ...props }) => (
-            <strong {...props} className="font-bold text-foreground" />
+            <strong {...props} className="font-extrabold text-foreground" />
           ),
           hr: ({ node, ...props }) => (
             <hr {...props} className="my-8 border-border/60" />
           ),
           a: ({ node, ...props }) => (
-            <a
-              {...props}
-              className="text-accent underline font-semibold hover:opacity-80 transition-opacity"
-              target="_blank"
-              rel="noopener noreferrer"
-            />
+            <a {...props} className="text-accent underline font-semibold hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" />
           ),
           code: ({ node, ...props }) => (
             <code {...props} className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono text-foreground" />

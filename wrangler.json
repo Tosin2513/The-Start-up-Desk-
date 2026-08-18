@@ -15,5 +15,12 @@
       "binding": "CONSENT_KV",
       "id": "b2d053bc56964ddb90ddb38dc9ab5c9d"
     }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "the-start-up-desk-comments",
+      "database_id": "f8cec178-18d0-47b1-910f-b1d288cc23c4"
+    }
   ]
 }
