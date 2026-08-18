@@ -3,7 +3,7 @@ import { Hero } from "@/components/hero"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "The Startup Desk | Nigeria Startup Compliance & Regulatory Advisory",
+  title: "The Startup Desk |Nigerian Startup Compliance & CAC Filing",
   description: "We handle CAC annual returns, SCUML registration, NDPC data protection compliance, and founder agreements for Nigerian startups.",
   openGraph: {
     title: "The Startup Desk | Business Compliance Made Simple",
