@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 interface Comment {
   id: number;
@@ -11,8 +11,9 @@ interface Comment {
 }
 
 export function Comments() {
-  const pathname = usePathname();
-  const slug = pathname.split("/").pop() || "";
+  const params = useParams();
+  // Safely extract the slug from Next.js route parameters
+  const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug || "";
   
   const [comments, setComments] = useState<Comment[]>([]);
   const [author, setAuthor] = useState("");
@@ -20,17 +21,19 @@ export function Comments() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    if (!slug) return;
+
     fetch(`/api/comments/${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setComments(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Failed to load comments:", err));
   }, [slug]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!author.trim() || !body.trim()) return;
+    if (!author.trim() || !body.trim() || !slug) return;
 
     setSubmitting(true);
     try {
@@ -43,12 +46,15 @@ export function Comments() {
       if (res.ok) {
         setAuthor("");
         setBody("");
-        // Refresh comments
+        // Refresh comments list
         const updated = await fetch(`/api/comments/${slug}`).then((r) => r.json());
         if (Array.isArray(updated)) setComments(updated);
+      } else {
+        const errData = await res.json();
+        console.error("Server error posting comment:", errData);
       }
     } catch (err) {
-      console.error(err);
+      console.error("Network error posting comment:", err);
     } finally {
       setSubmitting(false);
     }
@@ -86,7 +92,7 @@ export function Comments() {
         </div>
         <button
           type="submit"
-          disabled={submitting}
+          disabled={submitting || !slug}
           className="bg-primary text-primary-foreground text-sm font-bold py-2.5 px-6 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
         >
           {submitting ? "Posting..." : "Post Comment"}
