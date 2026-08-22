@@ -2,12 +2,13 @@ export const revalidate = 3600 // Automatically rechecks Notion every hour
 export const runtime = 'edge';
 
 import type { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
-import { MessageCircle, AlertCircle } from "lucide-react"
+import { MessageCircle, AlertCircle, ArrowLeft, BookOpen, ArrowRight, Tag } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { whatsappLink } from "@/lib/site"
-import { getResourceBySlug } from "@/lib/notion"
+import { getResourceBySlug, getPublishedResources } from "@/lib/notion"
 import { LeadMagnetCard } from "@/components/lead-magnet-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { ShareButtons } from "@/components/share-buttons"
@@ -54,9 +55,19 @@ export default async function IndividualGuide({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const article = await getResourceBySlug(slug)
+  
+  // Fetch the current article and all published resources simultaneously
+  const [article, allResources] = await Promise.all([
+    getResourceBySlug(slug),
+    getPublishedResources(),
+  ])
 
   if (!article) notFound()
+
+  // Filter out the current article to display other blog posts in box form
+  const otherGuides = allResources
+    .filter((r) => r.slug !== slug)
+    .slice(0, 3) // Display up to 3 other guides
 
   const formattedDate = article.publishDate
     ? new Date(article.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -102,10 +113,20 @@ export default async function IndividualGuide({
       <div className="mx-auto w-full max-w-6xl px-6 py-6 lg:px-8">
         <SiteHeader />
         
-        <div className="grid gap-12 lg:grid-cols-[1fr_320px] py-12 md:py-16">
+        <div className="grid gap-12 lg:grid-cols-[1fr_320px] py-8 md:py-12">
           {/* Main Article Body */}
           <article className="space-y-8 animate-fade-in-up">
             
+            {/* Back Button */}
+            <div>
+              <Link 
+                href="/resources" 
+                className="inline-flex items-center gap-2 text-xs font-bold text-muted-foreground hover:text-primary transition-colors bg-muted/40 px-3 py-1.5 rounded-xl border border-border/60"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back to Resources &amp; Guides
+              </Link>
+            </div>
+
             {/* Header / Title Info */}
             <header className="space-y-4">
               <span className="inline-block bg-primary/10 text-primary text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
@@ -126,7 +147,7 @@ export default async function IndividualGuide({
 
             <hr className="border-border/60" />
 
-            {/* Article Markdown Body */}
+            {/* Article Markdown Body (Will automatically inject calendar widget where link text matches) */}
             <div className="text-base leading-relaxed text-muted-foreground space-y-5">
               <MarkdownRenderer content={article.body} />
             </div>
@@ -157,6 +178,46 @@ export default async function IndividualGuide({
 
             {/* 3. Community Comments */}
             <Comments />
+
+            {/* 4. Explore Other Blogs in Box Form */}
+            {otherGuides.length > 0 && (
+              <section className="space-y-6 pt-8 border-t border-border/60 mt-16">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-xl font-bold text-primary">Read Next: Other Founder Guides</h3>
+                  <Link href="/resources" className="text-xs font-bold text-accent inline-flex items-center gap-1 hover:underline">
+                    View all <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+                
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {otherGuides.map((guide) => (
+                    <Link
+                      key={guide.slug}
+                      href={`/resources/${guide.slug}`}
+                      className="group flex flex-col justify-between p-5 rounded-2xl border border-border bg-card-surface hover:border-primary/40 hover:shadow-md transition-all"
+                    >
+                      <div className="space-y-3">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-md">
+                          <Tag className="h-2.5 w-2.5" />
+                          {guide.category}
+                        </span>
+                        <h4 className="font-display text-base font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
+                          {guide.title}
+                        </h4>
+                        {guide.subheading && (
+                          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                            {guide.subheading}
+                          </p>
+                        )}
+                      </div>
+                      <div className="pt-4 mt-4 border-t border-border/40 flex items-center text-xs font-bold text-primary group-hover:text-accent transition-colors gap-1">
+                        Read Guide <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
 
           </article>
 
