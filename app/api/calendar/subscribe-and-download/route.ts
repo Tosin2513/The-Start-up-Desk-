@@ -5,12 +5,13 @@ export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
-    const { email, subscribe, entityType, targetDate } = await req.json();
+    const { email, subscribe, entityType, targetDate, yearsCount = 5 } = await req.json();
 
     if (subscribe && email) {
       const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY;
       
       if (MAILERLITE_API_KEY) {
+        // Subscribe / update subscriber in MailerLite with your specific Group ID
         await fetch("https://connect.mailerlite.com/api/subscribers", {
           method: "POST",
           headers: {
@@ -19,8 +20,9 @@ export async function POST(req: Request) {
           },
           body: JSON.stringify({
             email: email,
+            groups: ["196517279678072598"],
             fields: {
-              source: `CAC Calendar - ${entityType}`,
+              source: `CAC Calendar - ${entityType} (${yearsCount} Years)`,
             },
           }),
         });
@@ -30,65 +32,58 @@ export async function POST(req: Request) {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
 
-    let reminderDate: Date;
+    let baseMonthDay = "0625"; // June 25 default for Business Names
     let deadlineDescription = "";
     let summaryText = "";
 
-    if (targetDate) {
-      // If user provided a specific date (AGM or Incorporation Date)
-      const parsedDate = new Date(targetDate);
-      
-      if (entityType === "limited-company") {
-        // Limited company: Due 42 days after AGM. Let's set reminder 7 days before those 42 days are up.
-        reminderDate = new Date(parsedDate);
-        reminderDate.setDate(reminderDate.getDate() + 35); // 35 days post-AGM warning
-        deadlineDescription = `42 days post-AGM (Based on AGM date: ${targetDate})`;
-        summaryText = "🚨 Company Annual Returns Deadline Approaching!";
-      } else {
-        // Business Names / Trustees: Custom target date reminder
-        reminderDate = new Date(parsedDate);
-        reminderDate.setDate(reminderDate.getDate() - 5); // 5 days warning before target date
-        deadlineDescription = `Statutory deadline (Based on date: ${targetDate})`;
-        summaryText = "🚨 Annual Returns Filing Due Soon!";
-      }
+    if (entityType === "limited-company") {
+      baseMonthDay = "1115"; // Mid-November standard default for Companies
+      deadlineDescription = "42 days post-AGM / Annual Compliance Window";
+      summaryText = "🚨 Company Annual Returns Deadline Approaching!";
+    } else if (entityType === "incorporated-trustees") {
+      baseMonthDay = "1215"; // Mid-December default for Trustees
+      deadlineDescription = "Trustees Annual Returns Filing Window (June 30 - Dec 31)";
+      summaryText = "🚨 Incorporated Trustees Returns Due Soon!";
     } else {
-      // Standard Fallback Defaults if they don't know their exact date
-      if (entityType === "limited-company") {
-        reminderDate = new Date(`${currentYear}-11-15T09:00:00Z`); // Standard Nov AGM fallback
-        deadlineDescription = "Standard Company Filing Window (Default Fallback)";
-        summaryText = "🚨 Company Annual Returns Filing Reminder";
-      } else if (entityType === "incorporated-trustees") {
-        reminderDate = new Date(`${currentYear}-12-15T09:00:00Z`); // Dec fallback
-        deadlineDescription = "Incorporated Trustees Filing Window (Default Fallback)";
-        summaryText = "🚨 Trustees Annual Returns Filing Reminder";
-      } else {
-        reminderDate = new Date(`${currentYear}-06-25T09:00:00Z`); // June 25 for Business Names
-        deadlineDescription = "June 30th Business Name Deadline";
-        summaryText = "🚨 Business Name Annual Returns Due June 30";
-      }
+      baseMonthDay = "0625"; // June 25 for Business Names
+      deadlineDescription = "June 30th Business Name Deadline";
+      summaryText = "🚨 Business Name Annual Returns Due June 30";
     }
 
-    const year = reminderDate.getFullYear();
-    const month = String(reminderDate.getMonth() + 1).padStart(2, "0");
-    const day = String(reminderDate.getDate()).padStart(2, "0");
-    
-    const startDate = `${year}${month}${day}T090000Z`;
-    const endDate = `${year}${month}${day}T100000Z`;
+    // If user provided a specific target date, use its month and day
+    if (targetDate) {
+      const parsed = new Date(targetDate);
+      const m = String(parsed.getMonth() + 1).padStart(2, "0");
+      const d = String(parsed.getDate()).padStart(2, "0");
+      baseMonthDay = `${m}${d}`;
+    }
 
-    const chatUrl = whatsappLink(`Hi, I downloaded the CAC calendar reminder for my ${entityType} and need professional help filing my annual returns.`);
+    const chatUrl = whatsappLink(`Hi, I downloaded the multi-year CAC calendar reminder for my ${entityType} and need professional help filing.`);
 
-    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//The Startup Desk//CAC Annual Returns Reminder//EN
+    // Build recurring VEVENTS for the requested number of years (e.g., 5 or 10 years)
+    let eventsList = "";
+    const totalYears = parseInt(yearsCount) || 5;
+
+    for (let i = 0; i < totalYears; i++) {
+      const targetYear = currentYear + i;
+      const startDate = `${targetYear}${baseMonthDay}T090000Z`;
+      const endDate = `${targetYear}${baseMonthDay}T100000Z`;
+
+      eventsList += `
 BEGIN:VEVENT
-UID:cac-returns-${entityType}-${year}@thestartupdesk.com.ng
+UID:cac-returns-${entityType}-${targetYear}@thestartupdesk.com.ng
 DTSTAMP:${currentYear}0101T000000Z
 DTSTART:${startDate}
 DTEND:${endDate}
-SUMMARY:${summaryText}
-DESCRIPTION:Your statutory CAC annual returns filing deadline is approaching (${deadlineDescription}).\\n\\nAvoid late penalties and stay in good standing. Let The Startup Desk handle your filings seamlessly.\\n\\nChat with us on WhatsApp for support: ${chatUrl}
+SUMMARY:${summaryText} (${targetYear})
+DESCRIPTION:Your statutory CAC annual returns filing deadline is approaching for ${targetYear} (${deadlineDescription}).\\n\\nAvoid late penalties and stay in good standing. Let The Startup Desk handle your filings seamlessly.\\n\\nChat with us on WhatsApp for support: ${chatUrl}
 URL:https://thestartupdesk.com.ng/resources/cac-annual-returns-guide
-END:VEVENT
+END:VEVENT`;
+    }
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Startup Desk//Multi-Year CAC Compliance Calendar//EN${eventsList}
 END:VCALENDAR`;
 
     return NextResponse.json({ success: true, ics: icsContent });
