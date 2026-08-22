@@ -3,6 +3,7 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { CalendarDownloadBox } from "@/components/calendar-download-box"
 
 interface MarkdownRendererProps {
   content?: string | null
@@ -44,9 +45,13 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           hr: ({ node, ...props }) => (
             <hr {...props} className="my-8 border-border/60" />
           ),
-          a: ({ node, ...props }) => (
-            <a {...props} className="text-accent underline font-semibold hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" />
-          ),
+          a: ({ node, children, ...props }: any) => {
+            const textContent = String(children || "");
+            if (textContent.includes("Download the CAC Annual Returns Calendar")) {
+              return <CalendarDownloadBox />;
+            }
+            return <a {...props} className="text-accent underline font-semibold hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer">{children}</a>;
+          },
           code: ({ node, ...props }) => (
             <code {...props} className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono text-foreground" />
           ),
